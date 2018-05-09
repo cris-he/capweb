@@ -8,9 +8,9 @@
                     <a uib-dropdown-toggle href>
                         <span class="clear">
                             <span class="block m-t-xs">
-                                <strong class="font-bold">{{User.Name}}</strong>
+                                <strong class="font-bold">{{User.Firstname}} {{User.Lastname}}</strong>
                             </span>
-                            <span class="text-muted text-xs block">{{User.Role}}
+                        <span class="text-muted text-xs block">{{User.Role}}
                                 <b class="caret"></b>
                             </span>
                         </span>
@@ -58,10 +58,10 @@
                 </ul>
             </li>
             <li ui-sref-active="active">
-                    <a ui-sref="search">
-                        <i class="fa fa-search"></i>
-                        <span class="nav-label">{{ 'SEARCH' | translate }}</span>
-                    </a>
+                <a ui-sref="search">
+                    <i class="fa fa-search"></i>
+                    <span class="nav-label">{{ 'SEARCH' | translate }}</span>
+                </a>
             </li>
             <li ui-sref-active="active">
                 <a ui-sref="users">
@@ -76,10 +76,10 @@
                 </a>
             </li>
             <li ui-sref-active="active">
-                    <a ui-sref="teams">
-                        <i class="fa fa-rocket"></i>
-                        <span class="nav-label">{{ 'TEAMS' | translate }}</span>
-                    </a>
+                <a ui-sref="teams">
+                    <i class="fa fa-rocket"></i>
+                    <span class="nav-label">{{ 'TEAMS' | translate }}</span>
+                </a>
             </li>
             <!-- <li ng-class="{active: $state.includes('app')}">
                 <a href="#">
