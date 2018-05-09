@@ -1,3 +1,13 @@
+    <!-- Navigation -->
+    <div ng-include="'views/common/navigation.html'"></div>
+
+    <!-- Page wraper -->
+    <!-- ng-class with current state name give you the ability to extended customization your view -->
+    <div id="page-wrapper" class="gray-bg {{$state.current.name}}">
+
+        <!-- Page wrapper -->
+        <div ng-include="'views/common/topnavbar.html'"></div>
+        
 <div class="row  border-bottom white-bg dashboard-header">
     <div class="col-sm-3">
         <h2>{{ 'WELCOME' | translate }}</h2>

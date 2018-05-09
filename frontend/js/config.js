@@ -12,7 +12,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
     IdleProvider.idle(5); // in seconds
     IdleProvider.timeout(120); // in seconds
 
-    $urlRouterProvider.otherwise("/dashboards/dashboard_1");
+    $urlRouterProvider.otherwise("/dashboard");
 
     $ocLazyLoadProvider.config({
         // Set to true if you want to see what and when is dynamically loaded
@@ -20,7 +20,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
     });
 
     $stateProvider
-
+/*
         .state('dashboards', {
             abstract: true,
             url: "/dashboards",
@@ -172,21 +172,40 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     ]);
                 }
             }
+        })*/
+        .state('dashboard', {
+            url: "/dashboard",
+            templateUrl: "views/dashboard_1.html",
+            data: { pageTitle: 'Dashboard' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            serie: true,
+                            name: 'angular-flot',
+                            files: [ 'js/plugins/flot/jquery.flot.js', 'js/plugins/flot/jquery.flot.time.js', 'js/plugins/flot/jquery.flot.tooltip.min.js', 'js/plugins/flot/jquery.flot.spline.js', 'js/plugins/flot/jquery.flot.resize.js', 'js/plugins/flot/jquery.flot.pie.js', 'js/plugins/flot/curvedLines.js', 'js/plugins/flot/angular-flot.js', ]
+                        },
+                        {
+                            name: 'angles',
+                            files: ['js/plugins/chartJs/angles.js', 'js/plugins/chartJs/Chart.min.js']
+                        },
+                        {
+                            name: 'angular-peity',
+                            files: ['js/plugins/peity/jquery.peity.min.js', 'js/plugins/peity/angular-peity.js']
+                        }
+                    ]);
+                }
+            }
         })
-        .state('layouts', {
-            url: "/layouts",
-            templateUrl: "views/layouts.html",
-            data: { pageTitle: 'Layouts' },
-        })
-        .state('charts', {
+        .state('create', {
             abstract: true,
-            url: "/charts",
+            url: "/create",
             templateUrl: "views/common/content.html",
         })
-        .state('charts.flot_chart', {
-            url: "/flot_chart",
+        .state('create.team', {
+            url: "/team",
             templateUrl: "views/graph_flot.html",
-            data: { pageTitle: 'Flot chart' },
+            data: { pageTitle: 'Create Team' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -199,10 +218,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
-        .state('charts.rickshaw_chart', {
-            url: "/rickshaw_chart",
+        .state('create.project', {
+            url: "/project",
             templateUrl: "views/graph_rickshaw.html",
-            data: { pageTitle: 'Rickshaw chart' },
+            data: { pageTitle: 'Create Project' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -220,140 +239,140 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
-        .state('charts.peity_chart', {
-            url: "/peity_chart",
-            templateUrl: "views/graph_peity.html",
-            data: { pageTitle: 'Peity graphs' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            name: 'angular-peity',
-                            files: ['js/plugins/peity/jquery.peity.min.js', 'js/plugins/peity/angular-peity.js']
-                        }
-                    ]);
-                }
-            }
-        })
-        .state('charts.sparkline_chart', {
-            url: "/sparkline_chart",
-            templateUrl: "views/graph_sparkline.html",
-            data: { pageTitle: 'Sparkline chart' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            files: ['js/plugins/sparkline/jquery.sparkline.min.js']
-                        }
-                    ]);
-                }
-            }
-        })
-        .state('charts.chartjs_chart', {
-            url: "/chartjs_chart",
-            templateUrl: "views/chartjs.html",
-            data: { pageTitle: 'Chart.js' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            files: ['js/plugins/chartJs/Chart.min.js']
-                        },
-                        {
-                            name: 'angles',
-                            files: ['js/plugins/chartJs/angles.js']
-                        }
-                    ]);
-                }
-            }
-        })
-        .state('charts.chartist_chart', {
-            url: "/chartist_chart",
-            templateUrl: "views/chartist.html",
-            data: { pageTitle: 'Chartist' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            serie: true,
-                            name: 'angular-chartist',
-                            files: ['js/plugins/chartist/chartist.min.js', 'css/plugins/chartist/chartist.min.css', 'js/plugins/chartist/angular-chartist.min.js']
-                        }
-                    ]);
-                }
-            }
-        })
-        .state('charts.c3charts', {
-            url: "/c3charts",
-            templateUrl: "views/c3charts.html",
-            data: { pageTitle: 'c3charts' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            serie: true,
-                            files: ['css/plugins/c3/c3.min.css', 'js/plugins/d3/d3.min.js', 'js/plugins/c3/c3.min.js']
-                        },
-                        {
-                            serie: true,
-                            name: 'gridshore.c3js.chart',
-                            files: ['js/plugins/c3/c3-angular.min.js']
-                        }
-                    ]);
-                }
-            }
-        })
-        .state('mailbox', {
-            abstract: true,
-            url: "/mailbox",
-            templateUrl: "views/common/content.html",
-        })
-        .state('mailbox.inbox', {
-            url: "/inbox",
-            templateUrl: "views/mailbox.html",
-            data: { pageTitle: 'Mail Inbox' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
-                        }
-                    ]);
-                }
-            }
-        })
-        .state('mailbox.email_view', {
-            url: "/email_view",
-            templateUrl: "views/mail_detail.html",
-            data: { pageTitle: 'Mail detail' }
-        })
-        .state('mailbox.email_compose', {
-            url: "/email_compose",
-            templateUrl: "views/mail_compose.html",
-            data: { pageTitle: 'Mail compose' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            files: ['css/plugins/summernote/summernote.css','css/plugins/summernote/summernote-bs3.css','js/plugins/summernote/summernote.min.js']
-                        },
-                        {
-                            name: 'summernote',
-                            files: ['css/plugins/summernote/summernote.css','css/plugins/summernote/summernote-bs3.css','js/plugins/summernote/summernote.min.js','js/plugins/summernote/angular-summernote.min.js']
-                        }
-                    ]);
-                }
-            }
-        })
-        .state('mailbox.email_template', {
-            url: "/email_template",
-            templateUrl: "views/email_template.html",
-            data: { pageTitle: 'Mail compose' }
-        })
-        .state('widgets', {
-            url: "/widgets",
+        // .state('create.peity_chart', {
+        //     url: "/peity_chart",
+        //     templateUrl: "views/graph_peity.html",
+        //     data: { pageTitle: 'Peity graphs' },
+        //     resolve: {
+        //         loadPlugin: function ($ocLazyLoad) {
+        //             return $ocLazyLoad.load([
+        //                 {
+        //                     name: 'angular-peity',
+        //                     files: ['js/plugins/peity/jquery.peity.min.js', 'js/plugins/peity/angular-peity.js']
+        //                 }
+        //             ]);
+        //         }
+        //     }
+        // })
+        // .state('create.sparkline_chart', {
+        //     url: "/sparkline_chart",
+        //     templateUrl: "views/graph_sparkline.html",
+        //     data: { pageTitle: 'Sparkline chart' },
+        //     resolve: {
+        //         loadPlugin: function ($ocLazyLoad) {
+        //             return $ocLazyLoad.load([
+        //                 {
+        //                     files: ['js/plugins/sparkline/jquery.sparkline.min.js']
+        //                 }
+        //             ]);
+        //         }
+        //     }
+        // })
+        // .state('create.chartjs_chart', {
+        //     url: "/chartjs_chart",
+        //     templateUrl: "views/chartjs.html",
+        //     data: { pageTitle: 'Chart.js' },
+        //     resolve: {
+        //         loadPlugin: function ($ocLazyLoad) {
+        //             return $ocLazyLoad.load([
+        //                 {
+        //                     files: ['js/plugins/chartJs/Chart.min.js']
+        //                 },
+        //                 {
+        //                     name: 'angles',
+        //                     files: ['js/plugins/chartJs/angles.js']
+        //                 }
+        //             ]);
+        //         }
+        //     }
+        // })
+        // .state('create.chartist_chart', {
+        //     url: "/chartist_chart",
+        //     templateUrl: "views/chartist.html",
+        //     data: { pageTitle: 'Chartist' },
+        //     resolve: {
+        //         loadPlugin: function ($ocLazyLoad) {
+        //             return $ocLazyLoad.load([
+        //                 {
+        //                     serie: true,
+        //                     name: 'angular-chartist',
+        //                     files: ['js/plugins/chartist/chartist.min.js', 'css/plugins/chartist/chartist.min.css', 'js/plugins/chartist/angular-chartist.min.js']
+        //                 }
+        //             ]);
+        //         }
+        //     }
+        // })
+        // .state('create.c3charts', {
+        //     url: "/c3charts",
+        //     templateUrl: "views/c3charts.html",
+        //     data: { pageTitle: 'c3charts' },
+        //     resolve: {
+        //         loadPlugin: function ($ocLazyLoad) {
+        //             return $ocLazyLoad.load([
+        //                 {
+        //                     serie: true,
+        //                     files: ['css/plugins/c3/c3.min.css', 'js/plugins/d3/d3.min.js', 'js/plugins/c3/c3.min.js']
+        //                 },
+        //                 {
+        //                     serie: true,
+        //                     name: 'gridshore.c3js.chart',
+        //                     files: ['js/plugins/c3/c3-angular.min.js']
+        //                 }
+        //             ]);
+        //         }
+        //     }
+        // })
+        // .state('mailbox', {
+        //     abstract: true,
+        //     url: "/mailbox",
+        //     templateUrl: "views/common/content.html",
+        // })
+        // .state('mailbox.inbox', {
+        //     url: "/inbox",
+        //     templateUrl: "views/mailbox.html",
+        //     data: { pageTitle: 'Mail Inbox' },
+        //     resolve: {
+        //         loadPlugin: function ($ocLazyLoad) {
+        //             return $ocLazyLoad.load([
+        //                 {
+        //                     files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
+        //                 }
+        //             ]);
+        //         }
+        //     }
+        // })
+        // .state('mailbox.email_view', {
+        //     url: "/email_view",
+        //     templateUrl: "views/mail_detail.html",
+        //     data: { pageTitle: 'Mail detail' }
+        // })
+        // .state('mailbox.email_compose', {
+        //     url: "/email_compose",
+        //     templateUrl: "views/mail_compose.html",
+        //     data: { pageTitle: 'Mail compose' },
+        //     resolve: {
+        //         loadPlugin: function ($ocLazyLoad) {
+        //             return $ocLazyLoad.load([
+        //                 {
+        //                     files: ['css/plugins/summernote/summernote.css','css/plugins/summernote/summernote-bs3.css','js/plugins/summernote/summernote.min.js']
+        //                 },
+        //                 {
+        //                     name: 'summernote',
+        //                     files: ['css/plugins/summernote/summernote.css','css/plugins/summernote/summernote-bs3.css','js/plugins/summernote/summernote.min.js','js/plugins/summernote/angular-summernote.min.js']
+        //                 }
+        //             ]);
+        //         }
+        //     }
+        // })
+        // .state('mailbox.email_template', {
+        //     url: "/email_template",
+        //     templateUrl: "views/email_template.html",
+        //     data: { pageTitle: 'Mail compose' }
+        // })
+        .state('search', {
+            url: "/search",
             templateUrl: "views/widgets.html",
-            data: { pageTitle: 'Widhets' },
+            data: { pageTitle: 'Search' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -381,10 +400,55 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
-        .state('metrics', {
-            url: "/metrics",
+        .state('projects', {
+            url: "/projects",
+            templateUrl: "views/widgets.html",
+            data: { pageTitle: 'Projects' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            serie: true,
+                            name: 'angular-flot',
+                            files: [ 'js/plugins/flot/jquery.flot.js', 'js/plugins/flot/jquery.flot.time.js', 'js/plugins/flot/jquery.flot.tooltip.min.js', 'js/plugins/flot/jquery.flot.spline.js', 'js/plugins/flot/jquery.flot.resize.js', 'js/plugins/flot/jquery.flot.pie.js', 'js/plugins/flot/curvedLines.js', 'js/plugins/flot/angular-flot.js', ]
+                        },
+                        {
+                            files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
+                        },
+                        {
+                            serie: true,
+                            files: ['js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js', 'js/plugins/jvectormap/jquery-jvectormap-2.0.2.css']
+                        },
+                        {
+                            serie: true,
+                            files: ['js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js']
+                        },
+                        {
+                            name: 'ui.checkbox',
+                            files: ['js/bootstrap/angular-bootstrap-checkbox.js']
+                        }
+                    ]);
+                }
+            }
+        })
+        .state('users', {
+            url: "/users",
             templateUrl: "views/metrics.html",
-            data: { pageTitle: 'Metrics' },
+            data: { pageTitle: 'Users' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['js/plugins/sparkline/jquery.sparkline.min.js']
+                        }
+                    ]);
+                }
+            }
+        })
+        .state('teams', {
+            url: "/teams",
+            templateUrl: "views/metrics.html",
+            data: { pageTitle: 'Teams' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([

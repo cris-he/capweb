@@ -3374,6 +3374,14 @@ function jstreeCtrl($scope) {
     ]
 
 }
+function navBarCtrl($scope) {
+    $scope.User = {
+        "Name" : 'Juntu Chen',
+        "Role" : 'Student',
+        "Pic"  : 'img/student.png'
+    }
+    
+}
 
 function datamapsCtrl($scope) {
 
@@ -3578,5 +3586,6 @@ angular
     .controller('jstreeCtrl', jstreeCtrl)
     .controller('datamapsCtrl', datamapsCtrl)
     .controller('pdfCtrl', pdfCtrl)
-    .controller('passwordMeterCtrl', passwordMeterCtrl);
+    .controller('passwordMeterCtrl', passwordMeterCtrl)
+    .controller('navBarCtrl', navBarCtrl);
 

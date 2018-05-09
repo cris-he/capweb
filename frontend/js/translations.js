@@ -11,6 +11,17 @@ function config($translateProvider) {
             DASHBOARD: 'Dashboard',
             GRAPHS: 'Graphs',
             MAILBOX: 'Mailbox',
+            CREATE: 'Create',
+            SEARCH: 'Search',
+            USERS: 'Users',
+            PROJECTS: 'Projects',
+            TEAMS: 'Teams',
+            PROJECT: 'Project',
+            TEAM: 'Team',
+            LANGUAGE: 'Language',
+            LOGOUT: 'Log out',
+
+
             WIDGETS: 'Widgets',
             METRICS: 'Metrics',
             FORMS: 'Forms',
@@ -30,16 +41,27 @@ function config($translateProvider) {
             // Define some custom text
             WELCOME: 'Welcome Amelia',
             MESSAGEINFO: 'You have 42 messages and 6 notifications.',
-            SEARCH: 'Search for something...',
             DEMO: 'Internationalization (sometimes shortened to \"I18N , meaning \"I - eighteen letters -N\") is the process of planning and implementing products and services so that they can easily be adapted to specific local languages and cultures, a process called localization . The internationalization process is sometimes called translation or localization enablement .'
 
         })
-        .translations('es', {
+        .translations('cn', {
 
             // Define all menu elements
-            DASHBOARD: 'Salpicadero',
-            GRAPHS: 'Gráficos',
-            MAILBOX: 'El correo',
+            DASHBOARD: '数据板',
+            GRAPHS: '图表',
+            MAILBOX: '邮箱',
+            CREATE: '创建',
+            SEARCH: '搜索',
+            USERS: '用户列表',
+            PROJECTS: '项目列表',
+            TEAMS: '团队列表',
+            PROJECT: '项目',
+            TEAM: '团队',
+            LANGUAGE: '语言',
+            LOGOUT: '登出',
+
+
+
             WIDGETS: 'Widgets',
             METRICS: 'Métrica',
             FORMS: 'Formas',
@@ -59,7 +81,6 @@ function config($translateProvider) {
             // Define some custom text
             WELCOME: 'Bienvenido Amelia',
             MESSAGEINFO: 'Usted tiene 42 mensajes y 6 notificaciones.',
-            SEARCH: 'Busca algo ...',
             DEMO: 'Internacionalización (a veces abreviado como \"I18N, que significa\" I - dieciocho letras N \") es el proceso de planificación e implementación de productos y servicios de manera que se pueden adaptar fácilmente a las lenguas y culturas locales específicas, un proceso llamado localización El proceso de internacionalización. a veces se llama la traducción o la habilitación de localización.'
         });
 

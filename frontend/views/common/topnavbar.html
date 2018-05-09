@@ -14,14 +14,14 @@
             <!--</li>-->
             <li uib-dropdown>
                 <a class="count-info" href uib-dropdown-toggle>
-                    Language
+                        {{ 'LANGUAGE' | translate }}
                 </a>
                 <ul uib-dropdown-menu class="animated fadeInRight m-t-xs" ng-controller="translateCtrl">
                     <li><a ng-click="changeLanguage('en')">English</a></li>
-                    <li><a ng-click="changeLanguage('es')">Spanish</a></li>
+                    <li><a ng-click="changeLanguage('cn')">中文</a></li>
                 </ul>
             </li>
-            <li uib-dropdown>
+            <!-- <li uib-dropdown>
                 <a class="count-info" href uib-dropdown-toggle>
                     <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
                 </a>
@@ -76,8 +76,8 @@
                         </div>
                     </li>
                 </ul>
-            </li>
-            <li uib-dropdown>
+            </li> -->
+            <!-- <li uib-dropdown>
                 <a class="count-info" href uib-dropdown-toggle>
                     <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
                 </a>
@@ -118,17 +118,17 @@
                         </div>
                     </li>
                 </ul>
-            </li>
+            </li> -->
             <li>
                 <a ui-sref="login">
-                    <i class="fa fa-sign-out"></i> Log out
+                    <i class="fa fa-sign-out"></i> {{ 'LOGOUT' | translate }}
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a ng-click="$root.rightSidebar = !$root.rightSidebar">
                     <i class="fa fa-tasks"></i>
                 </a>
-            </li>
+            </li> -->
         </ul>
 
     </nav>
