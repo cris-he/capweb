@@ -3,7 +3,7 @@
 
 <!-- Page wraper -->
 <!-- ng-class with current state name give you the ability to extended customization your view -->
-<div id="page-wrapper" class="gray-bg {{$state.current.name}}">
+<div id="page-wrapper" class="gray-bg {{$state.current.name}}" ng-controller="users_profileCtrl">
 
     <!-- Page wrapper -->
     <div ng-include="'views/common/topnavbar.html'"></div>
@@ -16,7 +16,7 @@
                     <a href="/#/dashboard">{{'HOME' | translate}}</a>
                 </li>
                 <li>
-                        <a href="/#/users">{{'USERS' | translate}}</a>
+                    <a href="/#/users">{{'USERS' | translate}}</a>
                 </li>
                 <li class="active">
                     <strong>{{'User_Profile' | translate}}</strong>
@@ -24,7 +24,316 @@
             </ol>
         </div>
     </div>
-    <h1 ng-controller="users_profileCtrl">
-        {{profileId}}
-    </h1>
+    <div class="row m-b-lg m-t-lg">
+        <div class="col-md-6">
+
+            <div class="profile-image">
+                <img ng-src="{{User.Pic}}" class="img-circle circle-border m-b-md" alt="profile">
+            </div>
+            <div class="profile-info">
+                <div class="">
+                    <div>
+                        <h2 class="no-margins">
+                            {{User.Firstname}} {{User.Lastname}}
+                            <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Endorse!</button>
+                        </h2>
+                        <h4>{{User.Role}}</h4>
+                        <small>
+                                {{'MESSAGEINFO' | translate}}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <table class="table small m-b-xs">
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>10</strong> Projects
+                        </td>
+                        <td>
+                            <strong>4</strong> Work Experience
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>61</strong> Views
+                        </td>
+                        <td>
+                            <strong>18</strong> Endorsement
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>{{Interest_count}}</strong> Areas of Interests
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3" ng-controller="users_profileCtrl as chart">
+            <small>Views in past 7 days</small>
+            <h2 class="no-margins">13</h2>
+            <div sparkline spark-data="chart.sparkline1" spark-options="chart.sparkline1Options"></div>
+        </div>
+    </div>
+    <div class="row wrapper wrapper-content animated fadeInRight">
+        <div class="ibox">
+            <div class="row">
+                <div class="col-lg-10">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="m-b-md">
+                                    <a href="/#/profile" class="btn btn-white btn-xs pull-right">Edit Profile</a>
+
+                                    <h2>{{'DETAILS' | translate }}</h2>
+                                </div>
+                                <dl class="dl-horizontal">
+                                    <dt>{{"STATUS" | translate}}:</dt>
+                                    <div ng-controller="dashboardCtrl" ng-switch="User.Status">
+                                        <div ng-switch-when="1">
+                                            <dd>
+                                                <span class="label label-primary">Open</span>
+                                            </dd>
+                                        </div>
+                                        <div ng-switch-when="0">
+                                            <dd>
+                                                <span class="label label-warning">In a team</span>
+                                            </dd>
+                                        </div>
+                                        <div ng-switch-default>
+                                            <dd>
+                                                <span class="label label-default">Independent</span>
+                                            </dd>
+                                        </div>
+                                    </div>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row" ng-controller="dashboardCtrl">
+                            <div class="col-lg-5">
+                                <dl class="dl-horizontal">
+
+                                    <dt>Area of interests:</dt>
+                                    <dd ng-repeat="areas in User.Interests">{{areas}}</dd>
+                                    <br>
+                                    <dt>Team:</dt>
+                                    <dd>
+                                        <a ng-if="isTeam" href="#/teams">{{User.Team}}</a>
+                                        <div ng-if="!isTeam">N/A</div>
+                                    </dd>
+                                    <dt>Team Capacity:</dt>
+                                    <dd>3 / 4</dd>
+                                    <br>
+                                    <dt>Project:</dt>
+                                    <dd>
+                                        <a ng-if="isTeam" href="#/projects" class="text-navy"> Capstone Team finder</a>
+                                        <div ng-if="!isTeam">N/A</div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="col-lg-7" id="cluster_info">
+                                <dl class="dl-horizontal">
+                                    <dt>Email:</dt>
+                                    <dd>owen.jt.chen@gmail.com</dd>
+                                    <dt>Phone:</dt>
+                                    <dd>Private</dd>
+                                    <br>
+                                    <dt>Last login:</dt>
+                                    <dd>09/May 2018 12:15:57</dd>
+                                    <br>
+                                    <dt>Recent Visitors:</dt>
+                                    <dd>
+                                        <a href="">
+                                            <img alt="image" class="img-circle" ng-src="img/profile14.png">
+                                        </a>
+                                        <a href="">
+                                            <img alt="image" class="img-circle" src="img/profile11.png">
+                                        </a>
+                                        <a href="">
+                                            <img alt="image" class="img-circle" src="img/profile20.png">
+                                        </a>
+                                        <a href="">
+                                            <img alt="image" class="img-circle" src="img/profile4.png">
+                                        </a>
+                                        <a href="">
+                                            <img alt="image" class="img-circle" src="img/profile21.png">
+                                        </a>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <dl class="dl-horizontal">
+                                    <dt>Completed:</dt>
+                                    <dd>
+                                        <div class="progress progress-striped active m-b-sm">
+                                            <div style="width: 80%;" class="progress-bar"></div>
+                                        </div>
+                                        <small>Process completed in
+                                    <strong>80%</strong>. Please finalize the team</small>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h3>Similar Interests Users</h3>
+                    <p class="small">
+                        Here are the users share common interests, please do check them out!
+                    </p>
+                    <div class="user-friends">
+                        <a href=""><img alt="image" class="img-circle" src="img/profile.png"></a>
+                        <a href=""><img alt="image" class="img-circle" src="img/profile3.png"></a>
+                        <a href=""><img alt="image" class="img-circle" src="img/profile4.png"></a>
+                        <a href=""><img alt="image" class="img-circle" src="img/profile6.png"></a>
+                        <a href=""><img alt="image" class="img-circle" src="img/profile8.png"></a>
+                        <a href=""><img alt="image" class="img-circle" src="img/profile9.png"></a>
+                        <a href=""><img alt="image" class="img-circle" src="img/profile10.png"></a>
+                        <a href=""><img alt="image" class="img-circle" src="img/profile11.png"></a>
+                        <a href=""><img alt="image" class="img-circle" src="img/profile12.png"></a>
+                        <a href=""><img alt="image" class="img-circle" src="img/profile13.png"></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5><i class="fa fa-rocket"></i> Project Experience</h5>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="5">
+                            <thead>
+                                <tr>
+
+                                    <th data-toggle="true">Project</th>
+                                    <th>Core skill</th>
+                                    <th data-hide="all">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>CapWebapp</small>
+                                    </td>
+                                    <td>MEAN Stack</td>
+                                    <td>Use MEAN stack to develop a web application for ECE496 students to find teamates</td>
+                                </tr>
+                                <tr>
+                                    <td>Project MH</small>
+                                    </td>
+                                    <td>MEAN Stack, Data Mining</td>
+                                    <td>Helped developing new features for MH</td>
+                                </tr>
+                                <tr>
+                                    <td>Cpp Map</small>
+                                    </td>
+                                    <td>C++</td>
+                                    <td>Use C++ to develop a map application which has navigation feature</td>
+                                </tr>
+                                <tr>
+                                    <td>Connect six game</small>
+                                    </td>
+                                    <td>C language</td>
+                                    <td>Use C to develop a game with an AI opponent</td>
+                                </tr>
+                                <tr>
+                                    <td>Killer game Assistant</small>
+                                    </td>
+                                    <td>C language</td>
+                                    <td>Use C language to build an assistant program to referee Killer games</td>
+                                </tr>
+                                <tr>
+                                    <td>Car Racing AI</small>
+                                    </td>
+                                    <td>NIOS 2 Assembly language</td>
+                                    <td>Apply knowledge in NIOS 2 assembly language to build a car racing game AI</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5><i class="fa fa-briefcase"></i> Work Experience</h5>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="5">
+                            <thead>
+                                <tr>
+
+                                    <th data-toggle="true">Title</th>
+                                    <th>Company</th>
+                                    <th data-hide="all">Start Date</th>
+                                    <th data-hide="all">Completed Date</th>
+                                    <th data-hide="all">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>e-Commerce Java Developement Support Engineer</small>
+                                    </td>
+                                    <td>IBM</td>
+                                    <td>02 May, 2016</td>
+                                    <td>05 May, 2017</td>
+                                    <td>Supporting java development of the team's product</td>
+                                </tr>
+                                <tr>
+                                    <td>Independent Contractor</small>
+                                    </td>
+                                    <td>MongoHouse</td>
+                                    <td>01 May, 2018</td>
+                                    <td>Present</td>
+                                    <td>Web application development</td>
+                                </tr>
+                                <tr>
+                                    <td>Summer Researching assistant</small>
+                                    </td>
+                                    <td>University of Toronto</td>
+                                    <td>01 May, 2018</td>
+                                    <td>Present</td>
+                                    <td>Web application development</td>
+                                </tr>
+                                <tr>
+                                    <td>Electrical engineering assistant</small>
+                                    </td>
+                                    <td>Pro-tek Electric Inc.</td>
+                                    <td>01 Sept, 2012</td>
+                                    <td>15 Jan, 2013</td>
+                                    <td>Supporting electrical engineers' jobs</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -4516,18 +4516,18 @@ function dashboardCtrl($scope) {
     $scope.User = {
         "Firstname": 'Juntu',
         "Lastname": 'Chen',
-        "Status" : 0,
-        "Interests" : [
+        "Status": 0,
+        "Interests": [
             "Web Programming",
             "Computer Networks",
             "Operating System",
             "Semiconductor",
             "Software Development"
         ],
-        "Team" : 'CapWebapp',
+        "Team": 'CapWebapp',
         "Pic": 'img/profile-default.png'
     };
-    if($scope.User.Team == '')
+    if ($scope.User.Team == '')
         $scope.isTeam = 0;
     else
         $scope.isTeam = 1;
@@ -4537,6 +4537,39 @@ function dashboardCtrl($scope) {
 function users_profileCtrl($scope, $stateParams) {
     $scope.profileId = $stateParams.profileId;
     console.log($stateParams.profileId);
+
+    //Use $stateParams.profileId to fetch user data from backend
+    $scope.User = {
+        "Firstname": 'Juntu',
+        "Lastname": 'Chen',
+        "Status": 0, // -1 for Independent, 0 for In a team, 1 for Open
+        "Interests": [
+            "Web Programming",
+            "Computer Networks",
+            "Operating System",
+            "Semiconductor",
+            "Software Development"
+        ],
+        "Team": 'CapWebapp',
+        "Role": 'Student',
+        "Pic": 'img/profile-default.png'
+    };
+    if ($scope.User.Team == '')
+        $scope.isTeam = 0;
+    else
+        $scope.isTeam = 1;
+    $scope.Interest_count = $scope.User.Interests.length;
+    var sparkline1Data = [3, 2, 5, 10, 11, 8, 22];
+    var sparkline1Options = {
+        type: 'line',
+        width: '100%',
+        height: '50',
+        lineColor: '#1ab394',
+        fillColor: "transparent"
+    };
+    this.sparkline1 = sparkline1Data;
+    this.sparkline1Options = sparkline1Options;
+
 }
 
 
@@ -4589,4 +4622,4 @@ angular
     .controller('passwordMeterCtrl', passwordMeterCtrl)
     .controller('navBarCtrl', navBarCtrl)
     .controller('dashboardCtrl', dashboardCtrl)
-    .controller('users_profileCtrl',users_profileCtrl);
+    .controller('users_profileCtrl', users_profileCtrl);
