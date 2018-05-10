@@ -4507,7 +4507,7 @@ function navBarCtrl($scope) {
         "Firstname": 'Juntu',
         "Lastname": 'Chen',
         "Role": 'Student',
-        "Pic": 'img/student.png'
+        "Pic": 'img/profile-default.png'
     };
 
 }
@@ -4515,10 +4515,30 @@ function navBarCtrl($scope) {
 function dashboardCtrl($scope) {
     $scope.User = {
         "Firstname": 'Juntu',
-        "Lastname": 'Chen'
+        "Lastname": 'Chen',
+        "Status" : 0,
+        "Interests" : [
+            "Web Programming",
+            "Computer Networks",
+            "Operating System",
+            "Semiconductor",
+            "Software Development"
+        ],
+        "Team" : 'CapWebapp',
+        "Pic": 'img/profile-default.png'
     };
-    $scope.date = new Date;
+    if($scope.User.Team == '')
+        $scope.isTeam = 0;
+    else
+        $scope.isTeam = 1;
+
 }
+
+function users_profileCtrl($scope, $stateParams) {
+    $scope.profileId = $stateParams.profileId;
+    console.log($stateParams.profileId);
+}
+
 
 /**
  *
@@ -4568,4 +4588,5 @@ angular
     .controller('pdfCtrl', pdfCtrl)
     .controller('passwordMeterCtrl', passwordMeterCtrl)
     .controller('navBarCtrl', navBarCtrl)
-    .controller('dashboardCtrl', dashboardCtrl);
+    .controller('dashboardCtrl', dashboardCtrl)
+    .controller('users_profileCtrl',users_profileCtrl);

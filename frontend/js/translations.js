@@ -22,7 +22,8 @@ function config($translateProvider) {
             LOGOUT: 'Log out',
             HOME: 'Home',
             L_Status: 'Latest Status',
-
+            STATUS: 'Status',
+            User_Profile: 'User Profile',
 
             WIDGETS: 'Widgets',
             METRICS: 'Metrics',
@@ -63,6 +64,8 @@ function config($translateProvider) {
             LOGOUT: '登出',
             HOME: '主页',
             L_Status: '最新状态',
+            STATUS: '状态',
+            User_Profile: '用户档案',
 
 
 

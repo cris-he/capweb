@@ -35,9 +35,11 @@
                         <h5>{{'USERS' | translate}}</h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins">40 886,200</h1>
+                        <h1 class="no-margins">306</h1>
 
-                        <div class="stat-percent font-bold text-success">10 new today <i class="fa fa-bolt"></i></div>
+                        <div class="stat-percent font-bold text-success">10 new today
+                            <i class="fa fa-bolt"></i>
+                        </div>
                         <small>Total {{'USERS' | translate}}</small>
                     </div>
                 </div>
@@ -51,9 +53,11 @@
                         <h5>{{'TEAMS' | translate}}</h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins">275,800</h1>
+                        <h1 class="no-margins">52</h1>
 
-                        <div class="stat-percent font-bold text-info">5 new today <i class="fa fa-level-up"></i></div>
+                        <div class="stat-percent font-bold text-info">5 new today
+                            <i class="fa fa-level-up"></i>
+                        </div>
                         <small>Total {{'TEAMS' | translate}}</small>
                     </div>
                 </div>
@@ -67,9 +71,11 @@
                         <h5>{{'PROJECTS' | translate}}</h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins">106,120</h1>
+                        <h1 class="no-margins">38</h1>
 
-                        <div class="stat-percent font-bold text-navy">3 new today <i class="fa fa-level-up"></i></div>
+                        <div class="stat-percent font-bold text-navy">3 new today
+                            <i class="fa fa-level-up"></i>
+                        </div>
                         <small>Total {{'PROJECTS' | translate}}</small>
                     </div>
                 </div>
@@ -83,44 +89,77 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="m-b-md">
-                                <a href="" class="btn btn-white btn-xs pull-right">Edit project</a>
+                                <a href="/#/profile" class="btn btn-white btn-xs pull-right">Edit Profile</a>
 
                                 <h2>{{"L_Status" | translate}}</h2>
                             </div>
                             <dl class="dl-horizontal">
-                                <dt>Status:</dt>
-                                <dd><span class="label label-primary">Active</span></dd>
+                                <dt>{{"STATUS" | translate}}:</dt>
+                                <div ng-controller="dashboardCtrl" ng-switch="User.Status">
+                                    <div ng-switch-when="1">
+                                        <dd>
+                                            <span class="label label-primary">Open</span>
+                                        </dd>
+                                    </div>
+                                    <div ng-switch-when="0">
+                                        <dd>
+                                            <span class="label label-warning">In a team</span>
+                                        </dd>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <dd>
+                                            <span class="label label-default">Independent</span>
+                                        </dd>
+                                    </div>
+                                </div>
                             </dl>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" ng-controller="dashboardCtrl">
                         <div class="col-lg-5">
                             <dl class="dl-horizontal">
 
-                                <dt>Created by:</dt>
-                                <dd>Alex Smith</dd>
-                                <dt>Messages:</dt>
-                                <dd> 162</dd>
-                                <dt>Client:</dt>
-                                <dd><a href="" class="text-navy"> Zender Company</a></dd>
-                                <dt>Version:</dt>
-                                <dd> v1.4.2</dd>
+                                <dt>Area of interests:</dt>
+                                <dd ng-repeat="areas in User.Interests">{{areas}}</dd>
+                                <br>
+                                <dt>Team:</dt>
+                                <dd>
+                                    <a ng-if="isTeam" href="#/teams">{{User.Team}}</a>
+                                    <div ng-if="!isTeam">N/A</div>
+                                </dd>
+                                <dt>Team Capacity:</dt>
+                                <dd>3 / 4</dd>
+                                <br>
+                                <dt>Project:</dt>
+                                <dd>
+                                    <a ng-if="isTeam" href="#/projects" class="text-navy"> Capstone Team finder</a>
+                                    <div ng-if="!isTeam">N/A</div>
+                                </dd>
                             </dl>
                         </div>
                         <div class="col-lg-7" id="cluster_info">
                             <dl class="dl-horizontal">
 
-                                <dt>Last Updated:</dt>
-                                <dd>16.08.2014 12:15:57</dd>
-                                <dt>Created:</dt>
-                                <dd> 10.07.2014 23:36:57</dd>
-                                <dt>Participants:</dt>
-                                <dd class="project-people">
-                                    <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
-                                    <a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
-                                    <a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>
-                                    <a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
-                                    <a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
+                                <dt>Last login:</dt>
+                                <dd>09/May 2018 12:15:57</dd>
+                                <br>
+                                <dt>Recent Visitors:</dt>
+                                <dd>
+                                    <a href="">
+                                        <img alt="image" class="img-circle" ng-src="img/profile14.png">
+                                    </a>
+                                    <a href="">
+                                        <img alt="image" class="img-circle" src="img/profile11.png">
+                                    </a>
+                                    <a href="">
+                                        <img alt="image" class="img-circle" src="img/profile20.png">
+                                    </a>
+                                    <a href="">
+                                        <img alt="image" class="img-circle" src="img/profile4.png">
+                                    </a>
+                                    <a href="">
+                                        <img alt="image" class="img-circle" src="img/profile21.png">
+                                    </a>
                                 </dd>
                             </dl>
                         </div>
@@ -131,223 +170,63 @@
                                 <dt>Completed:</dt>
                                 <dd>
                                     <div class="progress progress-striped active m-b-sm">
-                                        <div style="width: 60%;" class="progress-bar"></div>
+                                        <div style="width: 80%;" class="progress-bar"></div>
                                     </div>
-                                    <small>Project completed in <strong>60%</strong>. Remaining close the project, sign a contract and invoice.</small>
+                                    <small>Process completed in
+                                        <strong>80%</strong>. Remaining finalize the team</small>
                                 </dd>
                             </dl>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row wrapper wrapper-content">
             <div class="ibox">
                 <div class="ibox-content">
                     <div class="row m-t-sm">
                         <div class="col-lg-12">
                             <div class="panel blank-panel ui-tab">
 
-                                <uib-tabset>
-                                    <uib-tab heading="Last activity">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Status</th>
-                                                    <th>Title</th>
-                                                    <th>Start Time</th>
-                                                    <th>End Time</th>
-                                                    <th>Comments</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
-                                                    </td>
-                                                    <td>
-                                                        Create project in webapp
-                                                    </td>
-                                                    <td>
-                                                        12.07.2014 10:10:1
-                                                    </td>
-                                                    <td>
-                                                        14.07.2014 10:16:36
-                                                    </td>
-                                                    <td>
-                                                        <p class="small">
-                                                            Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
-                                                        </p>
-                                                    </td>
+                                <h2>Community Activities</h2>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Time</th>
+                                            <th>Event</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                12.07.2017 10:10:01
+                                            </td>
+                                            <td>
+                                                <a href="/#/users">Jiahuan He</a> created a team called
+                                                <a href="/#/teams">CapWebapp</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                15.07.2017 18:12:13
+                                            </td>
+                                            <td>
+                                                Team
+                                                <a href="/#/teams">CapWebapp</a> joined a project called
+                                                <a href="/#/projects">Capstone Team finder</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                18.07.2017 20:30:15
+                                            </td>
+                                            <td>
+                                                <a href="/#/users">Juntu Chen</a> joined a team called
+                                                <a href="/#/teams">CapWebapp</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
-                                                    </td>
-                                                    <td>
-                                                        Various versions
-                                                    </td>
-                                                    <td>
-                                                        12.07.2014 10:10:1
-                                                    </td>
-                                                    <td>
-                                                        14.07.2014 10:16:36
-                                                    </td>
-                                                    <td>
-                                                        <p class="small">
-                                                            Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                                                        </p>
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                                    </td>
-                                                    <td>
-                                                        There are many variations
-                                                    </td>
-                                                    <td>
-                                                        12.07.2014 10:10:1
-                                                    </td>
-                                                    <td>
-                                                        14.07.2014 10:16:36
-                                                    </td>
-                                                    <td>
-                                                        <p class="small">
-                                                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
-                                                        </p>
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
-                                                    </td>
-                                                    <td>
-                                                        Latin words
-                                                    </td>
-                                                    <td>
-                                                        12.07.2014 10:10:1
-                                                    </td>
-                                                    <td>
-                                                        14.07.2014 10:16:36
-                                                    </td>
-                                                    <td>
-                                                        <p class="small">
-                                                            Latin words, combined with a handful of model sentence structures
-                                                        </p>
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
-                                                    </td>
-                                                    <td>
-                                                        The generated Lorem
-                                                    </td>
-                                                    <td>
-                                                        12.07.2014 10:10:1
-                                                    </td>
-                                                    <td>
-                                                        14.07.2014 10:16:36
-                                                    </td>
-                                                    <td>
-                                                        <p class="small">
-                                                            The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
-                                                        </p>
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                                    </td>
-                                                    <td>
-                                                        The first line
-                                                    </td>
-                                                    <td>
-                                                        12.07.2014 10:10:1
-                                                    </td>
-                                                    <td>
-                                                        14.07.2014 10:16:36
-                                                    </td>
-                                                    <td>
-                                                        <p class="small">
-                                                            The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                                                        </p>
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
-                                                    </td>
-                                                    <td>
-                                                        The standard chunk
-                                                    </td>
-                                                    <td>
-                                                        12.07.2014 10:10:1
-                                                    </td>
-                                                    <td>
-                                                        14.07.2014 10:16:36
-                                                    </td>
-                                                    <td>
-                                                        <p class="small">
-                                                            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
-                                                        </p>
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
-                                                    </td>
-                                                    <td>
-                                                        Lorem Ipsum is that
-                                                    </td>
-                                                    <td>
-                                                        12.07.2014 10:10:1
-                                                    </td>
-                                                    <td>
-                                                        14.07.2014 10:16:36
-                                                    </td>
-                                                    <td>
-                                                        <p class="small">
-                                                            Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
-                                                        </p>
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                                    </td>
-                                                    <td>
-                                                        Contrary to popular
-                                                    </td>
-                                                    <td>
-                                                        12.07.2014 10:10:1
-                                                    </td>
-                                                    <td>
-                                                        14.07.2014 10:16:36
-                                                    </td>
-                                                    <td>
-                                                        <p class="small">
-                                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
-                                                        </p>
-                                                    </td>
-
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-                                    </uib-tab>
-
-                                </uib-tabset>
 
                             </div>
                         </div>

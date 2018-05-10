@@ -1,0 +1,30 @@
+<!-- Navigation -->
+<div ng-include="'views/common/navigation.html'"></div>
+
+<!-- Page wraper -->
+<!-- ng-class with current state name give you the ability to extended customization your view -->
+<div id="page-wrapper" class="gray-bg {{$state.current.name}}">
+
+    <!-- Page wrapper -->
+    <div ng-include="'views/common/topnavbar.html'"></div>
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>{{'User_Profile' | translate}}</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/#/dashboard">{{'HOME' | translate}}</a>
+                </li>
+                <li>
+                        <a href="/#/users">{{'USERS' | translate}}</a>
+                </li>
+                <li class="active">
+                    <strong>{{'User_Profile' | translate}}</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <h1 ng-controller="users_profileCtrl">
+        {{profileId}}
+    </h1>
+</div>
