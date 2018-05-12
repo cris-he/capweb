@@ -1,0 +1,282 @@
+<!-- Navigation -->
+<div ng-include="'views/common/navigation.html'"></div>
+
+<!-- Page wraper -->
+<!-- ng-class with current state name give you the ability to extended customization your view -->
+<div id="page-wrapper" class="gray-bg {{$state.current.name}}">
+
+    <!-- Page wrapper -->
+    <div ng-include="'views/common/topnavbar.html'"></div>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>Users</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/#/dashboard">Home</a>
+                </li>
+                <li class="active">
+                    <strong>Users</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="contact-box" ng-controller="dashboardCtrl">
+                    <a ui-sref="users_profile({profileId: {{User.profileId}}})">
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <img alt="image" class="img-circle m-t-md img-responsive" src="img/profile-default.png">
+                            </div>
+
+                            <div class="m-t-md font-bold">Student</div>
+
+                        </div>
+                        <div class="col-sm-8">
+                            <h3>
+                                <strong>{{User.Firstname}}</strong>
+                                <strong>{{User.Lastname}}</strong>
+                                </h2>
+                                <div ng-switch="User.Status">
+                                    <div ng-switch-when="1">
+                                        <dd>
+                                            <span class="label label-primary">Open</span>
+                                        </dd>
+                                    </div>
+                                    <div ng-switch-when="0">
+                                        <dd>
+                                            <span class="label label-warning">In a team</span>
+                                        </dd>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <dd>
+                                            <span class="label label-default">Independent</span>
+                                        </dd>
+                                    </div>
+                                </div>
+                                <br>
+                                <i class="fa fa-map-marker"></i> Last login: May 08/2018 18:09:52
+                                <address>
+                                    <br>
+                                    <strong>Email:</strong> owen.jt.chen@gmail.com
+                                    <br>
+                                    <strong>Phone:</strong> Private
+                                </address>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="contact-box" ng-controller="dashboardCtrl">
+                    <a ui-sref="users_profile({profileId: {{User.profileId}}})">
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <img alt="image" class="img-circle m-t-md img-responsive" src="img/profile19.png">
+                            </div>
+
+                            <div class="m-t-md font-bold">Professor</div>
+
+                        </div>
+                        <div class="col-sm-8">
+                            <h3>
+                                <strong>Koman</strong>
+                                <strong>Phang</strong>
+                                </h2>
+                                <div ng-switch="User.Status">
+                                    <div ng-switch-default>
+                                        <dd>
+                                            <span class="label label-default">Independent</span>
+                                        </dd>
+                                    </div>
+                                </div>
+                                <br>
+                                <i class="fa fa-map-marker"></i> Last login: April 08/2018 13:49:22
+                                <address>
+                                    <br>
+                                    <strong>Email:</strong> Private
+                                    <br>
+                                    <strong>Phone:</strong> Private
+                                </address>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="contact-box" ng-controller="dashboardCtrl">
+                    <a ui-sref="users_profile({profileId: {{User.profileId}}})">
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <img alt="image" class="img-circle m-t-md img-responsive" src="img/profile2.png">
+                            </div>
+
+                            <div class="m-t-md font-bold">Student</div>
+
+                        </div>
+                        <div class="col-sm-8">
+                            <h3>
+                                <strong>Alibababababa</strong>
+                                <strong>Muhamud</strong>
+                                </h2>
+                                <div ng-switch="User.Status">
+                                    <div ng-switch-default>
+                                        <dd>
+                                            <span class="label label-primary">Open</span>
+                                        </dd>
+                                    </div>
+                                </div>
+                                <br>
+                                <i class="fa fa-map-marker"></i> Last login: May 08/2018 18:09:52
+                                <address>
+                                    <br>
+                                    <strong>Email:</strong> Private
+                                    <br>
+                                    <strong>Phone:</strong> (647)238-8935
+                                </address>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="contact-box" ng-controller="dashboardCtrl">
+                    <a ui-sref="users_profile({profileId: {{User.profileId}}})">
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <img alt="image" class="img-circle m-t-md img-responsive" src="img/profile18.png">
+                            </div>
+
+                            <div class="m-t-md font-bold">Student</div>
+
+                        </div>
+                        <div class="col-sm-8">
+                            <h3>
+                                <strong>Jiahuan(Cris)</strong>
+                                <strong>He</strong>
+                                </h2>
+                                <div ng-switch="User.Status">
+                                    <div ng-switch-when="1">
+                                        <dd>
+                                            <span class="label label-primary">Open</span>
+                                        </dd>
+                                    </div>
+                                    <div ng-switch-when="0">
+                                        <dd>
+                                            <span class="label label-warning">In a team</span>
+                                        </dd>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <dd>
+                                            <span class="label label-default">Independent</span>
+                                        </dd>
+                                    </div>
+                                </div>
+                                <br>
+                                <i class="fa fa-map-marker"></i> Last login: May 05/2018 12:03:23
+                                <address>
+                                    <br>
+                                    <strong>Email:</strong> jiahuanjh@hotmail.com
+                                    <strong>Phone:</strong> (416)848-6973
+                                </address>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="contact-box" ng-controller="dashboardCtrl">
+                    <a ui-sref="users_profile({profileId: {{User.profileId}}})">
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <img alt="image" class="img-circle m-t-md img-responsive" src="img/profile8.png">
+                            </div>
+
+                            <div class="m-t-md font-bold">Student</div>
+
+                        </div>
+                        <div class="col-sm-8">
+                            <h3>
+                                <strong>Lady</strong>
+                                <strong>Gaga</strong>
+                                </h2>
+                                <div ng-switch="User.Status">
+                                    <div ng-switch-when="1">
+                                        <dd>
+                                            <span class="label label-primary">Open</span>
+                                        </dd>
+                                    </div>
+                                    <div ng-switch-when="0">
+                                        <dd>
+                                            <span class="label label-warning">In a team</span>
+                                        </dd>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <dd>
+                                            <span class="label label-default">Independent</span>
+                                        </dd>
+                                    </div>
+                                </div>
+                                <br>
+                                <i class="fa fa-map-marker"></i> Last login: May 08/2017 12:59:22
+                                <address>
+                                    <br>
+                                    <strong>Email:</strong> Private
+                                    <br>
+                                    <strong>Phone:</strong> Private
+                                </address>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="contact-box" ng-controller="dashboardCtrl">
+                    <a ui-sref="users_profile({profileId: {{User.profileId}}})">
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <img alt="image" class="img-circle m-t-md img-responsive" src="img/profile9.png">
+                            </div>
+
+                            <div class="m-t-md font-bold">Student</div>
+
+                        </div>
+                        <div class="col-sm-8">
+                            <h3>
+                                <strong>Player</strong>
+                                <strong>One</strong>
+                                </h2>
+                                <div ng-switch="User.Status">
+                                    <div ng-switch-when="1">
+                                        <dd>
+                                            <span class="label label-primary">Open</span>
+                                        </dd>
+                                    </div>
+                                    <div ng-switch-when="0">
+                                        <dd>
+                                            <span class="label label-warning">In a team</span>
+                                        </dd>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <dd>
+                                            <span class="label label-default">Independent</span>
+                                        </dd>
+                                    </div>
+                                </div>
+                                <br>
+                                <i class="fa fa-map-marker"></i> Last login: May 08/2018 18:09:52
+                                <address>
+                                    <br>
+                                    <strong>Email:</strong> owen.jt.chen@gmail.com
+                                    <br>
+                                    <strong>Phone:</strong> Private
+                                </address>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

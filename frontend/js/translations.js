@@ -24,6 +24,7 @@ function config($translateProvider) {
             L_Status: 'Latest Status',
             STATUS: 'Status',
             User_Profile: 'User Profile',
+            Team_Profile: 'Team Profile',
             DETAILS: 'Details',
 
             WIDGETS: 'Widgets',
@@ -67,6 +68,7 @@ function config($translateProvider) {
             L_Status: '最新状态',
             STATUS: '状态',
             User_Profile: '用户档案',
+            Team_Profile: '团队档案',
             DETAILS: '详情',
 
 

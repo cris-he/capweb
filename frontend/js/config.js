@@ -144,15 +144,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('users', {
             url: "/users",
-            templateUrl: "views/metrics.html",
+            templateUrl: "views/users.html",
             data: { pageTitle: 'Users' },
-            resolve: {
-                loadPlugin: function($ocLazyLoad) {
-                    return $ocLazyLoad.load([{
-                        files: ['js/plugins/sparkline/jquery.sparkline.min.js']
-                    }]);
-                }
-            }
         })
         .state('users_profile', {
             url: "/users/:profileId/profile",
@@ -173,6 +166,11 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     ]);
                 }
             }
+        })
+        .state('teams_profile', {
+            url: "/teams/:teamId/profile",
+            templateUrl: "views/teams_profile.html",
+            data: { pageTitle: 'Team Profile' },
         })
         .state('teams', {
             url: "/teams",
@@ -356,6 +354,18 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     return $ocLazyLoad.load([{
                         serie: true,
                         files: ['js/plugins/bootstrap-markdown/bootstrap-markdown.js', 'js/plugins/bootstrap-markdown/markdown.js', 'css/plugins/bootstrap-markdown/bootstrap-markdown.min.css']
+                    }]);
+                }
+            }
+        })
+        .state('metrics', {
+            url: "/metrics",
+            templateUrl: "views/metrics.html",
+            data: { pageTitle: 'metrics' },
+            resolve: {
+                loadPlugin: function($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        files: ['js/plugins/sparkline/jquery.sparkline.min.js']
                     }]);
                 }
             }
