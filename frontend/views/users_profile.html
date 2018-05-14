@@ -35,11 +35,12 @@
                     <div>
                         <h2 class="no-margins">
                             {{User.Firstname}} {{User.Lastname}}
-                            <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Endorse!</button>
+                            <button class="btn btn-white btn-xs">
+                                <i class="fa fa-thumbs-up"></i> Endorse!</button>
                         </h2>
                         <h4>{{User.Role}}</h4>
                         <small>
-                                {{'MESSAGEINFO' | translate}}
+                            {{'MESSAGEINFO' | translate}}
                         </small>
                     </div>
                 </div>
@@ -148,21 +149,36 @@
                                     <br>
                                     <dt>Recent Visitors:</dt>
                                     <dd>
-                                        <a href="/#/users/8/profile">
-                                            <img alt="image" class="img-circle" ng-src="img/profile14.png">
-                                        </a>
-                                        <a href="/#/users/2/profile">
-                                            <img alt="image" class="img-circle" src="img/profile11.png">
-                                        </a>
-                                        <a href="/#/users/3/profile">
-                                            <img alt="image" class="img-circle" src="img/profile20.png">
-                                        </a>
-                                        <a href="/#/users/4/profile">
-                                            <img alt="image" class="img-circle" src="img/profile4.png">
-                                        </a>
-                                        <a href="/#/users/5/profile">
-                                            <img alt="image" class="img-circle" src="img/profile21.png">
-                                        </a>
+                                        <div class="inline">
+                                            <a href="/#/users/8/profile">
+                                                <img alt="image" class="img-circle" src="img/profile14.png">
+                                                <p align="center" tooltip-placement="bottom" uib-tooltip="Muhamud Dip">M.D.</p>
+                                            </a>
+                                        </div>
+                                        <div class="inline">
+                                            <a href="/#/users/8/profile">
+                                                <img alt="image" class="img-circle" src="img/profile11.png">
+                                                <p align="center" tooltip-placement="bottom" uib-tooltip="Alibabababa Bethord"> A.B.</p>
+                                            </a>
+                                        </div>
+                                        <div class="inline">
+                                            <a href="/#/users/8/profile">
+                                                <img alt="image" class="img-circle" src="img/profile20.png">
+                                                <p align="center" tooltip-placement="bottom" uib-tooltip="Aliza Chen"> A.C.</p>
+                                            </a>
+                                        </div>
+                                        <div class="inline">
+                                            <a href="/#/users/8/profile">
+                                                <img alt="image" class="img-circle" src="img/profile4.png">
+                                                <p align="center" tooltip-placement="bottom" uib-tooltip="Bonnie Fu"> B.F.</p>
+                                            </a>
+                                        </div>
+                                        <div class="inline">
+                                            <a href="/#/users/8/profile">
+                                                <img alt="image" class="img-circle" src="img/profile21.png">
+                                                <p align="center" tooltip-placement="bottom" uib-tooltip="Ma Der"> M.D.</p>
+                                            </a>
+                                        </div>
                                     </dd>
                                 </dl>
                             </div>
@@ -173,10 +189,10 @@
                                     <dt>Completed:</dt>
                                     <dd>
                                         <div class="progress progress-striped active m-b-sm">
-                                            <div style="width: 80%;" class="progress-bar"></div>
+                                            <div style="width: 80%;" class="progress-bar progress-bar-info"></div>
                                         </div>
                                         <small>Process completed in
-                                    <strong>80%</strong>. Please finalize the team</small>
+                                            <strong>80%</strong>. Please finalize the team</small>
                                     </dd>
                                 </dl>
                             </div>
@@ -192,16 +208,36 @@
                     Here are the users share common interests, please do check them out!
                 </p>
                 <div class="user-friends">
-                    <a href=""><img alt="image" class="img-circle" src="img/profile.png"></a>
-                    <a href=""><img alt="image" class="img-circle" src="img/profile3.png"></a>
-                    <a href=""><img alt="image" class="img-circle" src="img/profile4.png"></a>
-                    <a href=""><img alt="image" class="img-circle" src="img/profile6.png"></a>
-                    <a href=""><img alt="image" class="img-circle" src="img/profile8.png"></a>
-                    <a href=""><img alt="image" class="img-circle" src="img/profile9.png"></a>
-                    <a href=""><img alt="image" class="img-circle" src="img/profile10.png"></a>
-                    <a href=""><img alt="image" class="img-circle" src="img/profile11.png"></a>
-                    <a href=""><img alt="image" class="img-circle" src="img/profile12.png"></a>
-                    <a href=""><img alt="image" class="img-circle" src="img/profile13.png"></a>
+                    <a href="">
+                        <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Apple Dip" src="img/profile.png">
+                    </a>
+                    <a href="">
+                        <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Bravo Dip" src="img/profile3.png">
+                    </a>
+                    <a href="">
+                        <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Charlie Dip" src="img/profile4.png">
+                    </a>
+                    <a href="">
+                        <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Detla Dip" src="img/profile6.png">
+                    </a>
+                    <a href="">
+                        <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Envy Dip" src="img/profile8.png">
+                    </a>
+                    <a href="">
+                        <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Fuji Dip" src="img/profile9.png">
+                    </a>
+                    <a href="">
+                        <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Ground Dip" src="img/profile10.png">
+                    </a>
+                    <a href="">
+                        <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Hospital Dip" src="img/profile11.png">
+                    </a>
+                    <a href="">
+                        <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="India Dip" src="img/profile12.png">
+                    </a>
+                    <a href="">
+                        <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Jack Dip" src="img/profile13.png">
+                    </a>
                 </div>
 
             </div>
@@ -212,7 +248,8 @@
             <div class="col-lg-6">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5><i class="fa fa-rocket"></i> Project Experience</h5>
+                        <h5>
+                            <i class="fa fa-rocket"></i> Project Experience</h5>
                     </div>
                     <div class="ibox-content">
 
@@ -278,7 +315,8 @@
             <div class="col-lg-6">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5><i class="fa fa-briefcase"></i> Work Experience</h5>
+                        <h5>
+                            <i class="fa fa-briefcase"></i> Work Experience</h5>
                     </div>
                     <div class="ibox-content">
 

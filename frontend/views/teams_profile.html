@@ -93,19 +93,27 @@
                                             <div class="inline">
                                                 <a href="/#/users/8/profile">
 
-                                                    <img alt="image" class="img-circle" title="Cris He" src="img/profile18.png"> Cris He </a>
+                                                    <img alt="image" class="img-circle" title="Cris He" src="img/profile18.png">
+                                                    <p align="center" tooltip-placement="bottom" uib-tooltip="Cris He">C.H.</p>
+                                                </a>
                                             </div>
                                             <div class="inline">
                                                 <a href="/#/users/1/profile">
-                                                    <img alt="image" class="img-circle" title="Juntu Chen" src="img/profile-default.png"> Juntu Chen</a>
+                                                    <img alt="image" class="img-circle" title="Juntu Chen" src="img/profile-default.png">
+                                                    <p align="center" tooltip-placement="bottom" uib-tooltip="Juntu Chen">J.C.</p>
+                                                </a>
                                             </div>
                                             <div class="inline">
                                                 <a href="/#/users/3/profile">
-                                                    <img alt="image" class="img-circle" title="Amy Zhang" src="img/profile8.png"> Amy Zhang </a>
+                                                    <img alt="image" class="img-circle" title="Amy Zhang" src="img/profile8.png">
+                                                    <p align="center" tooltip-placement="bottom" uib-tooltip="Amy Zhang">A.Z.</p>
+                                                </a>
                                             </div>
                                             <div class="inline">
                                                 <a href="/#/users/4/profile">
-                                                    <img alt="image" class="img-circle" title="Jian Yu" src="img/profile9.png"> Jian Yu </a>
+                                                    <img alt="image" class="img-circle" title="Jian Yu" src="img/profile9.png">
+                                                    <p align="center" tooltip-placement="bottom" uib-tooltip="Jian Yu">J.Y.</p>
+                                                </a>
                                             </div>
                                         </dd>
                                     </dl>
@@ -120,7 +128,7 @@
                                                 <div style="width: 100%;" class="progress-bar progress-bar-warning"></div>
                                             </div>
                                             <small>Team formation completed in
-                                            <strong>100%</strong>.</small>
+                                                <strong>100%</strong>.</small>
                                         </dd>
                                     </dl>
                                 </div>
@@ -232,60 +240,58 @@
         </div>
         <div class="col-lg-3">
             <div class="wrapper wrapper-content project-manager">
-                <h4>Project description</h4>
-                <img src="img/zender_logo.png" class="img-responsive">
+                <h2>
+                    <strong>Project description</strong>
+                </h2>
+                <br>
+                <div ng-hide="Team.Project_id">
+                    <h4>
+                        <i>Not currently registered to any projects.</i>
+                        <br>
+                        <i>
+                            <a href="#/projects">
+                                <u>Register Now!</u>
+                            </a>
+                        </i>
+                    </h4>
+                </div>
+                <div ng-hide="!Team.Project_id">
+                    <p>
+                        <strong>Title</strong>: <a href="/#/projects">Capstone Team finder</a></p>
+                    <p class="small">
+                        Develop an online system to help students form teams and find projects for ECE496. This is a challenge that students face
+                        every year and is complicated by the fact that two class years are involved and that so many students
+                        are currently on PEY and cannot easily meet in person. How can we leverage social and professional
+                        networking platforms such as Facebook, and LinkedIn, and how can we leverage and expand our own local
+                        systems such as http://engsciutorontoconnect.ca and the ECE496 registration system, https://ece496v2.ece.toronto.edu,
+                        to more effectively connect our students to each other as well as to our alumni, faculty, and the
+                        greater community? This project is co-supervised by Professors Khoman Phang and Baochun Li.
+                    </p>
 
-                <p class="small">
-                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum,
-                    you need to be sure there isn't anything embarrassing
-                </p>
+                    <p>
+                        <strong>Supervisor</strong>: Khoman Phang
+                    </p>
+                    <p>
+                        <strong>Co-Supervisor</strong>: Baochun Li
+                    </p>
+                    <p>
+                        <strong>Administrator</strong>: Phil Anderson</p>
+                    <br>
+                    <ul class="tag-list" style="padding: 0">
+                        <li>
+                            <a href="">
+                                <i class="fa fa-tag"></i> Web Programming</a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa fa-tag"></i> Software Development</a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa fa-tag"></i> Computer Networks</a>
+                        </li>
 
-                <p class="small font-bold">
-                    <span>
-                                <i class="fa fa-circle text-warning"></i> High priority</span>
-                </p>
-                <h5>Project tag</h5>
-                <ul class="tag-list" style="padding: 0">
-                    <li>
-                        <a href="">
-                            <i class="fa fa-tag"></i> Zender</a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i class="fa fa-tag"></i> Lorem ipsum</a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i class="fa fa-tag"></i> Passages</a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i class="fa fa-tag"></i> Variations</a>
-                    </li>
-                </ul>
-                <h5>Project files</h5>
-                <ul class="list-unstyled project-files">
-                    <li>
-                        <a href="">
-                            <i class="fa fa-file"></i> Project_document.docx</a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i class="fa fa-file"></i> Contract_20_11_2014.docx</a>
-                    </li>
-                </ul>
-                <div class="text-center m-t-md">
-                    <a href="" class="btn btn-xs btn-primary">Add files</a>
-                    <a href="" class="btn btn-xs btn-primary">Report contact</a>
-
+                    </ul>
                 </div>
             </div>
         </div>

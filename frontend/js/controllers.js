@@ -4580,7 +4580,7 @@ function teams_profileCtrl($scope, $stateParams) {
         "Capacity": 4,
         "Team_member_id": [1, 2, 3, 4],
         "Team_process": 50,
-        "Project_id": 8,
+        "Project_id": 8, //0 is empty
         "Status": 2, //0 is full, 1 is open, 2 is finalized
         "Interests": ['Web Programming', 'Software Development']
     }
