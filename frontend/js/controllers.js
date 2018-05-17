@@ -4587,6 +4587,10 @@ function teams_profileCtrl($scope, $stateParams) {
     $scope.Team_member_num = $scope.Team.Team_member_id.length;
 }
 
+function usersCtrl($scope, $stateParams) {
+    $scope.role_select = ['All','Student','Professor'];
+    $scope.role_show = 'All';
+}
 
 /**
  *
@@ -4638,4 +4642,5 @@ angular
     .controller('navBarCtrl', navBarCtrl)
     .controller('dashboardCtrl', dashboardCtrl)
     .controller('teams_profileCtrl', teams_profileCtrl)
-    .controller('users_profileCtrl', users_profileCtrl);
+    .controller('users_profileCtrl', users_profileCtrl)
+    .controller('usersCtrl', usersCtrl);
