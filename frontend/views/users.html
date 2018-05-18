@@ -283,6 +283,98 @@
                     </a>
                 </div>
             </div>
+            <div class="col-lg-4">
+                <div class="contact-box" ng-controller="dashboardCtrl">
+                    <a ui-sref="users_profile({profileId: {{User.profileId}}})">
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <img alt="image" class="img-circle m-t-md img-responsive" src="img/profile9.png">
+                            </div>
+
+                            <div class="m-t-md font-bold">Student</div>
+
+                        </div>
+                        <div class="col-sm-8">
+                            <h3>
+                                <strong>Player</strong>
+                                <strong>One</strong>
+                                </h2>
+                                <div ng-switch="User.Status">
+                                    <div ng-switch-when="1">
+                                        <dd>
+                                            <span class="label label-primary">Open</span>
+                                        </dd>
+                                    </div>
+                                    <div ng-switch-when="0">
+                                        <dd>
+                                            <span class="label label-warning">In a team</span>
+                                        </dd>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <dd>
+                                            <span class="label label-default">Independent</span>
+                                        </dd>
+                                    </div>
+                                </div>
+                                <br>
+                                <i class="fa fa-map-marker"></i> Last login: May 08/2018 18:09:52
+                                <address>
+                                    <br>
+                                    <strong>Email:</strong> owen.jt.chen@gmail.com
+                                    <br>
+                                    <strong>Phone:</strong> Private
+                                </address>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="contact-box" ng-controller="dashboardCtrl">
+                    <a ui-sref="users_profile({profileId: {{User.profileId}}})">
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <img alt="image" class="img-circle m-t-md img-responsive" src="img/profile9.png">
+                            </div>
+
+                            <div class="m-t-md font-bold">Student</div>
+
+                        </div>
+                        <div class="col-sm-8">
+                            <h3>
+                                <strong>Player</strong>
+                                <strong>One</strong>
+                                </h2>
+                                <div ng-switch="User.Status">
+                                    <div ng-switch-when="1">
+                                        <dd>
+                                            <span class="label label-primary">Open</span>
+                                        </dd>
+                                    </div>
+                                    <div ng-switch-when="0">
+                                        <dd>
+                                            <span class="label label-warning">In a team</span>
+                                        </dd>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <dd>
+                                            <span class="label label-default">Independent</span>
+                                        </dd>
+                                    </div>
+                                </div>
+                                <br>
+                                <i class="fa fa-map-marker"></i> Last login: May 08/2018 18:09:52
+                                <address>
+                                    <br>
+                                    <strong>Email:</strong> owen.jt.chen@gmail.com
+                                    <br>
+                                    <strong>Phone:</strong> Private
+                                </address>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

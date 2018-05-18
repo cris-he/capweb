@@ -4587,6 +4587,20 @@ function teams_profileCtrl($scope, $stateParams) {
     $scope.Team_member_num = $scope.Team.Team_member_id.length;
 }
 
+function teamsCtrl($scope) {
+    $scope.Team = {
+        "Team_name": 'CapWebapp',
+        "Creator": 'Cris He',
+        "Capacity": 4,
+        "Team_member_id": [1, 2, 3, 4],
+        "Team_process": 50,
+        "Project_id": 8, //0 is empty
+        "Status": 2, //0 is full, 1 is open, 2 is finalized
+        "Interests": ['Web Programming', 'Software Development']
+    }
+    $scope.Team_member_num = $scope.Team.Team_member_id.length;
+}
+
 function usersCtrl($scope, $stateParams) {
     $scope.role_select = ['All','Student','Professor'];
     $scope.role_show = 'All';
@@ -4642,5 +4656,6 @@ angular
     .controller('navBarCtrl', navBarCtrl)
     .controller('dashboardCtrl', dashboardCtrl)
     .controller('teams_profileCtrl', teams_profileCtrl)
+    .controller('teamsCtrl', teamsCtrl)
     .controller('users_profileCtrl', users_profileCtrl)
     .controller('usersCtrl', usersCtrl);

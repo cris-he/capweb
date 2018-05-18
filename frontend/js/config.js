@@ -174,15 +174,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('teams', {
             url: "/teams",
-            templateUrl: "views/metrics.html",
-            data: { pageTitle: 'Teams' },
-            resolve: {
-                loadPlugin: function($ocLazyLoad) {
-                    return $ocLazyLoad.load([{
-                        files: ['js/plugins/sparkline/jquery.sparkline.min.js']
-                    }]);
-                }
-            }
+            templateUrl: "views/teams.html",
+            data: { pageTitle: 'Teams' }
         })
         .state('forms', {
             abstract: true,

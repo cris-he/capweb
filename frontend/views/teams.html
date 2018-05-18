@@ -1,0 +1,577 @@
+<!-- Navigation -->
+<div ng-include="'views/common/navigation.html'"></div>
+
+<!-- Page wraper -->
+<!-- ng-class with current state name give you the ability to extended customization your view -->
+<div id="page-wrapper" class="gray-bg {{$state.current.name}}" ng-controller="teamsCtrl">
+
+    <!-- Page wrapper -->
+    <div ng-include="'views/common/topnavbar.html'"></div>
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Teams</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#/dashboard">Dashboard</a>
+                </li>
+                <li class="active">
+                    <strong>Teams</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <div ng-switch="Team.Status">
+                            <div ng-switch-when="0">
+
+                                <span class="label label-warning pull-right">Full</span>
+
+                            </div>
+                            <div ng-switch-when="1">
+
+                                <span class="label label-primary pull-right">Open</span>
+
+                            </div>
+                            <div ng-switch-when="2">
+                                <span class="label label-default pull-right">Finalized</span>
+                            </div>
+                            <div ng-switch-default>
+                                <span class="label label-default pull-right">Close</span>
+                            </div>
+                        </div>
+
+                        <a href="/#/teams/1/profile">
+                            <h5>2017734 - CapWebapp</h5>
+                        </a>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="team-members">
+                            <div class="inline">
+                                <a href="/#/users/8/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Cris He" src="img/profile18.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/1/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Juntu Chen" src="img/profile-default.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/3/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Amy Zhang" src="img/profile8.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/4/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Jian Yu" src="img/profile9.png">
+                                </a>
+                            </div>
+                        </div>
+                        <h4>Area of interests:</h4>
+
+                        <div ng-repeat="areas in Team.Interests">{{areas}}</div>
+
+                        <br>
+                        <div>
+                            <span>
+                                <strong>Status of current project:</strong>
+                            </span>
+                            <div class="stat-percent">100%</div>
+                            <div class="progress progress-mini">
+                                <div style="width: 100%;" class="progress-bar progress-bar-warning"></div>
+                            </div>
+                        </div>
+                        <div class="row  m-t-sm">
+                            <div class="col-sm-8">
+                                <div class="font-bold">PROJECT</div>
+                                <a href="/#/projects">Capstone Team finder</a>
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <div class="font-bold">Capacity</div>
+                                4
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <div ng-switch="Team.Status">
+                            <div ng-switch-when="0">
+
+                                <span class="label label-warning pull-right">Full</span>
+
+                            </div>
+                            <div ng-switch-when="1">
+
+                                <span class="label label-primary pull-right">Open</span>
+
+                            </div>
+                            <div ng-switch-when="2">
+                                <span class="label label-default pull-right">Finalized</span>
+                            </div>
+                            <div ng-switch-default>
+                                <span class="label label-default pull-right">Close</span>
+                            </div>
+                        </div>
+
+                        <a href="/#/teams/1/profile">
+                            <h5>2017734 - CapWebapp</h5>
+                        </a>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="team-members">
+                            <div class="inline">
+                                <a href="/#/users/8/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Cris He" src="img/profile18.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/1/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Juntu Chen" src="img/profile-default.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/3/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Amy Zhang" src="img/profile8.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/4/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Jian Yu" src="img/profile9.png">
+                                </a>
+                            </div>
+                        </div>
+                        <h4>Area of interests:</h4>
+
+                        <div ng-repeat="areas in Team.Interests">{{areas}}</div>
+
+                        <br>
+                        <div>
+                            <span>
+                                <strong>Status of current project:</strong>
+                            </span>
+                            <div class="stat-percent">100%</div>
+                            <div class="progress progress-mini">
+                                <div style="width: 100%;" class="progress-bar progress-bar-warning"></div>
+                            </div>
+                        </div>
+                        <div class="row  m-t-sm">
+                            <div class="col-sm-8">
+                                <div class="font-bold">PROJECT</div>
+                                <a href="/#/projects">Capstone Team finder</a>
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <div class="font-bold">Capacity</div>
+                                4
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <div ng-switch="Team.Status">
+                            <div ng-switch-when="0">
+
+                                <span class="label label-warning pull-right">Full</span>
+
+                            </div>
+                            <div ng-switch-when="1">
+
+                                <span class="label label-primary pull-right">Open</span>
+
+                            </div>
+                            <div ng-switch-when="2">
+                                <span class="label label-default pull-right">Finalized</span>
+                            </div>
+                            <div ng-switch-default>
+                                <span class="label label-default pull-right">Close</span>
+                            </div>
+                        </div>
+
+                        <a href="/#/teams/1/profile">
+                            <h5>2017734 - CapWebapp</h5>
+                        </a>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="team-members">
+                            <div class="inline">
+                                <a href="/#/users/8/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Cris He" src="img/profile18.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/1/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Juntu Chen" src="img/profile-default.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/3/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Amy Zhang" src="img/profile8.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/4/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Jian Yu" src="img/profile9.png">
+                                </a>
+                            </div>
+                        </div>
+                        <h4>Area of interests:</h4>
+
+                        <div ng-repeat="areas in Team.Interests">{{areas}}</div>
+
+                        <br>
+                        <div>
+                            <span>
+                                <strong>Status of current project:</strong>
+                            </span>
+                            <div class="stat-percent">100%</div>
+                            <div class="progress progress-mini">
+                                <div style="width: 100%;" class="progress-bar progress-bar-warning"></div>
+                            </div>
+                        </div>
+                        <div class="row  m-t-sm">
+                            <div class="col-sm-8">
+                                <div class="font-bold">PROJECT</div>
+                                <a href="/#/projects">Capstone Team finder</a>
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <div class="font-bold">Capacity</div>
+                                4
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <div ng-switch="Team.Status">
+                            <div ng-switch-when="0">
+
+                                <span class="label label-warning pull-right">Full</span>
+
+                            </div>
+                            <div ng-switch-when="1">
+
+                                <span class="label label-primary pull-right">Open</span>
+
+                            </div>
+                            <div ng-switch-when="2">
+                                <span class="label label-default pull-right">Finalized</span>
+                            </div>
+                            <div ng-switch-default>
+                                <span class="label label-default pull-right">Close</span>
+                            </div>
+                        </div>
+
+                        <a href="/#/teams/1/profile">
+                            <h5>2017734 - CapWebapp</h5>
+                        </a>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="team-members">
+                            <div class="inline">
+                                <a href="/#/users/8/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Cris He" src="img/profile18.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/1/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Juntu Chen" src="img/profile-default.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/3/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Amy Zhang" src="img/profile8.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/4/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Jian Yu" src="img/profile9.png">
+                                </a>
+                            </div>
+                        </div>
+                        <h4>Area of interests:</h4>
+
+                        <div ng-repeat="areas in Team.Interests">{{areas}}</div>
+
+                        <br>
+                        <div>
+                            <span>
+                                <strong>Status of current project:</strong>
+                            </span>
+                            <div class="stat-percent">100%</div>
+                            <div class="progress progress-mini">
+                                <div style="width: 100%;" class="progress-bar progress-bar-warning"></div>
+                            </div>
+                        </div>
+                        <div class="row  m-t-sm">
+                            <div class="col-sm-8">
+                                <div class="font-bold">PROJECT</div>
+                                <a href="/#/projects">Capstone Team finder</a>
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <div class="font-bold">Capacity</div>
+                                4
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <div ng-switch="Team.Status">
+                            <div ng-switch-when="0">
+
+                                <span class="label label-warning pull-right">Full</span>
+
+                            </div>
+                            <div ng-switch-when="1">
+
+                                <span class="label label-primary pull-right">Open</span>
+
+                            </div>
+                            <div ng-switch-when="2">
+                                <span class="label label-default pull-right">Finalized</span>
+                            </div>
+                            <div ng-switch-default>
+                                <span class="label label-default pull-right">Close</span>
+                            </div>
+                        </div>
+
+                        <a href="/#/teams/1/profile">
+                            <h5>2017734 - CapWebapp</h5>
+                        </a>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="team-members">
+                            <div class="inline">
+                                <a href="/#/users/8/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Cris He" src="img/profile18.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/1/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Juntu Chen" src="img/profile-default.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/3/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Amy Zhang" src="img/profile8.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/4/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Jian Yu" src="img/profile9.png">
+                                </a>
+                            </div>
+                        </div>
+                        <h4>Area of interests:</h4>
+
+                        <div ng-repeat="areas in Team.Interests">{{areas}}</div>
+
+                        <br>
+                        <div>
+                            <span>
+                                <strong>Status of current project:</strong>
+                            </span>
+                            <div class="stat-percent">100%</div>
+                            <div class="progress progress-mini">
+                                <div style="width: 100%;" class="progress-bar progress-bar-warning"></div>
+                            </div>
+                        </div>
+                        <div class="row  m-t-sm">
+                            <div class="col-sm-8">
+                                <div class="font-bold">PROJECT</div>
+                                <a href="/#/projects">Capstone Team finder</a>
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <div class="font-bold">Capacity</div>
+                                4
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <div ng-switch="Team.Status">
+                            <div ng-switch-when="0">
+
+                                <span class="label label-warning pull-right">Full</span>
+
+                            </div>
+                            <div ng-switch-when="1">
+
+                                <span class="label label-primary pull-right">Open</span>
+
+                            </div>
+                            <div ng-switch-when="2">
+                                <span class="label label-default pull-right">Finalized</span>
+                            </div>
+                            <div ng-switch-default>
+                                <span class="label label-default pull-right">Close</span>
+                            </div>
+                        </div>
+
+                        <a href="/#/teams/1/profile">
+                            <h5>2017734 - CapWebapp</h5>
+                        </a>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="team-members">
+                            <div class="inline">
+                                <a href="/#/users/8/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Cris He" src="img/profile18.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/1/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Juntu Chen" src="img/profile-default.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/3/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Amy Zhang" src="img/profile8.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/4/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Jian Yu" src="img/profile9.png">
+                                </a>
+                            </div>
+                        </div>
+                        <h4>Area of interests:</h4>
+
+                        <div ng-repeat="areas in Team.Interests">{{areas}}</div>
+
+                        <br>
+                        <div>
+                            <span>
+                                <strong>Status of current project:</strong>
+                            </span>
+                            <div class="stat-percent">100%</div>
+                            <div class="progress progress-mini">
+                                <div style="width: 100%;" class="progress-bar progress-bar-warning"></div>
+                            </div>
+                        </div>
+                        <div class="row  m-t-sm">
+                            <div class="col-sm-8">
+                                <div class="font-bold">PROJECT</div>
+                                <a href="/#/projects">Capstone Team finder</a>
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <div class="font-bold">Capacity</div>
+                                4
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <div ng-switch="Team.Status">
+                            <div ng-switch-when="0">
+
+                                <span class="label label-warning pull-right">Full</span>
+
+                            </div>
+                            <div ng-switch-when="1">
+
+                                <span class="label label-primary pull-right">Open</span>
+
+                            </div>
+                            <div ng-switch-when="2">
+                                <span class="label label-default pull-right">Finalized</span>
+                            </div>
+                            <div ng-switch-default>
+                                <span class="label label-default pull-right">Close</span>
+                            </div>
+                        </div>
+
+                        <a href="/#/teams/1/profile">
+                            <h5>2017734 - CapWebapp</h5>
+                        </a>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="team-members">
+                            <div class="inline">
+                                <a href="/#/users/8/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Cris He" src="img/profile18.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/1/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Juntu Chen" src="img/profile-default.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/3/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Amy Zhang" src="img/profile8.png">
+                                </a>
+                            </div>
+                            <div class="inline">
+                                <a href="/#/users/4/profile">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Jian Yu" src="img/profile9.png">
+                                </a>
+                            </div>
+                        </div>
+                        <h4>Area of interests:</h4>
+
+                        <div ng-repeat="areas in Team.Interests">{{areas}}</div>
+
+                        <br>
+                        <div>
+                            <span>
+                                <strong>Status of current project:</strong>
+                            </span>
+                            <div class="stat-percent">100%</div>
+                            <div class="progress progress-mini">
+                                <div style="width: 100%;" class="progress-bar progress-bar-warning"></div>
+                            </div>
+                        </div>
+                        <div class="row  m-t-sm">
+                            <div class="col-sm-8">
+                                <div class="font-bold">PROJECT</div>
+                                <a href="/#/projects">Capstone Team finder</a>
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <div class="font-bold">Capacity</div>
+                                4
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
