@@ -4602,8 +4602,29 @@ function teamsCtrl($scope) {
 }
 
 function usersCtrl($scope, $stateParams) {
-    $scope.role_select = ['All','Student','Professor'];
+    $scope.role_select = ['All', 'Student', 'Professor'];
     $scope.role_show = 'All';
+}
+
+function projects_profileCtrl($scope, $stateParams) {
+    $scope.projectId = $stateParams.projectId;
+    $scope.isCo = 1;
+    $scope.Project = {
+        "Status": 0, //0 is full, 1 is open
+        "Co_Supervisor": [
+            "BaoChun Li",
+        ],
+        "Areas": [
+            "Web Programming",
+            "Computer Networks",
+            "Operating System",
+            "Semiconductor",
+            "Software Development"
+        ],
+    }
+    $scope.Team = {
+        "Interests": ['Web Programming', 'Software Development']
+    }
 }
 
 /**
@@ -4658,4 +4679,5 @@ angular
     .controller('teams_profileCtrl', teams_profileCtrl)
     .controller('teamsCtrl', teamsCtrl)
     .controller('users_profileCtrl', users_profileCtrl)
-    .controller('usersCtrl', usersCtrl);
+    .controller('usersCtrl', usersCtrl)
+    .controller('projects_profileCtrl', projects_profileCtrl);

@@ -142,6 +142,11 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
+        .state('projects_profile', {
+            url: "/projects/:projectId/profile",
+            templateUrl: "views/projects_profile.html",
+            data: { pageTitle: 'Project Profile' }
+        })
         .state('users', {
             url: "/users",
             templateUrl: "views/users.html",

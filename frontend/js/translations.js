@@ -25,6 +25,7 @@ function config($translateProvider) {
             STATUS: 'Status',
             User_Profile: 'User Profile',
             Team_Profile: 'Team Profile',
+            Project_Profile: 'Project Profile',
             DETAILS: 'Details',
 
             WIDGETS: 'Widgets',
@@ -69,6 +70,7 @@ function config($translateProvider) {
             STATUS: '状态',
             User_Profile: '用户档案',
             Team_Profile: '团队档案',
+            Project_Profile: '项目档案',
             DETAILS: '详情',
 
 
