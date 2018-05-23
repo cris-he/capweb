@@ -3,19 +3,19 @@
 
 <!-- Page wraper -->
 <!-- ng-class with current state name give you the ability to extended customization your view -->
-<div id="page-wrapper" class="gray-bg {{$state.current.name}}" ng-controller="users_profileCtrl">
+<div id="page-wrapper" class="gray-bg {{$state.current.name}}" ng-controller="projectsCtrl">
 
     <!-- Page wrapper -->
     <div ng-include="'views/common/topnavbar.html'"></div>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
-            <h2>Project list</h2>
+            <h2>{{'PROJECTS' | translate}}</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="index.html">{{'HOME' | translate}}</a>
                 </li>
                 <li class="active">
-                    <strong>Project list</strong>
+                    <strong>{{'PROJECTS' | translate}}</strong>
                 </li>
             </ol>
         </div>
@@ -71,8 +71,7 @@
                                         <td>
                                             <a href="">
                                                 Khoman Phang
-                                            </a>
-                                            ,
+                                            </a> ,
                                             <a href="">
                                                 Baochun Li
                                             </a>
@@ -81,15 +80,10 @@
                                             2
                                         </td>
                                         <td>
-                                            Develop an online system to help students form teams and find projects for ECE496. This is a challenge that students face
-                                            every year and is complicated by the fact that two class years are involved and
-                                            that so many students are currently on PEY and cannot easily meet in person.
-                                            How can we leverage social and professional networking platforms such as Facebook,
-                                            and LinkedIn, and how can we leverage and expand our own local systems such as
-                                            http://engsciutorontoconnect.ca and the ECE496 registration system, https://ece496v2.ece.toronto.edu,
-                                            to more effectively connect our students to each other as well as to our alumni,
-                                            faculty, and the greater community? This project is co-supervised by Professors
-                                            Khoman Phang and Baochun Li.
+                                            Develop an online system to help students form teams and find projects for ECE496. This is a challenge that students face every year and is complicated by the fact that two class years are involved and that so many students are currently on PEY and cannot
+                                            easily meet in person. How can we leverage social and professional networking platforms such as Facebook, and LinkedIn, and how can we leverage and expand our own local systems such as http://engsciutorontoconnect.ca
+                                            and the ECE496 registration system, https://ece496v2.ece.toronto.edu, to more effectively connect our students to each other as well as to our alumni, faculty, and the greater community? This project is co-supervised
+                                            by Professors Khoman Phang and Baochun Li.
 
                                         </td>
                                     </tr>

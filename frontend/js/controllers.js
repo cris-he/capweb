@@ -4627,7 +4627,7 @@ function projects_profileCtrl($scope, $stateParams) {
     }
 }
 
-function projects($scope){
+function projectsCtrl($scope) {
 
 }
 
@@ -4685,4 +4685,4 @@ angular
     .controller('users_profileCtrl', users_profileCtrl)
     .controller('usersCtrl', usersCtrl)
     .controller('projects_profileCtrl', projects_profileCtrl)
-    .controller('projects', projects);
+    .controller('projectsCtrl', projectsCtrl);
