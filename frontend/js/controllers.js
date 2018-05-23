@@ -4627,6 +4627,10 @@ function projects_profileCtrl($scope, $stateParams) {
     }
 }
 
+function projects($scope){
+
+}
+
 /**
  *
  * Pass all functions into module
@@ -4680,4 +4684,5 @@ angular
     .controller('teamsCtrl', teamsCtrl)
     .controller('users_profileCtrl', users_profileCtrl)
     .controller('usersCtrl', usersCtrl)
-    .controller('projects_profileCtrl', projects_profileCtrl);
+    .controller('projects_profileCtrl', projects_profileCtrl)
+    .controller('projects', projects);
