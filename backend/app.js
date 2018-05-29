@@ -9,6 +9,8 @@ var port = process.env.PORT || 8000;
 
 var db = mongoose.connect('mongodb://localhost:27017/capweb');
 var User = require('./models/userModel');
+var Team = require('./models/teamModel');
+var Project = require('./models/projectModel');
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,28 +24,32 @@ require('./config/passport')(app, User);
 adminRouter = require('./routes/admin')(User);
 authRouter = require('./routes/auth')(User);
 userRouter = require('./routes/users')(User);
+teamRouter = require('./routes/teams')(Team);
+projectRouter = require('./routes/projects')(Project);
 
-app.use(function (req, res, next) {
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+// app.use(function (req, res, next) {
+//     // Website you wish to allow to connect
+//     res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
 
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//     // Request methods you wish to allow
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//     // Request headers you wish to allow
+//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
+//     // Set to true if you need the website to include cookies in the requests sent
+//     // to the API (e.g. in case you use sessions)
+//     res.setHeader('Access-Control-Allow-Credentials', true);
 
-    // Pass to next layer of middleware
-    next();
-});
+//     // Pass to next layer of middleware
+//     next();
+// });
 
 app.use('/api/admin', adminRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
+app.use('/api/teams', userRouter);
+app.use('/api/projects', userRouter);
 
 
 app.get('/', function (req, res) {

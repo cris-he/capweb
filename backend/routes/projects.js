@@ -5,13 +5,13 @@ var router = express.Router();
 
 
 
-var routes = function (User) {
+var routes = function (Project) {
     router.route('/')
         .get(function (req, res) {
-            User.find(req.query, function (err, users) {
+            Project.find(req.query, function (err, projects) {
                 if (err)
                     console.log(err);
-                res.send(users);
+                res.send(projects);
             })
         })
     return router;
