@@ -4631,6 +4631,23 @@ function projectsCtrl($scope) {
 
 }
 
+function searchCtrl($scope){
+    $scope.resultType = 0; // 0 is user, 1 is team, 2 is project
+
+}
+
+function team_creationCtrl($scope){
+    $scope.teamBolean = false;
+    $scope.Team = {
+        "name" : '',
+        "magictoken": '',
+        "email": '',
+    }
+    $scope.onSubmit = function() {
+        
+    }
+}
+
 /**
  *
  * Pass all functions into module
@@ -4685,4 +4702,6 @@ angular
     .controller('users_profileCtrl', users_profileCtrl)
     .controller('usersCtrl', usersCtrl)
     .controller('projects_profileCtrl', projects_profileCtrl)
-    .controller('projectsCtrl', projectsCtrl);
+    .controller('projectsCtrl', projectsCtrl)
+    .controller('searchCtrl', searchCtrl)
+    .controller('team_creationCtrl', team_creationCtrl);

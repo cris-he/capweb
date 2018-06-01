@@ -50,17 +50,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('create.team', {
             url: "/team",
-            templateUrl: "views/graph_flot.html",
+            templateUrl: "views/team_creation.html",
             data: { pageTitle: 'Create Team' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([{
-                        serie: true,
-                        name: 'angular-flot',
-                        files: ['js/plugins/flot/jquery.flot.js', 'js/plugins/flot/jquery.flot.time.js', 'js/plugins/flot/jquery.flot.tooltip.min.js', 'js/plugins/flot/jquery.flot.spline.js', 'js/plugins/flot/jquery.flot.resize.js', 'js/plugins/flot/jquery.flot.pie.js', 'js/plugins/flot/curvedLines.js', 'js/plugins/flot/angular-flot.js',]
-                    }]);
-                }
-            }
         })
         .state('create.project', {
             url: "/project",
@@ -84,33 +75,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('search', {
             url: "/search",
-            templateUrl: "views/widgets.html",
+            templateUrl: "views/search.html",
             data: { pageTitle: 'Search' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([{
-                        serie: true,
-                        name: 'angular-flot',
-                        files: ['js/plugins/flot/jquery.flot.js', 'js/plugins/flot/jquery.flot.time.js', 'js/plugins/flot/jquery.flot.tooltip.min.js', 'js/plugins/flot/jquery.flot.spline.js', 'js/plugins/flot/jquery.flot.resize.js', 'js/plugins/flot/jquery.flot.pie.js', 'js/plugins/flot/curvedLines.js', 'js/plugins/flot/angular-flot.js',]
-                    },
-                    {
-                        files: ['css/plugins/iCheck/custom.css', 'js/plugins/iCheck/icheck.min.js']
-                    },
-                    {
-                        serie: true,
-                        files: ['js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js', 'js/plugins/jvectormap/jquery-jvectormap-2.0.2.css']
-                    },
-                    {
-                        serie: true,
-                        files: ['js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js']
-                    },
-                    {
-                        name: 'ui.checkbox',
-                        files: ['js/bootstrap/angular-bootstrap-checkbox.js']
-                    }
-                    ]);
-                }
-            }
         })
         .state('widgets', {
             url: "/widgets",

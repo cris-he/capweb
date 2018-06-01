@@ -58,15 +58,15 @@
                 </ul>
             </li>
             <li ui-sref-active="active">
-                <a ui-sref="search">
-                    <i class="fa fa-search"></i>
-                    <span class="nav-label">{{ 'SEARCH' | translate }}</span>
-                </a>
-            </li>
-            <li ui-sref-active="active">
                 <a ui-sref="users">
                     <i class="fa fa-user"></i>
                     <span class="nav-label">{{ 'USERS' | translate }}</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="teams">
+                    <i class="fa fa-rocket"></i>
+                    <span class="nav-label">{{ 'TEAMS' | translate }}</span>
                 </a>
             </li>
             <li ui-sref-active="active">
@@ -76,11 +76,11 @@
                 </a>
             </li>
             <li ui-sref-active="active">
-                <a ui-sref="teams">
-                    <i class="fa fa-rocket"></i>
-                    <span class="nav-label">{{ 'TEAMS' | translate }}</span>
-                </a>
-            </li>
+                    <a ui-sref="search">
+                        <i class="fa fa-search"></i>
+                        <span class="nav-label">{{ 'SEARCH' | translate }}</span>
+                    </a>
+                </li>
             <!-- <li ng-class="{active: $state.includes('app')}">
                 <a href="#">
                     <i class="fa fa-desktop"></i>
