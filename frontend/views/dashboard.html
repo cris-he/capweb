@@ -3,7 +3,7 @@
 
 <!-- Page wraper -->
 <!-- ng-class with current state name give you the ability to extended customization your view -->
-<div id="page-wrapper" class="gray-bg {{$state.current.name}}">
+<div id="page-wrapper" class="gray-bg {{$state.current.name}}" ng-controller="dashboardCtrl">
 
     <!-- Page wrapper -->
     <div ng-include="'views/common/topnavbar.html'"></div>
@@ -37,7 +37,7 @@
                     <div class="ibox-content">
                         <h1 class="no-margins">306</h1>
 
-                        <div class="stat-percent font-bold text-success">10 new today
+                        <div ng-show="false" class="stat-percent font-bold text-success">new today
                             <i class="fa fa-bolt"></i>
                         </div>
                         <small>Total {{'USERS' | translate}}</small>
@@ -55,7 +55,7 @@
                     <div class="ibox-content">
                         <h1 class="no-margins">52</h1>
 
-                        <div class="stat-percent font-bold text-info">5 new today
+                        <div ng-show="false" class="stat-percent font-bold text-info">new today
                             <i class="fa fa-level-up"></i>
                         </div>
                         <small>Total {{'TEAMS' | translate}}</small>
@@ -73,7 +73,7 @@
                     <div class="ibox-content">
                         <h1 class="no-margins">38</h1>
 
-                        <div class="stat-percent font-bold text-navy">3 new today
+                        <div ng-show="false" class="stat-percent font-bold text-navy">new today
                             <i class="fa fa-level-up"></i>
                         </div>
                         <small>Total {{'PROJECTS' | translate}}</small>
@@ -81,169 +81,37 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Announcement</h5>
+                    </div>
 
+                    <div class="ibox-content inspinia-timeline">
 
-        <div class="row wrapper wrapper-content animated fadeInRight">
-            <div class="ibox">
-                <div class="ibox-content">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="m-b-md">
-                                <a href="/#/profile" class="btn btn-white btn-xs pull-right">Edit Profile</a>
-
-                                <h2>{{"L_Status" | translate}}</h2>
-                            </div>
-                            <dl class="dl-horizontal">
-                                <dt>{{"STATUS" | translate}}:</dt>
-                                <div ng-controller="dashboardCtrl" ng-switch="User.Status">
-                                    <div ng-switch-when="1">
-                                        <dd>
-                                            <span class="label label-primary">Open</span>
-                                        </dd>
-                                    </div>
-                                    <div ng-switch-when="0">
-                                        <dd>
-                                            <span class="label label-warning">In a team</span>
-                                        </dd>
-                                    </div>
-                                    <div ng-switch-default>
-                                        <dd>
-                                            <span class="label label-default">Independent</span>
-                                        </dd>
-                                    </div>
+                        <div class="timeline-item" ng-repeat="feed in feeds">
+                            <div class="row">
+                                <div class="col-xs-3 date">
+                                    <i class="fa fa-briefcase"></i>
+                                    {{feed.time | date}}
+                                    <br/>
                                 </div>
-                            </dl>
-                        </div>
-                    </div>
-                    <div class="row" ng-controller="dashboardCtrl">
-                        <div class="col-lg-5">
-                            <dl class="dl-horizontal">
+                                <div class="col-xs-7 content " ng-class="{'no-top-border':feeds.indexOf(feed)==0}">
+                                    <p class="m-b-xs">
+                                        <strong>{{feed.title}}</strong>
+                                    </p>
 
-                                <dt>Area of interests:</dt>
-                                <dd ng-repeat="areas in User.Interests">{{areas}}</dd>
-                                <br>
-                                <dt>Team:</dt>
-                                <dd>
-                                    <a ng-if="isTeam" href="#/teams">{{User.Team}}</a>
-                                    <div ng-if="!isTeam">N/A</div>
-                                </dd>
-                                <dt>Team Capacity:</dt>
-                                <dd>3 / 4</dd>
-                                <br>
-                                <dt>Project:</dt>
-                                <dd>
-                                    <a ng-if="isTeam" href="#/projects" class="text-navy"> Capstone Team finder</a>
-                                    <div ng-if="!isTeam">N/A</div>
-                                </dd>
-                            </dl>
-                        </div>
-                        <div class="col-lg-7" id="cluster_info">
-                            <dl class="dl-horizontal">
+                                    <p>{{feed.content}}</p>
 
-                                <dt>Last login:</dt>
-                                <dd>09/May 2018 12:15:57</dd>
-                                <br>
-                                <dt>Recent Visitors:</dt>
-                                <dd>
-                                    <div class="inline">
-                                    <a href="/#/users/8/profile">
-                                        <img alt="image" class="img-circle" title="Full name" src="img/profile14.png">
-                                        <p align="center" tooltip-placement="bottom" uib-tooltip="Muhamud Dip">M.D.</p></a>
-                                    </div>
-                                    <div class="inline">
-                                    <a href="/#/users/8/profile">
-                                        <img alt="image" class="img-circle" title="Full name" src="img/profile11.png">
-                                        <p align="center" tooltip-placement="bottom" uib-tooltip="Alibabababa Bethord"> A.B.</p></a>
-                                    </div>
-                                    <div class="inline">
-                                    <a href="/#/users/8/profile">
-                                        <img alt="image" class="img-circle" title="Full name" src="img/profile20.png">
-                                        <p align="center" tooltip-placement="bottom" uib-tooltip="Aliza Chen"> A.C.</p></a>
-                                    </div>
-                                    <div class="inline">
-                                    <a href="/#/users/8/profile">
-                                        <img alt="image" class="img-circle" title="Full name" src="img/profile4.png">
-                                        <p align="center" tooltip-placement="bottom" uib-tooltip="Bonnie Fu"> B.F.</p> </a>
-                                    </div>
-                                    <div class="inline">
-                                    <a href="/#/users/8/profile">
-                                        <img alt="image" class="img-circle" title="Full name" src="img/profile21.png">
-                                        <p align="center" tooltip-placement="bottom" uib-tooltip="Ma Der"> M.D.</p></a>
-                                    </div>
-                                </dd>
-                            </dl>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-11">
-                            <dl class="dl-horizontal">
-                                <dt>Completed:</dt>
-                                <dd>
-                                    <div class="progress progress-striped active m-b-sm">
-                                        <div style="width: 80%;" class="progress-bar progress-bar-info"></div>
-                                    </div>
-                                    <small>Process completed in
-                                        <strong>80%</strong>. Please finalize the team</small>
-                                </dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="ibox">
-                <div class="ibox-content">
-                    <div class="row m-t-sm">
-                        <div class="col-lg-12">
-                            <div class="panel blank-panel ui-tab">
-
-                                <h2>Community Activities</h2>
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Time</th>
-                                            <th>Event</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                12.07.2017 10:10:01
-                                            </td>
-                                            <td>
-                                                <a href="/#/users">Jiahuan He</a> created a team called
-                                                <a href="/#/teams">CapWebapp</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                15.07.2017 18:12:13
-                                            </td>
-                                            <td>
-                                                Team
-                                                <a href="/#/teams">CapWebapp</a> joined a project called
-                                                <a href="/#/projects">Capstone Team finder</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                18.07.2017 20:30:15
-                                            </td>
-                                            <td>
-                                                <a href="/#/users">Juntu Chen</a> joined a team called
-                                                <a href="/#/teams">CapWebapp</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
-
     </div>
 </div>

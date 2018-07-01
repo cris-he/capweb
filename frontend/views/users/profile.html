@@ -40,7 +40,7 @@
                         </h2>
                         <h4>{{user.role}}</h4>
                         <small>
-                            {{user.bio}}
+                            {{user.slogan}}
                         </small>
                     </div>
                 </div>
@@ -82,27 +82,37 @@
                             <div class="col-lg-12">
                                 <div class="m-b-md">
                                     <span class="btn-group pull-right">
-                                        <a ui-sref="user_edit({_id: user._id})" class="btn btn-white">Edit Profile</a>
+                                        <a ui-sref="user_edit({_id: user._id})" class="btn btn-white">Edit</a>
                                     </span>
 
                                     <h2>{{'DETAILS' | translate }}</h2>
                                 </div>
                                 <dl class="dl-horizontal">
                                     <dt>{{"STATUS" | translate}}:</dt>
-                                    <div ng-controller="dashboardCtrl" ng-switch="user.Status">
-                                        <div ng-switch-when="1">
+                                    <div ng-controller="dashboardCtrl" ng-switch="user.status">
+                                        <div ng-switch-when="25">
                                             <dd>
                                                 <span class="label label-primary">Open</span>
                                             </dd>
                                         </div>
-                                        <div ng-switch-when="0">
+                                        <div ng-switch-when="50">
                                             <dd>
-                                                <span class="label label-warning">In a team</span>
+                                                <span class="label label-info">In a team</span>
+                                            </dd>
+                                        </div>
+                                        <div ng-switch-when="75">
+                                            <dd>
+                                                <span class="label label-warning">In a full team</span>
+                                            </dd>
+                                        </div>
+                                        <div ng-switch-when="100">
+                                            <dd>
+                                                <span class="label label-success">In a full team with a project</span>
                                             </dd>
                                         </div>
                                         <div ng-switch-default>
                                             <dd>
-                                                <span class="label label-default">Independent</span>
+                                                <span class="label label-default">Free</span>
                                             </dd>
                                         </div>
                                     </div>
@@ -114,17 +124,19 @@
                                 <dl class="dl-horizontal">
 
                                     <dt>Interests:</dt>
-                                    <dd ng-repeat="inte in user.interests"><span ng-if="inte.value">{{inte.label}}</span></dd>
+                                    <dd ng-repeat="inte in user.interests">
+                                        <span ng-if="inte.value">{{inte.label}}</span>
+                                    </dd>
                                     <br>
                                     <dt>Team:</dt>
                                     <dd>
-                                        <a ng-if="user.team._id" href="#/teams">{{user.team._id}}</a>
+                                        <a ng-if="user.team._id" href="#/teams" class="text-success">{{user.team._id}}</a>
                                         <div ng-if="!user.team._id">N/A</div>
                                     </dd>
                                     <br>
-                                    <dt>Project:</dt>
-                                    <dd>
-                                        <a ng-if="user.involve._id" href="#/projects" class="text-navy">{{user.involve._id}}</a>
+                                    <dt ng-show="user.role=='Student'">Involved:</dt>
+                                    <dd ng-show="user.role=='Student'">
+                                        <a ng-if="user.involve._id" href="#/projects" class="text-info">{{user.involve._id}}</a>
                                         <div ng-if="!user.involve._id">N/A</div>
                                     </dd>
                                 </dl>
@@ -182,6 +194,10 @@
                                             <div ng-style="{width:user.status+'%'}" class="progress-bar progress-bar-info"></div>
                                         </div>
                                     </dd>
+                                    <br>
+                                    <dt>About me:</dt>
+                                    <dd ng-bind-html="user.bio | THTML">
+                                    </dd>
                                 </dl>
                             </div>
                         </div>
@@ -232,44 +248,60 @@
         </div>
     </div>
     <div class="row wrapper wrapper-content animated fadeInRight">
-            <div class="row col-lg-12">
+        <div class="row col-lg-12" ng-hide="user.role=='!Student'">
 
-                    <div class="col-lg-10">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>
-                                    <i class="fa fa-rocket"></i> Projects</h5>
-                            </div>
-                            <div class="ibox-content">
-        
-                                <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="5">
-                                    <thead>
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>Owner</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="project in user.projects">
-                                            <td>{{project._id}}</small>
-                                            </td>
-                                            <td>{{project._id}}</td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="5">
-                                                <ul class="pagination pull-right"></ul>
-                                            </td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-        
-                            </div>
-                        </div>
+            <div class="col-lg-10">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>
+                            <i class="fa fa-rocket"></i> Projects</h5>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="5">
+                            <thead>
+                                <tr>
+                                    <th data-toggle="true">Title</th>
+                                    <th>Status</th>
+                                    <th data-hide="all">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="project in user.projects" foo-table-done>
+                                    <td>{{project._id}}</small>
+                                    </td>
+                                    <td>
+                                        <div ng-switch="project.status">
+                                            <div ng-switch-when="100">
+                                                <dd>
+                                                    <span class="label label-warning">Full</span>
+                                                </dd>
+                                            </div>
+                                            <div ng-switch-default>
+                                                <dd>
+                                                    <span class="label label-primary">Open</span>
+                                                </dd>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td>{{project._id}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
                     </div>
                 </div>
-        <div class="row col-lg-12">
+            </div>
+        </div>
+        <div ng-show="false && user.role=='Student'" class="row col-lg-12">
 
             <div class="col-lg-10">
                 <div class="ibox float-e-margins">
@@ -282,16 +314,21 @@
                         <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="5">
                             <thead>
                                 <tr>
-
                                     <th data-toggle="true">Title</th>
                                     <th>Company</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th data-hide="all">Description</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="exp in user.exps">
+                                <tr ng-repeat="exp in user.exps" foo-repeat-done>
                                     <td>{{exp.title}}</small>
                                     </td>
                                     <td>{{exp.company}}</td>
+                                    <td>{{exp.from}}</td>
+                                    <td>{{exp.end ? exp.to : 'Current'}}</td>
+                                    <td>{{exp.description}}</td>
                                 </tr>
                             </tbody>
                             <tfoot>
@@ -302,6 +339,30 @@
                                 </tr>
                             </tfoot>
                         </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-show="false && user.role=='Student'" class="row col-lg-12">
+            <div class="col-lg-10">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h3>Private message</h3>
+
+                        <p class="small">
+                            Send private message to {{user.first}} {{user.last}}
+                        </p>
+
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input type="email" class="form-control" placeholder="Message subject">
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea class="form-control" placeholder="Your message" rows="3"></textarea>
+                        </div>
+                        <button class="btn btn-primary btn-block">Send</button>
 
                     </div>
                 </div>

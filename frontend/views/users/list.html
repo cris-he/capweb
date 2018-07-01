@@ -1,0 +1,199 @@
+<!-- Navigation -->
+<div ng-include="'views/common/navigation.html'"></div>
+
+<!-- Page wraper -->
+<!-- ng-class with current state name give you the ability to extended customization your view -->
+<div id="page-wrapper" class="gray-bg {{$state.current.name}}">
+
+    <!-- Page wrapper -->
+    <div ng-include="'views/common/topnavbar.html'"></div>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>Users</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/#/dashboard">Home</a>
+                </li>
+                <li class="active">
+                    <strong>Users</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight" ng-controller="user_listCtrl">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button type="button" id="loading-example-btn" class="btn btn-white">
+                                    <i class="fa fa-refresh"></i> Refresh</button>
+                            </span>
+                            <input type="text" placeholder="Search" class="input form-control">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn btn-primary">
+                                    <i class="fa fa-search"></i> Search</button>
+                            </span>
+                        </div>
+                        <div class="clients-list">
+                            <ul class="nav nav-tabs">
+                                <span class="pull-right small text-muted">1406 Users</span>
+                                <li ng-class="{'active' : tab == 1}">
+                                    <a ng-click="tab = 1" ng-init="tab = 1">
+                                        <i class="fa fa-user"></i> Students</a>
+                                </li>
+                                <li ng-class="{'active' : tab == 2}">
+                                    <a ng-click="tab = 2">
+                                        <i class="fa fa-briefcase"></i> Professors</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="tab-1" class="tab-pane active" ng-show="tab == 1">
+                                    <div class="full-height-scroll" full-scroll>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover">
+                                                <tbody>
+                                                    <tr ng-repeat="user in users">
+                                                        <td class="client-avatar">
+                                                            <img alt="image" src="{{user.avatar}}"> </td>
+                                                        <td>
+                                                            <a ng-click="client = user._id" class="client-link">{{user.first}} {{user.last}}</a>
+                                                        </td>
+                                                        <td class="contact-type">
+                                                            <i class="fa fa-envelope"> </i>
+                                                        </td>
+                                                        <td> {{user.username}}</td>
+                                                        <td class="client-status">
+                                                            <div ng-controller="dashboardCtrl" ng-switch="user.status">
+                                                                <div ng-switch-when="25">
+                                                                    <span class="label label-primary">Open</span>
+                                                                </div>
+                                                                <div ng-switch-when="50">
+                                                                    <span class="label label-info">In a team</span>
+                                                                </div>
+                                                                <div ng-switch-when="75">
+                                                                    <span class="label label-warning">In a full team</span>
+                                                                </div>
+                                                                <div ng-switch-when="100">
+                                                                    <span class="label label-success">In a full team with a project</span>
+                                                                </div>
+                                                                <div ng-switch-default>
+                                                                    <span class="label label-default">Free</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab-2" class="tab-pane active" ng-show="tab == 2">
+                                    <div class="full-height-scroll" full-scroll>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover">
+                                                <tbody>
+                                                    <tr ng-repeat="user in users">
+                                                        <td class="client-avatar">
+                                                            <img alt="image" src="{{user.avatar}}"> </td>
+                                                        <td>
+                                                            <a ng-click="client = user._id" class="client-link">{{user.first}} {{user.last}}</a>
+                                                        </td>
+                                                        <td class="contact-type">
+                                                            <i class="fa fa-envelope"> </i>
+                                                        </td>
+                                                        <td> {{user.username}}</td>
+                                                        <td class="client-status">
+                                                            <div ng-controller="dashboardCtrl" ng-switch="user.status">
+                                                                <div ng-switch-when="25">
+                                                                    <span class="label label-primary">Open</span>
+                                                                </div>
+                                                                <div ng-switch-when="50">
+                                                                    <span class="label label-info">In a team</span>
+                                                                </div>
+                                                                <div ng-switch-when="75">
+                                                                    <span class="label label-warning">In a full team</span>
+                                                                </div>
+                                                                <div ng-switch-when="100">
+                                                                    <span class="label label-success">In a full team with a project</span>
+                                                                </div>
+                                                                <div ng-switch-default>
+                                                                    <span class="label label-default">Free</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="ibox ">
+                    <div class="ibox-content">
+                        <div class="tab-content">
+                            <div ng-repeat="user in users" id="user._id" class="tab-pane active" ng-show="client == user._id" ng-init="client = user._id">
+                                <div class="row m-b-lg">
+                                    <div class="col-lg-4 text-center">
+                                        <div class="m-b-sm">
+                                            <img alt="image" class="img-circle" src="{{user.avatar}}" style="width: 62px">
+                                        </div>
+                                        <div class="m-t-md font-bold">{{user.role}}</div>
+
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <h2>{{user.first}} {{user.last}}</h2>
+                                        <p>
+                                            {{user.slogan}}
+                                        </p>
+                                        <button ui-sref="user_profile({_id:user._id})" type="button" class="btn btn-primary btn-sm btn-block">
+                                            <i class="fa fa-user"></i> View Profile
+                                        </button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row m-b-lg">
+                                        <div class="col-lg-4 text-center">
+                                            <dt>Team</dt>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <a ng-if="user.team._id" href="#/teams" class="text-success">{{user.team._id}}</a>
+                                            <div ng-if="!user.team._id">N/A</div>
+                                        </div>
+                                    </div>
+                                    <div class="row m-b-lg">
+                                        <div class="col-lg-4 text-center">
+                                            <dt>Involved</dt>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <a ng-if="user.involve._id" href="#/projects" class="text-info">{{user.involve._id}}</a>
+                                            <div ng-if="!user.involve._id">N/A</div>
+                                        </div>
+                                    </div>
+                                    <div class="row m-b-lg">
+                                        <div class="col-lg-4 text-center">
+                                            <dt>Interests</dt>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <dd ng-repeat="inte in user.interests">
+                                                <span ng-if="inte.value">{{inte.label}}</span>
+                                            </dd>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -48,9 +48,8 @@
                                     <tr>
                                         <th>Status</th>
                                         <th data-toggle="true">Name</th>
-                                        <th>Creator</th>
                                         <th>Supervisor</th>
-                                        <th>Team limit</th>
+                                        <th>Administrator</th>
                                         <th data-hide="all">Description</th>
                                     </tr>
                                 </thead>
@@ -76,21 +75,22 @@
 
                                         </td>
                                         <td>
-                                            <a href="">
-                                               {{project.owner.first}} {{project.owner.last}}
+                                            <a ui-sref="user_profile({ _id: project.owner._id })">
+                                                {{project.owner.first}} {{project.owner.last}}
                                             </a>
-                                        </td>
-                                        <td>
+                                            <span ng-show="project.supervisors">,</span>
                                             <span ng-repeat="sup in project.supervisors">
-                                            <a href="">
+                                            <a ui-sref="user_profile({ _id: sup._id })">
                                                 {{sup.first}} {{sup.last}}
                                             </a>
                                             <span ng-show="project.supervisors.indexOf(sup)!=(project.supervisors.length-1)">,</span>
                                             </span>
                                         </td>
                                         <td>
-                                            {{project.size}}
-                                        </td>
+                                                <a ui-sref="user_profile({ _id: project.admin._id })">
+                                                   {{project.admin.first}} {{project.admin.last}}
+                                                </a>
+                                            </td>
                                         <td>
                                             <p ng-bind-html="project.bio | THTML"></p>
                                         </td>

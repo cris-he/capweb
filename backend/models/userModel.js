@@ -9,15 +9,16 @@ var userModel = mongoose.Schema({
     role: { type: String },
     avatar: { type: String },
     team: { type: Object },
-    invovle: { type: Object },
+    involve: { type: Object },
     interests : {type: Array},
     size: { type: Number },
     status: { type: Number },
     exp : {type: Array},   
-    likedby : {type: Array},
-    likes : {type: Array},
+    likes : {type: Number},
     similar : {type: Array},
-    project : {type: Array}
+    projects : {type: Array},
+    login : {type: Date},
+    slogan : {type: String}
 });
 
 module.exports = mongoose.model('User', userModel);

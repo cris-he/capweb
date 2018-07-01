@@ -56,6 +56,15 @@
  * Contains several global data used in different view
  *
  */
+
+const endpoint = "http://localhost:8000";
+
+const httpOptions = { withCredentials: true };
+
+var onError = function(err) {
+    console.log('Error', err);
+}
+
 function MainCtrl($http) {
 
     /**
@@ -4502,63 +4511,64 @@ function passwordMeterCtrl($scope) {
 
 }
 
-function navBarCtrl($scope) {
-    $scope.User = {
-        "Firstname": 'Juntu',
-        "Lastname": 'Chen',
-        "Role": 'Student',
-        "Pic": 'img/profile-default.png'
+function authCtrl($scope, $state, $http, SweetAlert) {
+    $scope.auth;
+    $scope.new;
+    $scope.email;
+    $scope.user;
+    $scope.login = function () {
+        $http.post(endpoint + "/api/auth/login", $scope.auth).then(function(res){
+            $scope.user = res.data;
+            console.log(res.data);
+            $state.go('dashboard');
+        }, function(err){
+            SweetAlert.swal({
+                title: err.data,
+                text: "Invalid Username/Password!",
+                type: "error"
+            });
+        });
     };
+
+    $scope.register = function () {
+        $http.post(endpoint + "/api/auth/register", $scope.new).then(function(res){
+            $scope.new = res.data;
+        }, onError);
+    };
+
+    $scope.forgot = function () {
+        $http.post(endpoint + "/api/auth/forgot", $scope.email).then(function(res){
+            SweetAlert.swal("Good Job!");
+        }, onError);
+    };
+}
+
+function navBarCtrl($scope, $http, $state) {
+    $http.get(endpoint + '/api/auth/profile', [{ withCredentials: true }]).then(function(res){
+        $scope.user = res.data;
+    });
+    $scope.logout = function() {
+        $http.post(endpoint + '/api/auth/logout');
+        $state.go('login');
+    }
 
 }
 
-function dashboardCtrl($scope) {
-    $scope.User = {
-        "Firstname": 'Juntu',
-        "Lastname": 'Chen',
-        "Status": 0,
-        "Interests": [
-            "Web Programming",
-            "Computer Networks",
-            "Operating System",
-            "Semiconductor",
-            "Software Development"
-        ],
-        "Team": 'CapWebapp',
-        "Pic": 'img/profile-default.png',
-        "profileId": 3
-    };
-    if ($scope.User.Team == '')
-        $scope.isTeam = 0;
-    else
-        $scope.isTeam = 1;
+function dashboardCtrl($scope, $state, $http) {
+    $scope.feeds;
+    $http.get(endpoint + "/api/feeds").then(function(res){
+        console.log('dash',res.data)
+        $scope.feeds = res.data;
+    });
 }
 
-function users_profileCtrl($scope, $stateParams) {
-    $scope.profileId = $stateParams.profileId;
-    console.log($stateParams.profileId);
+function user_profileCtrl($scope, $stateParams, $http) {
+    //Use $stateParams._id to fetch user data from backend
+    $http.get(endpoint + "/api/users/" + $stateParams._id).then(function(res){
+        $scope.user = res.data;
+    }, onError);
 
-    //Use $stateParams.profileId to fetch user data from backend
-    $scope.User = {
-        "Firstname": 'Juntu',
-        "Lastname": 'Chen',
-        "Status": 0, // -1 for Independent, 0 for In a team, 1 for Open
-        "Interests": [
-            "Web Programming",
-            "Computer Networks",
-            "Operating System",
-            "Semiconductor",
-            "Software Development"
-        ],
-        "Team": 'CapWebapp',
-        "Role": 'Student',
-        "Pic": 'img/profile-default.png'
-    };
-    if ($scope.User.Team == '')
-        $scope.isTeam = 0;
-    else
-        $scope.isTeam = 1;
-    $scope.Interest_count = $scope.User.Interests.length;
+    $scope.Interest_count = 3;
     var sparkline1Data = [3, 2, 5, 10, 11, 8, 22];
     var sparkline1Options = {
         type: 'line',
@@ -4572,63 +4582,142 @@ function users_profileCtrl($scope, $stateParams) {
 
 }
 
-function teams_profileCtrl($scope, $stateParams) {
-    $scope.Team = {
-        "Team_name": 'CapWebapp',
-        "Creator": 'Cris He',
-        "teamId": $stateParams.teamId,
-        "Capacity": 4,
-        "Team_member_id": [1, 2, 3, 4],
-        "Team_process": 50,
-        "Project_id": 8, //0 is empty
-        "Status": 2, //0 is full, 1 is open, 2 is finalized
-        "Interests": ['Web Programming', 'Software Development']
+function user_editCtrl($scope, $state, $stateParams, $http) {
+    console.log('user edit', $stateParams._id);
+    //Use $stateParams._id to fetch user data from backend
+    $http.get(endpoint + "/api/users/" + $stateParams._id).then(function(res){
+        $scope.user = res.data;
+    }, onError);
+
+    $scope.user_edit_submit = function() {
+        $http.post(endpoint + "/api/users/" + $stateParams._id, $scope.user).then(function(res){
+           console.log('post, res', res.data);
+           $state.go('user_profile', {_id: $stateParams._id});
+        }, onError);
     }
-    $scope.Team_member_num = $scope.Team.Team_member_id.length;
+
+    $scope.Interest_count = 3;
+    var sparkline1Data = [3, 2, 5, 10, 11, 8, 22];
+    var sparkline1Options = {
+        type: 'line',
+        width: '100%',
+        height: '50',
+        lineColor: '#1ab394',
+        fillColor: "transparent"
+    };
+    this.sparkline1 = sparkline1Data;
+    this.sparkline1Options = sparkline1Options;
+
 }
 
-function teamsCtrl($scope) {
-    $scope.Team = {
-        "Team_name": 'CapWebapp',
-        "Creator": 'Cris He',
-        "Capacity": 4,
-        "Team_member_id": [1, 2, 3, 4],
-        "Team_process": 50,
-        "Project_id": 8, //0 is empty
-        "Status": 2, //0 is full, 1 is open, 2 is finalized
-        "Interests": ['Web Programming', 'Software Development']
-    }
-    $scope.Team_member_num = $scope.Team.Team_member_id.length;
+function team_profileCtrl($scope, $stateParams, $http, SweetAlert) {
+
+    $http.get(endpoint+'/api/teams/'+$stateParams._id).then(function(res){
+        $scope.team = res.data;
+        console.log("teams", res.data);
+    }, onError);
+
+
+    $scope.comment = {
+        _id:'5b0c5ef1794a01719c51994d',
+        content:''
+    };
+
+    $scope.new_comment = function() {
+        $http.post(endpoint+'/api/teams/'+ $stateParams._id +'/comments', $scope.new_comment).then(function(res){
+            SweetAlert.swal({
+                title: "Good job!",
+                text: "You created a post!",
+                type: "success"
+            });
+            $scope.team.comments = res.data;
+        });
+    };
+
+
+
+
 }
 
-function usersCtrl($scope, $stateParams) {
-    $scope.role_select = ['All', 'Student', 'Professor'];
-    $scope.role_show = 'All';
+function team_editCtrl($scope, $state, $stateParams, $http) {
+    console.log('team edit', $stateParams._id);
+    //Use $stateParams._id to fetch user data from backend
+    $http.get(endpoint + "/api/teams/" + $stateParams._id).then(function(res){
+        $scope.team = res.data;
+    }, onError);
+
+    $scope.team_edit_submit = function() {
+        $http.post(endpoint + "/api/teams/" + $stateParams._id, $scope.team).then(function(res){
+           console.log('post, res', res.data);
+           $state.go('team_profile', {_id: $stateParams._id});
+        }, onError);
+    }
+
 }
 
-function projects_profileCtrl($scope, $stateParams) {
-    $scope.projectId = $stateParams.projectId;
-    $scope.isCo = 1;
-    $scope.Project = {
-        "Status": 0, //0 is full, 1 is open
-        "Co_Supervisor": [
-            "BaoChun Li",
-        ],
-        "Areas": [
-            "Web Programming",
-            "Computer Networks",
-            "Operating System",
-            "Semiconductor",
-            "Software Development"
-        ],
+function team_listCtrl($scope, $http) {
+
+    $http.get(endpoint+'/api/teams/').then(function(res){
+        $scope.teams = res.data;
+        console.log("teams", res.data);
+    }, onError);
+
+}
+
+function user_listCtrl($scope, $stateParams, $http) {
+    $scope.client;
+    $http.get(endpoint+'/api/users').then(function(res){
+        $scope.users = res.data;
+        console.log("users", res.data);
+    }, onError);
+
+}
+
+function project_profileCtrl($scope, $stateParams, $http) {
+    $http.get(endpoint+'/api/projects/'+ $stateParams._id).then(function(res){
+        $scope.project = res.data;
+        console.log("projects", res.data);
+    }, onError);
+}
+
+function project_createCtrl($scope, $state, $http, SweetAlert) {
+    $scope.project;
+    $scope.project_create_submit = function () {
+        $http.post(endpoint+'/api/projects/', $scope.project).then(function(res){
+            console.log("projects Create", res.data);
+            SweetAlert.swal({
+                title: "Good job!",
+                text: "You created a team!",
+                type: "success"
+            });
+            $state.go('project_profile',{_id:res.data._id});
+        }, onError);
     }
-    $scope.Team = {
-        "Interests": ['Web Programming', 'Software Development']
+
+}
+
+function project_editCtrl($scope, $state, $stateParams, $http) {
+    $http.get(endpoint+'/api/projects/'+ $stateParams._id).then(function(res){
+        res.data.rep
+        $scope.project = res.data;
+        console.log("projects", res.data);
+    }, onError);
+
+
+    $scope.project_edit_submit = function() {
+        console.log('project, post', $scope.project)
+        $http.post(endpoint + "/api/projects/" + $stateParams._id, $scope.project).then(function(res){
+           console.log('post, res', res.data);
+           $state.go('project_profile', {_id: $stateParams._id});
+        }, onError);
     }
 }
 
-function projectsCtrl($scope) {
-
+function project_listCtrl($scope, $http) {
+    $http.get(endpoint+'/api/projects/').then(function(res){
+        $scope.projects = res.data;
+        console.log("projects", res.data);
+    }, onError);
 }
 
 function searchCtrl($scope){
@@ -4636,15 +4725,12 @@ function searchCtrl($scope){
 
 }
 
-function team_creationCtrl($scope){
-    $scope.teamBolean = false;
-    $scope.Team = {
-        "name" : '',
-        "magictoken": '',
-        "email": '',
-    }
-    $scope.onSubmit = function() {
-        
+function team_createCtrl($scope, $http){
+    $scope.team;
+    $scope.team_new_submit = function () {
+        $http.post(endpoint+"/teams",$scope.team).then(function(res){
+            console.log(res.data);
+        },onError);
     }
 }
 
@@ -4695,13 +4781,39 @@ angular
     .controller('datamapsCtrl', datamapsCtrl)
     .controller('pdfCtrl', pdfCtrl)
     .controller('passwordMeterCtrl', passwordMeterCtrl)
+
+
+    .controller('authCtrl', authCtrl)
+
     .controller('navBarCtrl', navBarCtrl)
+
     .controller('dashboardCtrl', dashboardCtrl)
-    .controller('teams_profileCtrl', teams_profileCtrl)
-    .controller('teamsCtrl', teamsCtrl)
-    .controller('users_profileCtrl', users_profileCtrl)
-    .controller('usersCtrl', usersCtrl)
-    .controller('projects_profileCtrl', projects_profileCtrl)
-    .controller('projectsCtrl', projectsCtrl)
+    
+    .controller('team_editCtrl', team_editCtrl)
+    .controller('team_profileCtrl', team_profileCtrl)
+    .controller('team_createCtrl', team_createCtrl)    
+    .controller('team_listCtrl', team_listCtrl)
+
+    .controller('user_profileCtrl', user_profileCtrl)
+    .controller('user_editCtrl', user_editCtrl)
+    .controller('user_listCtrl', user_listCtrl)
+
+    .controller('project_editCtrl', project_editCtrl)
+    .controller('project_profileCtrl', project_profileCtrl)
+    .controller('project_createCtrl', project_createCtrl)
+    .controller('project_listCtrl', project_listCtrl)
+
     .controller('searchCtrl', searchCtrl)
-    .controller('team_creationCtrl', team_creationCtrl);
+    
+    .directive('fooRepeatDone', function() {
+        return function($scope, element) {
+            if ($scope.$last) { // all are rendered
+                $('.table').trigger('footable_redraw');
+            }
+        }
+    })
+    .filter('THTML', function($sce){
+        return function(html){
+            return $sce.trustAsHtml(html)
+        }
+     })

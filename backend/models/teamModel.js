@@ -8,9 +8,10 @@ var teamModel = mongoose.Schema({
     mates: { type: Array },
     invovle: { type: Object },
     likedby : {type: Array},
-    interests : {type: Array},
+    tags : {type: Array},
     size: { type: Number },
-    status: { type: Number }
+    status: { type: Number },
+    tags: { type: Array }
 });
 
 module.exports = mongoose.model('Team', teamModel);

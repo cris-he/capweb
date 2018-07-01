@@ -20,6 +20,60 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
     });
 
     $stateProvider
+        .state('login', {
+            url: "/login",
+            templateUrl: "views/auth/login.html",
+            data: { pageTitle: 'Login', specialClass: 'gray-bg' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                    {
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                    }
+                    ]);
+                }
+            }
+        })
+        .state('register', {
+            url: "/register",
+            templateUrl: "views/auth/register.html",
+            data: { pageTitle: 'Register', specialClass: 'gray-bg' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                    {
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                    }
+                    ]);
+                }
+            }
+        })
+        .state('forgot_password', {
+            url: "/forgot_password",
+            templateUrl: "views/auth/forgot_password.html",
+            data: { pageTitle: 'Forgot password', specialClass: 'gray-bg' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                    {
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                    }
+                    ]);
+                }
+            }
+        })
         .state('dashboard', {
             url: "/dashboard",
             templateUrl: "views/dashboard.html",
@@ -38,6 +92,13 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     {
                         name: 'angular-peity',
                         files: ['js/plugins/peity/jquery.peity.min.js', 'js/plugins/peity/angular-peity.js']
+                    },
+                    {
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
                     }
                     ]);
                 }
@@ -50,24 +111,75 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('create.team', {
             url: "/team",
-            templateUrl: "views/team_creation.html",
+            templateUrl: "views/teams/create.html",
             data: { pageTitle: 'Create Team' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        files: ['js/plugins/footable/footable.all.min.js', 'css/plugins/footable/footable.core.css']
+                    },
+                    {
+                        name: 'ui.footable',
+                        files: ['js/plugins/footable/angular-footable.js']
+                    },
+                    {
+                        files: ['js/plugins/sparkline/jquery.sparkline.min.js']
+                    },
+                    {
+                        files: ['css/plugins/iCheck/custom.css', 'js/plugins/iCheck/icheck.min.js']
+                    },
+                    {
+                        name: 'ngTagsInput',
+                        files: ['js/plugins/ngTags/ng-tags-input.min.js', 'css/plugins/ngTags/ng-tags-input-custom.min.css']
+                    },
+                    {
+                        name: 'summernote',
+                        files: ['css/plugins/summernote/summernote.css', 'css/plugins/summernote/summernote-bs3.css', 'js/plugins/summernote/summernote.min.js', 'js/plugins/summernote/angular-summernote.min.js']
+                    },
+                    {
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                    }
+                    ]);
+                }
+            }
         })
         .state('create.project', {
             url: "/project",
-            templateUrl: "views/graph_rickshaw.html",
+            templateUrl: "views/projects/create.html",
             data: { pageTitle: 'Create Project' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([{
-                        reconfig: true,
-                        serie: true,
-                        files: ['js/plugins/rickshaw/vendor/d3.v3.js', 'js/plugins/rickshaw/rickshaw.min.js']
+                        files: ['js/plugins/footable/footable.all.min.js', 'css/plugins/footable/footable.core.css']
                     },
                     {
-                        reconfig: true,
-                        name: 'angular-rickshaw',
-                        files: ['js/plugins/rickshaw/angular-rickshaw.js']
+                        name: 'ui.footable',
+                        files: ['js/plugins/footable/angular-footable.js']
+                    },
+                    {
+                        files: ['js/plugins/sparkline/jquery.sparkline.min.js']
+                    },
+                    {
+                        files: ['css/plugins/iCheck/custom.css', 'js/plugins/iCheck/icheck.min.js']
+                    },
+                    {
+                        name: 'ngTagsInput',
+                        files: ['js/plugins/ngTags/ng-tags-input.min.js', 'css/plugins/ngTags/ng-tags-input-custom.min.css']
+                    },
+                    {
+                        name: 'summernote',
+                        files: ['css/plugins/summernote/summernote.css', 'css/plugins/summernote/summernote-bs3.css', 'js/plugins/summernote/summernote.min.js', 'js/plugins/summernote/angular-summernote.min.js']
+                    },
+                    {
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
                     }
                     ]);
                 }
@@ -108,9 +220,9 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
-        .state('projects', {
+        .state('project_list', {
             url: "/projects",
-            templateUrl: "views/projects.html",
+            templateUrl: "views/projects/list.html",
             data: { pageTitle: 'Projects' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
@@ -128,20 +240,64 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
-        .state('projects_profile', {
-            url: "/projects/:projectId/profile",
-            templateUrl: "views/projects_profile.html",
-            data: { pageTitle: 'Project Profile' }
+        .state('project_profile', {
+            url: "/projects/:_id/profile",
+            templateUrl: "views/projects/profile.html",
+            data: { pageTitle: 'Project Profile' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                    }
+                    ]);
+                }
+            }
 
         })
-        .state('users', {
+        .state('project_edit', {
+            url: "/projects/:_id/edit",
+            templateUrl: "views/projects/edit.html",
+            data: { pageTitle: 'Project Profile Edit' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        files: ['js/plugins/footable/footable.all.min.js', 'css/plugins/footable/footable.core.css']
+                    },
+                    {
+                        name: 'ui.footable',
+                        files: ['js/plugins/footable/angular-footable.js']
+                    },
+                    {
+                        files: ['js/plugins/sparkline/jquery.sparkline.min.js']
+                    },
+                    {
+                        files: ['css/plugins/iCheck/custom.css', 'js/plugins/iCheck/icheck.min.js']
+                    },
+                    {
+                        name: 'ngTagsInput',
+                        files: ['js/plugins/ngTags/ng-tags-input.min.js', 'css/plugins/ngTags/ng-tags-input-custom.min.css']
+                    },
+                    {
+                        name: 'summernote',
+                        files: ['css/plugins/summernote/summernote.css', 'css/plugins/summernote/summernote-bs3.css', 'js/plugins/summernote/summernote.min.js', 'js/plugins/summernote/angular-summernote.min.js']
+                    }
+                    ]);
+                }
+            }
+
+        })
+        .state('user_list', {
             url: "/users",
-            templateUrl: "views/users.html",
+            templateUrl: "views/users/list.html",
             data: { pageTitle: 'Users' },
         })
-        .state('users_profile', {
-            url: "/users/:profileId/profile",
-            templateUrl: "views/users_profile.html",
+        .state('user_profile', {
+            url: "/users/:_id/profile",
+            templateUrl: "views/users/profile.html",
             data: { pageTitle: 'User Profile' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
@@ -154,19 +310,91 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     },
                     {
                         files: ['js/plugins/sparkline/jquery.sparkline.min.js']
+                    },
+                    {
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
                     }
                     ]);
                 }
             }
         })
-        .state('teams_profile', {
-            url: "/teams/:teamId/profile",
-            templateUrl: "views/teams_profile.html",
-            data: { pageTitle: 'Team Profile' },
+        .state('user_edit', {
+            url: "/users/:_id/edit",
+            templateUrl: "views/users/edit.html",
+            data: { pageTitle: 'User Profile Edit' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        files: ['js/plugins/footable/footable.all.min.js', 'css/plugins/footable/footable.core.css']
+                    },
+                    {
+                        name: 'ui.footable',
+                        files: ['js/plugins/footable/angular-footable.js']
+                    },
+                    {
+                        files: ['js/plugins/sparkline/jquery.sparkline.min.js']
+                    },
+                    {
+                        files: ['css/plugins/iCheck/custom.css', 'js/plugins/iCheck/icheck.min.js']
+                    },
+                    {
+                        name: 'ngTagsInput',
+                        files: ['js/plugins/ngTags/ng-tags-input.min.js', 'css/plugins/ngTags/ng-tags-input-custom.min.css']
+                    },
+                    {
+                        name: 'summernote',
+                        files: ['css/plugins/summernote/summernote.css', 'css/plugins/summernote/summernote-bs3.css', 'js/plugins/summernote/summernote.min.js', 'js/plugins/summernote/angular-summernote.min.js']
+                    }
+                    ]);
+                }
+            }
         })
-        .state('teams', {
+        .state('team_profile', {
+            url: "/teams/:_id/profile",
+            templateUrl: "views/teams/profile.html",
+            data: { pageTitle: 'Team Profile' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                    }
+                    ]);
+                }
+            }
+        })
+        .state('team_edit', {
+            url: "/teams/:_id/edit",
+            templateUrl: "views/teams/edit.html",
+            data: { pageTitle: 'Team Profile Edit' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        files: ['css/plugins/iCheck/custom.css', 'js/plugins/iCheck/icheck.min.js']
+                    },
+                    {
+                        name: 'ngTagsInput',
+                        files: ['js/plugins/ngTags/ng-tags-input.min.js', 'css/plugins/ngTags/ng-tags-input-custom.min.css']
+                    },
+                    {
+                        name: 'summernote',
+                        files: ['css/plugins/summernote/summernote.css', 'css/plugins/summernote/summernote-bs3.css', 'js/plugins/summernote/summernote.min.js', 'js/plugins/summernote/angular-summernote.min.js']
+                    }
+                    ]);
+                }
+            }
+
+        })
+        .state('team_list', {
             url: "/teams",
-            templateUrl: "views/teams.html",
+            templateUrl: "views/teams/list.html",
             data: { pageTitle: 'Teams' }
         })
         .state('forms', {
@@ -505,20 +733,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             templateUrl: "views/login_two_columns.html",
             data: { pageTitle: 'Login two columns', specialClass: 'gray-bg' }
         })
-        .state('register', {
-            url: "/register",
-            templateUrl: "views/register.html",
-            data: { pageTitle: 'Register', specialClass: 'gray-bg' }
-        })
         .state('lockscreen', {
             url: "/lockscreen",
             templateUrl: "views/lockscreen.html",
             data: { pageTitle: 'Lockscreen', specialClass: 'gray-bg' }
-        })
-        .state('forgot_password', {
-            url: "/forgot_password",
-            templateUrl: "views/forgot_password.html",
-            data: { pageTitle: 'Forgot password', specialClass: 'gray-bg' }
         })
         .state('errorOne', {
             url: "/errorOne",
