@@ -4544,7 +4544,8 @@ function authCtrl($scope, $state, $http, SweetAlert) {
 }
 
 function navBarCtrl($scope, $http, $state) {
-    $http.get(endpoint + '/api/auth/profile', [{ withCredentials: true }]).then(function(res){
+    $http.defaults.withCredentials = true;
+    $http.get(endpoint + '/api/auth/profile').then(function(res){
         $scope.user = res.data;
     });
     $scope.logout = function() {
