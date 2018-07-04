@@ -4512,6 +4512,11 @@ function passwordMeterCtrl($scope) {
 }
 
 function authCtrl($scope, $state, $http, SweetAlert) {
+    $http.defaults.withCredentials = true;    
+    $http.get(endpoint + '/api/auth/profile').then(function(res){
+        $state.go('dashboard');        
+    });
+
     $scope.auth;
     $scope.new;
     $scope.email;
@@ -4543,7 +4548,7 @@ function authCtrl($scope, $state, $http, SweetAlert) {
     };
 }
 
-function navBarCtrl($scope, $http, $state, SweetAlert) {
+function sideBarCtrl($scope, $http, $state, SweetAlert) {
     $http.defaults.withCredentials = true;
     $http.get(endpoint + '/api/auth/profile').then(function(res){
         $scope.user = res.data;
@@ -4557,9 +4562,7 @@ function navBarCtrl($scope, $http, $state, SweetAlert) {
         $state.go('login');
     });
     $scope.logout = function() {
-        console.log('logout step1');
         $http.post(endpoint + '/api/auth/logout').then(function(res){
-            console.log('logout step2');
             $state.go('login');
         });
       
@@ -4567,12 +4570,10 @@ function navBarCtrl($scope, $http, $state, SweetAlert) {
 
 }
 
-function topNavBarCtrl($scope, $http, $state) {
+function navBarCtrl($scope, $http, $state) {
     $http.defaults.withCredentials = true;
     $scope.logout = function() {
-        console.log('logout step1');
         $http.post(endpoint + '/api/auth/logout').then(function(res){
-            console.log('logout step2');
             $state.go('login');
         });
       
@@ -4811,8 +4812,8 @@ angular
 
     .controller('authCtrl', authCtrl)
 
+    .controller('sideBarCtrl', sideBarCtrl)
     .controller('navBarCtrl', navBarCtrl)
-    .controller('topNavBarCtrl', topNavBarCtrl)
 
     .controller('dashboardCtrl', dashboardCtrl)
     
