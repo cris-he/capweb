@@ -4543,14 +4543,39 @@ function authCtrl($scope, $state, $http, SweetAlert) {
     };
 }
 
-function navBarCtrl($scope, $http, $state) {
+function navBarCtrl($scope, $http, $state, SweetAlert) {
     $http.defaults.withCredentials = true;
     $http.get(endpoint + '/api/auth/profile').then(function(res){
         $scope.user = res.data;
+    }, function(err){
+        console.log(err);
+        SweetAlert.swal({
+            title: err.status + ' ' + err.data,
+            text: "Please Login!",
+            type: "error"
+        });
+        $state.go('login');
     });
     $scope.logout = function() {
-        $http.post(endpoint + '/api/auth/logout');
-        $state.go('login');
+        console.log('logout step1');
+        $http.post(endpoint + '/api/auth/logout').then(function(res){
+            console.log('logout step2');
+            $state.go('login');
+        });
+      
+    }
+
+}
+
+function topNavBarCtrl($scope, $http, $state) {
+    $http.defaults.withCredentials = true;
+    $scope.logout = function() {
+        console.log('logout step1');
+        $http.post(endpoint + '/api/auth/logout').then(function(res){
+            console.log('logout step2');
+            $state.go('login');
+        });
+      
     }
 
 }
@@ -4787,6 +4812,7 @@ angular
     .controller('authCtrl', authCtrl)
 
     .controller('navBarCtrl', navBarCtrl)
+    .controller('topNavBarCtrl', topNavBarCtrl)
 
     .controller('dashboardCtrl', dashboardCtrl)
     

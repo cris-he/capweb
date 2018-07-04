@@ -8,7 +8,7 @@
                 </div>
             </form>
         </div>
-        <ul class="nav navbar-top-links navbar-right">
+        <ul class="nav navbar-top-links navbar-right" ng-controller="topNavBarCtrl">
             <!--<li>-->
                 <!--<span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>-->
             <!--</li>-->
@@ -120,7 +120,7 @@
                 </ul>
             </li> -->
             <li>
-                <a ui-sref="login">
+                <a ng-click="logout()">
                     <i class="fa fa-sign-out"></i> {{ 'LOGOUT' | translate }}
                 </a>
             </li>
