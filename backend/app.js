@@ -7,7 +7,7 @@ var express = require('express'),
 var app = express();
 var port = process.env.PORT || 8000;
 
-var db = mongoose.connect('mongodb://localhost:27017/capweb');
+var db = mongoose.connect('mongodb://142.150.239.189:27017/capweb');
 
 var Feed = require('./models/feedModel');
 var User = require('./models/userModel');
