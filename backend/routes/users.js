@@ -21,21 +21,42 @@ var routes = function(User) {
         });
 
 
-    // User By ID
-    router.use('/:id', function (req, res, next) {
-        User.findById(req.params.id, function (err, user) {
-            if (err)
-                res.status(500).send(err);
-            else if (user) {
-                req.user = user;
-                next();
-            }
-            else {
-                res.status(404).send({ message: 'User ID Not Found' });
-            }
-        });
-    });
+    // // User By ID
+    // router.use('/:id', function (req, res, next) {
+    //     User.findById(req.params.id, function (err, user) {
+    //         if (err)
+    //             res.status(500).send(err);
+    //         else if (user) {
+    //             req.user = user;
+    //             next();
+    //         }
+    //         else {
+    //             res.status(404).send({ message: 'User ID Not Found' });
+    //         }
+    //     });
+    // });
     router.route('/:id')
+        .get(function(req, res) {
+            console.log('find by id', req.user, req.params.id);
+            User.findById(req.params.id, function (err, __user) {
+                if(err) {
+                    res.status(500).send(err);
+                } else if (__user) {
+                    res.status(201).send(__user);
+                } else {
+                    res.status(404).send({ message: 'User ID Not Found' });
+                }
+               
+            });
+        })
+        .post(function(req, res){
+            User.update({_id  : req.user._id}, {$set: req.body}, function(__err,__data){
+                res.status(201).send(__data);
+            });
+        })
+
+
+    router.route('/:id/likes')
         .get(function(req, res) {
             res.json(req.user);
         })

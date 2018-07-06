@@ -14,7 +14,7 @@ var userModel = mongoose.Schema({
     size: { type: Number },
     status: { type: Number },
     exp : {type: Array},   
-    likes : {type: Number},
+    likes : {type: Array},
     similar : {type: Array},
     projects : {type: Array},
     login : {type: Date},

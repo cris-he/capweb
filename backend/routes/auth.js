@@ -63,7 +63,6 @@ var routes = function (User) {
     router.route('/profile')
         .all(function (req, res, next) {
             if (!req.user) {
-                console.log('profile', req.user);
                 res.status(401).send();
             };
             next();
