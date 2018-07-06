@@ -21,6 +21,15 @@ var routes = function (Team) {
             res.status(201).send(__team);
         });
 
+    // All Teams
+    router.route('/count')
+        .get(function(req, res) {
+            Team.find(req.query, function(err, teams) {
+            if (err) console.log(err);
+            res.send(teams.length + "");
+            })
+        });
+
 
     // Team By ID
     router.use('/:id', function (req, res, next) {

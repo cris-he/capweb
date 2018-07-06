@@ -21,6 +21,15 @@ var routes = function (Project) {
             res.status(201).send(__project);
         });
 
+    // All Projects
+    router.route('/count')
+        .get(function(req, res) {
+            Project.find(req.query, function(err, projects) {
+            if (err) console.log(err);
+            res.send(projects.length + "");
+            })
+        });
+
 
     // Project By ID
     router.use('/:id', function (req, res, next) {

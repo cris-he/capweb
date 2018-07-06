@@ -19,6 +19,14 @@ var routes = function(User) {
             __user.save();
             res.status(201).send(__user);
         });
+    
+    router.route('/count')
+        .get(function(req, res) {
+            User.find(req.query, function(err, users) {
+            if (err) console.log(err);
+            res.send(users.length + "");
+            })
+        });
 
 
     // // User By ID
