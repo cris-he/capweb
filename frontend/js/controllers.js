@@ -61,6 +61,8 @@ const endpoint = "http://localhost:8000";
 
 const httpOptions = { withCredentials: true };
 
+var auth_user;
+
 var onError = function(err) {
     console.log('Error', err);
 }
@@ -4516,7 +4518,7 @@ function authCtrl($scope, $state, $http, SweetAlert) {
     $http.get(endpoint + '/api/auth/profile').then(function(res){
         $state.go('dashboard');        
     });
-
+    $scope.isProf = false;
     $scope.auth;
     $scope.new;
     $scope.email;
@@ -4536,9 +4538,17 @@ function authCtrl($scope, $state, $http, SweetAlert) {
     };
 
     $scope.register = function () {
+        $scope.isProf? $scope.new.role = 'Professor':$scope.new.role = 'Student';
+        $scope.new.avatar = 'img/avatar/profile1.png';
         $http.post(endpoint + "/api/auth/register", $scope.new).then(function(res){
-            $scope.new = res.data;
-        }, onError);
+            $state.go('dashboard');
+        }, function(err){
+            SweetAlert.swal({
+                title: err.data,
+                text: "Something Wrong!",
+                type: "error"
+            });
+        });
     };
 
     $scope.forgot = function () {
@@ -4582,20 +4592,39 @@ function navBarCtrl($scope, $http, $state) {
 }
 
 function dashboardCtrl($scope, $state, $http) {
+    $http.defaults.withCredentials = true;
+
     $scope.feeds;
+    $scope.u_count;
+    $scope.t_count;
+    $scope.p_count;
+
+    $http.get(endpoint + "/api/users/count").then(function(res){
+        $scope.u_count = res.data;
+    });
+    $http.get(endpoint + "/api/teams/count").then(function(res){
+        $scope.t_count = res.data;
+    });
+    $http.get(endpoint + "/api/projects/count").then(function(res){
+        $scope.p_count = res.data;
+    });
     $http.get(endpoint + "/api/feeds").then(function(res){
-        console.log('dash',res.data)
         $scope.feeds = res.data;
     });
 }
 
 function user_profileCtrl($scope, $stateParams, $http) {
-    //Use $stateParams._id to fetch user data from backend
+    $http.defaults.withCredentials = true;
     $http.get(endpoint + "/api/users/" + $stateParams._id).then(function(res){
         $scope.user = res.data;
     }, onError);
 
-    $scope.Interest_count = 3;
+    $scope.endorse = function () {
+        $http.get(endpoint + "/api/users/" + $stateParams._id + "/likes").then(function(res){
+            $scope.user.likes = res.data;
+        }, onError);
+    }
+
     var sparkline1Data = [3, 2, 5, 10, 11, 8, 22];
     var sparkline1Options = {
         type: 'line',
@@ -4693,9 +4722,33 @@ function team_listCtrl($scope, $http) {
 
 function user_listCtrl($scope, $stateParams, $http) {
     $scope.client;
-    $http.get(endpoint+'/api/users').then(function(res){
-        $scope.users = res.data;
-        console.log("users", res.data);
+    $scope.tab = 1;
+    $scope.change_client = function(__id) {
+        $scope.client = __id;
+        // console.log('switch client', $scope.client);
+    }
+
+    $scope.change_tab = function(__num) {
+        $scope.tab = __num;
+        if(__num == 1) {
+            $scope.client = $scope.students[0]._id;
+
+        } else if (__num == 2) {
+           $scope.client = $scope.professors[0]._id;
+        }
+        // console.log('switch client', $scope.client);
+    }
+    // $http.get(endpoint+'/api/users').then(function(res){
+    //     $scope.users = res.data;
+    //     $scope.client = $scope.users[0]._id;
+    //     console.log("users", res.data);
+    // }, onError);
+    $http.get(endpoint+'/api/users/students').then(function(res){
+        $scope.students = res.data;
+        $scope.client = $scope.students[0]._id;
+    }, onError);
+    $http.get(endpoint+'/api/users/professors').then(function(res){
+        $scope.professors = res.data;
     }, onError);
 
 }

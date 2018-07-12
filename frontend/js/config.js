@@ -51,6 +51,9 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     {
                         name: 'oitozero.ngSweetAlert',
                         files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                    },
+                    {
+                        files: ['css/plugins/iCheck/custom.css', 'js/plugins/iCheck/icheck.min.js']
                     }
                     ]);
                 }
@@ -235,6 +238,13 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     },
                     {
                         files: ['js/plugins/sparkline/jquery.sparkline.min.js']
+                    },
+                    {
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
                     }
                     ]);
                 }
@@ -294,6 +304,19 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             url: "/users",
             templateUrl: "views/users/list.html",
             data: { pageTitle: 'Users' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                    {
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                    }
+                    ]);
+                }
+            }
         })
         .state('user_profile', {
             url: "/users/:_id/profile",
@@ -395,7 +418,20 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         .state('team_list', {
             url: "/teams",
             templateUrl: "views/teams/list.html",
-            data: { pageTitle: 'Teams' }
+            data: { pageTitle: 'Teams' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                    {
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                    }
+                    ]);
+                }
+            }
         })
         .state('forms', {
             abstract: true,
