@@ -29,13 +29,11 @@
             <div class="wrapper wrapper-content animated fadeInRight">
                 <div class="ibox">
                     <div class="ibox-content">
-                        <div class="row">
+                        <div class="row" ng-show="project.owenr._id == authed._id">
                             <div class="col-lg-12">
                                 <div class="m-b-md">
                                     <span class="btn-group pull-right">
-                                        <a ui-sref="project_profile_edit({_id:project._id})" class="btn btn-white">Join</a>
-                                        <a ui-sref="project_profile_edit({_id:project._id})" class="btn btn-white">Edit</a>
-                                        <a ui-sref="project_profile_edit({_id:project._id})" class="btn btn-white">Leave</a>
+                                        <a ui-sref="project_edit({_id:project._id})" class="btn btn-white">Edit</a>
                                     </span>
                                     <h2>Details</h2>
                                 </div>
@@ -70,12 +68,14 @@
                             <div class="col-lg-5">
                                 <dl class="dl-horizontal">
                                     <dt>Teams limit:</dt>
-                                    <dd>2 / 2</dd>
+                                    <dd> {{project.teams.length}} / {{project.size}}</dd>
                                     <br>
                                     <dt>Supervisor:</dt>
-                                    <dd ng-repeat="sup in project.supervisors"><a href="/#/users/123/profile">{{sup.first}} {{sup.last}}</a></dd>
+                                    <dd ng-show="project.supervisors.length == 0">N/A</dd>
+                                    <dd ng-repeat="sup in project.supervisors"><a ui-sref="user_profile({_id:sup._id})">{{sup.first}} {{sup.last}}</a></dd>
                                     <br>
                                     <dt>Administrator: </dt>
+                                    <dd ng-hide="project.admin">N/A</dd>
                                     <dd><a href="/#/users/321/profile">{{project.admin._id}}</a></dd>
                                 </dl>
                             </div>
@@ -108,16 +108,26 @@
                                     <uib-tabset>
                                         <uib-tab heading="Discussion Board" active="tab.active" class="dsads">
                                             <div class="feed-activity-list">
-                                                <div class="feed-element" ng-repeat="comment in project.comments">
-                                                    <a href="" class="pull-left">
-                                                        <img alt="image" class="img-circle" src="img/profile19.png">
+                                                <div class="feed-element">
+                                                    <div class="media-body">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" ng-model="comment.content">
+                                                            <span class="input-group-btn">
+                                                                <button ng-disabled="comment.content == ''" ng-click="new_comment()" type="button" class="btn btn-primary">Post
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="feed-element" ng-repeat="comment in project.comments | orderBy : '-time'">
+                                                    <a ui-sref="user_profile({_id:comment.owner._id})" class="pull-left">
+                                                        <img alt="image" class="img-circle" src="{{comment.owner.avatar}}">
                                                     </a>
 
                                                     <div class="media-body ">
-                                                        <small class="pull-right">6h ago</small>
-                                                        <strong>{{comment._id}}</strong>
+                                                        <strong>{{comment.owner.first}} {{comment.owner.last}}</strong>
                                                         <br>
-                                                        <small class="text-muted">{{comment.time}}</small>
+                                                        <small class="text-muted">{{comment.time | date : "medium"}}</small>
                                                         <div class="well">
                                                             {{comment.content}}
                                                         </div>
@@ -144,12 +154,13 @@
                             <p class="small">
                                 {{project.owner.first}} {{project.owner.last}}
                             </p>
-                            <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="{{project.owner.first}} {{project.owner.last}}" src="img/profile.png">
+                            <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="{{project.owner.first}} {{project.owner.last}}" src="{{project.owner.avatar}}">
                         </a>
                     </div>
                     <br>
                     <br>
-                    <h3>Team Involved</h3>
+                    <h3>Team Joined</h3>
+                    <div ng-show="project.teams.length == 0">N/A</div>
                     <div ng-repeat="team in project.teams">
                         <p class="small">
                                 <a ui-sref="team_profile({_id:team._id})">{{team._id}}</a>

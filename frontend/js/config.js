@@ -152,7 +152,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('create.project', {
             url: "/project",
-            templateUrl: "views/projects/create.html",
+            templateUrl: "views/projects/ownerlist.html",
             data: { pageTitle: 'Create Project' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
@@ -250,6 +250,41 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
+        .state('project_create', {
+            url: "/projects/create",
+            templateUrl: "views/projects/create.html",
+            data: { pageTitle: 'Projects' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        files: ['js/plugins/footable/footable.all.min.js', 'css/plugins/footable/footable.core.css']
+                    },
+                    {
+                        name: 'ui.footable',
+                        files: ['js/plugins/footable/angular-footable.js']
+                    },
+                    {
+                        files: ['js/plugins/sparkline/jquery.sparkline.min.js']
+                    },
+                    {
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                    },
+                    {
+                        name: 'ngTagsInput',
+                        files: ['js/plugins/ngTags/ng-tags-input.min.js', 'css/plugins/ngTags/ng-tags-input-custom.min.css']
+                    },
+                    {
+                        name: 'summernote',
+                        files: ['css/plugins/summernote/summernote.css', 'css/plugins/summernote/summernote-bs3.css', 'js/plugins/summernote/summernote.min.js', 'js/plugins/summernote/angular-summernote.min.js']
+                    }
+                    ]);
+                }
+            }
+        })
         .state('project_profile', {
             url: "/projects/:_id/profile",
             templateUrl: "views/projects/profile.html",
@@ -294,7 +329,15 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     {
                         name: 'summernote',
                         files: ['css/plugins/summernote/summernote.css', 'css/plugins/summernote/summernote-bs3.css', 'js/plugins/summernote/summernote.min.js', 'js/plugins/summernote/angular-summernote.min.js']
+                    },
+                    {
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
                     }
+                    
                     ]);
                 }
             }
@@ -371,6 +414,13 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     {
                         name: 'summernote',
                         files: ['css/plugins/summernote/summernote.css', 'css/plugins/summernote/summernote-bs3.css', 'js/plugins/summernote/summernote.min.js', 'js/plugins/summernote/angular-summernote.min.js']
+                    },
+                    {
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
                     }
                     ]);
                 }
@@ -409,6 +459,13 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     {
                         name: 'summernote',
                         files: ['css/plugins/summernote/summernote.css', 'css/plugins/summernote/summernote-bs3.css', 'js/plugins/summernote/summernote.min.js', 'js/plugins/summernote/angular-summernote.min.js']
+                    },
+                    {
+                        files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                    },
+                    {
+                        name: 'oitozero.ngSweetAlert',
+                        files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
                     }
                     ]);
                 }

@@ -28,9 +28,9 @@ authRouter = require('./routes/auth')(User);
 
 
 feedRouter = require('./routes/feeds')(Feed);
-userRouter = require('./routes/users')(User);
-teamRouter = require('./routes/teams')(Team);
-projectRouter = require('./routes/projects')(Project);
+userRouter = require('./routes/users')(User, Team, Project);
+teamRouter = require('./routes/teams')(User, Team, Project);
+projectRouter = require('./routes/projects')(User, Team, Project);
 
 app.use(function (req, res, next) {
     // Website you wish to allow to connect

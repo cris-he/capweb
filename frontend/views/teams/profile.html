@@ -32,9 +32,12 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-md">
-                                    <a href="" class="btn btn-white btn-xs pull-right">Leave team</a>
-                                    <a href="" class="btn btn-white btn-xs pull-right">Join team</a>
-                                    <a ui-sref="team_edit({_id:team._id})" class="btn btn-white btn-xs pull-right">Edit team</a>
+                                    <a ng-click="delete_modal()" ng-show="authed._id == team.owner._id" class="btn btn-white btn-xs pull-right">Delete this team</a>
+                                    <a ng-click="remove_teammate_modal()" ng-show="authed._id == team.owner._id" class="btn btn-white btn-xs pull-right">Remove a teammate</a>
+                                    <a ng-click="join_modal()" ng-show="authed._id != team.owner._id" class="btn btn-white btn-xs pull-right">Join this team</a>
+                                    <a ng-show="authed._id == team.owner._id" ui-sref="team_edit({_id:team._id})" class="btn btn-white btn-xs pull-right">
+                                        Edit team profile
+                                    </a>
 
                                     <h2>{{'DETAILS' | translate}}</h2>
                                 </div>
@@ -72,15 +75,15 @@
 
                                         <dt>Created by:</dt>
                                         <dd>
-                                            <a ui-sref="user_profile({_id:team.owner})">{{team.owner}}</a>
+                                            <a ui-sref="user_profile({_id:team.owner._id})">{{team.owner.first}} {{team.owner.last}}</a>
                                         </dd>
                                         <br>
                                         <dt>Team Capacity:</dt>
                                         <dd> {{team.mates.length}} / {{team.size}}</dd>
                                         <br>
                                         <dt>Tags:</dt>
+                                        <dd ng-if="!team.tags.length">N/A</dd>
                                         <dd ng-repeat="tag in team.tags">
-                                            <p ng-if="!team.tags.length">N/A</p>
                                             <i class="fa fa-tag"></i> {{tag.text}}
                                         </dd>
                                     </dl>
@@ -93,8 +96,8 @@
                                             <div class="inline" ng-repeat="mate in team.mates">
                                                 <a ui-sref="user_profile({_id:mate._id})">
 
-                                                    <img alt="image" class="img-circle" title="Cris He" src="img/profile18.png">
-                                                    <p align="center" tooltip-placement="bottom" uib-tooltip="Cris He">C.H.</p>
+                                                    <img alt="image" class="img-circle" title="Cris He" src="{{mate.avatar}}">
+                                                    <p align="center" tooltip-placement="bottom" uib-tooltip="{{mate.first}} {{mate.last}}">{{mate.first.charAt(0).toUpperCase()}}. {{mate.last.charAt(0).toUpperCase()}}.</p>
                                                 </a>
                                             </div>
                                         </dd>
@@ -137,22 +140,21 @@
                                                         <div class="input-group">
                                                             <input type="text" class="form-control" ng-model="comment.content">
                                                             <span class="input-group-btn">
-                                                                <button ng-click="new_comment()" type="button" class="btn btn-primary">Post
+                                                                <button ng-disabled="comment.content == ''" ng-click="new_comment()" type="button" class="btn btn-primary">Post
                                                                 </button>
                                                             </span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="feed-element" ng-repeat="comment in team.comments">
-                                                    <a href="" class="pull-left">
-                                                        <img alt="image" class="img-circle" src="img/profile8.png">
+                                                <div class="feed-element" ng-repeat="comment in team.comments |  orderBy : '-time'">
+                                                    <a ui-sref="user_profile({_id:comment.owner._id})" class="pull-left">
+                                                        <img alt="image" class="img-circle" src="{{comment.owner.avatar}}">
                                                     </a>
 
                                                     <div class="media-body">
-                                                        <small class="pull-right">6h ago</small>
-                                                        <strong>{{comment._id}}</strong>
+                                                        <strong>{{comment.owner.first}} {{comment.owner.last}}</strong>
                                                         <br>
-                                                        <small class="text-muted">{{comment.time}}</small>
+                                                        <small class="text-muted">{{comment.time | date: "medium"}}</small>
                                                         <div class="well">
                                                             {{comment.content}}
                                                         </div>
@@ -179,8 +181,8 @@
                     <h4>
                         <i>Not currently registered to any projects.</i>
                         <br>
-                        <i>
-                            <a href="#/projects">
+                        <i ng-show="team.owner._id == authed._id">
+                            <a ng-disabled="true">
                                 <u>Register Now!</u>
                             </a>
                         </i>
@@ -189,18 +191,25 @@
                 <div ng-show="team.involve">
                     <p>
                         <strong>Title</strong>:
-                        <a href="/#/projects">{{team.involve._id}}</a>
+                        <a href="/#/projects">{{team.involve.name}}</a>
                     </p>
                     <p class="small" ng-show="!team.involve.bio">N/A</p>
                     <p class="small" ng-bind-html="team.involve.bio"></p>
 
                     <p>
-                        <strong>Supervisor</strong>: Khoman Phang, Baochun Li
+                        <strong>Supervisor</strong>:
+                        <span ng-show="team.involve.supervisors.length == 0"> N/A</span>
+                        <span ng-repeat="sup in team.involve.supervisors">
+                            {{sup.first}} {{sup.last}}
+                        </span>
                     </p>
                     <p>
-                        <strong>Administrator</strong>: Phil Anderson</p>
+                        <strong>Administrator</strong>:
+                        <span ng-show="!team.involve.admin">N/A</span>
+                         {{team.involve.admin}}
+                    </p>
                     <br>
-                    <ul class="tag-list" style="padding: 0">
+                    <ul ng-show="false" class="tag-list" style="padding: 0">
                         <li>
                             <a href="">
                                 <i class="fa fa-tag"></i> Web Programming</a>

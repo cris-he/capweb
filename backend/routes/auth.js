@@ -15,6 +15,8 @@ var routes = function (User) {
             //     first: req.user.first,
             //     last: req.user.last
             // }
+            req.user.login = new Date();
+            req.user.save();
             res.status(200).send(req.user);
         });
 

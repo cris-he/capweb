@@ -1,0 +1,16 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <i class="fa fa-laptop modal-icon"></i>
+        <h4 class="modal-title">Remove a teammate</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label style="text-align: center">Enter the id of the teammate</label>
+            <input ng-model="remove_teammate_id" type="text" placeholder="Enter the id of the teammate" class="form-control">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="remove_teammate_cancel()">Cancel</button>
+        <button ng-disabled="!remove_teammate_id" type="button" class="btn btn-primary" ng-click="remove_teammate_submit()">Remove</button>
+    </div>
+</div>

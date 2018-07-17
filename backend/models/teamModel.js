@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var teamModel = mongoose.Schema({
     name: { type: String },
     email: { type: String },
-    magictoken: { type: Object },
+    password: { type: String },
+    owner: { type: Object },
     bio: { type: String },
     mates: { type: Array },
     invovle: { type: Object },
@@ -11,7 +12,7 @@ var teamModel = mongoose.Schema({
     tags : {type: Array},
     size: { type: Number },
     status: { type: Number },
-    tags: { type: Array }
+    comments: { type: Array }
 });
 
 module.exports = mongoose.model('Team', teamModel);

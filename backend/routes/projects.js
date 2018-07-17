@@ -5,7 +5,7 @@ var router = express.Router();
 
 
 
-var routes = function (Project) {
+var routes = function (User, Team, Project) {
 
     // All Projects
     router.route('/')
@@ -17,8 +17,16 @@ var routes = function (Project) {
         })
         .post(function (req, res) {
             var __project = new Project(req.body);
+            __project.owner = req.user;
+            if(req.user.role == "Professor") {
+                __project.superviosrs.push(req.user);
+            }
             __project.save();
-            res.status(201).send(__project);
+            User.findById({_id:req.user._id}, function(err,__user){
+                __user.projects.push(__project);
+                __user.save();
+                res.status(201).send(__project);
+            })
         });
 
     // All Projects
@@ -52,6 +60,26 @@ var routes = function (Project) {
         .post(function(req, res){
             Project.update({_id  : req.project._id}, {$set: req.body}, function(__err,__data){
                 res.status(201).send(__data);
+            });
+        })
+
+
+    router.route('/:id/comments')
+        .post(function(req, res){
+            req.body.owner = {
+                _id:req.user._id,
+                first:req.user.first,
+                last:req.user.last,
+                avatar:req.user.avatar
+            };
+            req.body.time = new Date();
+            Project.findOneAndUpdate(
+                {_id  : req.project._id},
+                {$push: {'comments':req.body}},
+                {new: true},
+                function(__err,__data){
+                    // __data.comments.sort('-time');
+                    res.status(201).send(__data.comments);
             });
         })
 

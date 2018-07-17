@@ -1,0 +1,16 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <i class="fa fa-laptop modal-icon"></i>
+        <h4 class="modal-title">Leave this team</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label style="text-align: center">Enter the password of this team</label>
+            <input ng-model="password" type="text" placeholder="Enter the password of this team" class="form-control">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="team_leave_cancel()">Cancel</button>
+        <button ng-disabled="!password" type="button" class="btn btn-primary" ng-click="team_leave_submit()">Leave</button>
+    </div>
+</div>

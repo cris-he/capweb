@@ -4,7 +4,7 @@ var router = express.Router();
 
 
 
-var routes = function(User) {
+var routes = function(User, Team, Project) {
 
     // All Users
     router.route('/')
@@ -27,6 +27,22 @@ var routes = function(User) {
             res.send(users.length + "");
             })
         });
+    
+    router.route('/students')
+        .get(function(req, res) {
+            User.find({role:'Student'}, function(err, __data) {
+            if (err) console.log(err);
+            res.send(__data);
+            })
+        });
+
+    router.route('/professors')
+        .get(function(req, res) {
+            User.find({role:'Professor'}, function(err, __data) {
+            if (err) console.log(err);
+            res.send(__data);
+            })
+        });
 
 
     // // User By ID
@@ -45,7 +61,7 @@ var routes = function(User) {
     // });
     router.route('/:id')
         .get(function(req, res) {
-            console.log('find by id', req.user, req.params.id);
+            // console.log('find by id', req.user, req.params.id);
             User.findById(req.params.id, function (err, __user) {
                 if(err) {
                     res.status(500).send(err);
@@ -69,8 +85,10 @@ var routes = function(User) {
             res.json(req.user);
         })
         .post(function(req, res){
-            User.update({_id  : req.user._id}, {$set: req.body}, function(__err,__data){
-                res.status(201).send(__data);
+            console.log(req.params.id);
+            User.findOneAndUpdate({_id  : req.params.id}, {$push: {'likes':req.user._id}},
+            {new: true}, function(__err,__data){
+                res.status(201).send(__data.likes);
             });
         })
 

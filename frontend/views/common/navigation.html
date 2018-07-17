@@ -23,7 +23,7 @@
                             <a ui-sref="team_profile({ _id: user.team._id })">My Team</a>
                         </li>
                         <li>
-                            <a ui-sref="project_profile({_id: user.involve._id })">My Project</a>
+                            <a ui-sref="create.project">My Project</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -75,12 +75,12 @@
                     <span class="nav-label">{{ 'PROJECTS' | translate }}</span>
                 </a>
             </li>
-            <li ui-sref-active="active">
+            <!-- <li ui-sref-active="active">
                 <a ui-sref="search">
                     <i class="fa fa-search"></i>
                     <span class="nav-label">{{ 'SEARCH' | translate }}</span>
                 </a>
-            </li>
+            </li> -->
         </ul>
 
     </div>

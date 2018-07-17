@@ -35,7 +35,7 @@
                     <div>
                         <h2 class="no-margins">
                             {{user.first}} {{user.last}}
-                            <button class="btn btn-white btn-xs">
+                            <button ng-click="endorse()" class="btn btn-white btn-xs">
                                 <i class="fa fa-thumbs-up"></i> Endorse!</button>
                         </h2>
                         <h4>{{user.role}}</h4>
@@ -53,7 +53,7 @@
                         <td>
                             <strong>{{user.projects.length}}</strong> Projects
                         </td>
-                        <td>
+                        <td ng-show="false">
                             <strong>{{user.exp.length}}</strong> Work Experience
                         </td>
 
@@ -68,8 +68,8 @@
         </div>
         <div class="col-md-3" ng-controller="user_profileCtrl as chart">
             <small>Views in past 7 days</small>
-            <h2 class="no-margins">13</h2>
-            <div sparkline spark-data="chart.sparkline1" spark-options="chart.sparkline1Options"></div>
+            <h2 class="no-margins">N/A</h2>
+            <div ng-show="false" sparkline spark-data="chart.sparkline1" spark-options="chart.sparkline1Options"></div>
         </div>
     </div>
     <div class="row wrapper wrapper-content animated fadeInRight">
@@ -122,22 +122,28 @@
                         <div class="row">
                             <div class="col-lg-5">
                                 <dl class="dl-horizontal">
-
-                                    <dt>Interests:</dt>
-                                    <dd ng-if="user.interests.length==0">N/A</dd>
-                                    <dd ng-repeat="inte in user.interests">
+                                    <dt>Tags:</dt>
+                                    <dd>
+                                        <p ng-if="!user.tags.length">N/A</p>
+                                        <div ng-repeat="tag in user.tags">
+                                            <i class="fa fa-tag"></i> {{tag.text}}
+                                        </div>
+                                    </dd>
+                                    <dt ng-show="false">Interests:</dt>
+                                    <dd ng-show="false" ng-if="user.interests.length==0">N/A</dd>
+                                    <dd ng-show="false" ng-repeat="inte in user.interests">
                                         <span ng-if="inte.value">{{inte.label}}</span>
                                     </dd>
                                     <br>
                                     <dt>Team:</dt>
                                     <dd>
-                                        <a ng-if="user.team._id" href="#/teams" class="text-success">{{user.team._id}}</a>
+                                        <a ng-if="user.team._id" ui-sref="team_profile({_id: user.team._id})" class="text-success">{{user.team.name}}</a>
                                         <div ng-if="!user.team._id">N/A</div>
                                     </dd>
                                     <br>
                                     <dt ng-show="user.role=='Student'">Involved:</dt>
                                     <dd ng-show="user.role=='Student'">
-                                        <a ng-if="user.involve._id" href="#/projects" class="text-info">{{user.involve._id}}</a>
+                                        <a ng-if="user.involve._id" ui-sref="project_profile({_id: user.involve._id})" class="text-info">{{user.involve.name}}</a>
                                         <div ng-if="!user.involve._id">N/A</div>
                                     </dd>
                                 </dl>
@@ -148,38 +154,15 @@
                                     <dd>{{user.username}}</dd>
                                     <br>
                                     <dt>Last login:</dt>
-                                    <dd>{{user.login}}</dd>
+                                    <dd><span ng-hide="user.login">N/A</span><span>{{user.login | date : "medium"}}</span></dd>
                                     <br>
                                     <dt>Recent Visitors:</dt>
                                     <dd>
-                                        <div class="inline">
+                                        N/A
+                                        <div class="inline" ng-show='false'>
                                             <a href="/#/users/8/profile">
                                                 <img alt="image" class="img-circle" title="Full name" src="img/profile14.png">
                                                 <p align="center" tooltip-placement="bottom" uib-tooltip="Muhamud Dip">M.D.</p>
-                                            </a>
-                                        </div>
-                                        <div class="inline">
-                                            <a href="/#/users/8/profile">
-                                                <img alt="image" class="img-circle" title="Full name" src="img/profile11.png">
-                                                <p align="center" tooltip-placement="bottom" uib-tooltip="Alibabababa Bethord"> A.B.</p>
-                                            </a>
-                                        </div>
-                                        <div class="inline">
-                                            <a href="/#/users/8/profile">
-                                                <img alt="image" class="img-circle" title="Full name" src="img/profile20.png">
-                                                <p align="center" tooltip-placement="bottom" uib-tooltip="Aliza Chen"> A.C.</p>
-                                            </a>
-                                        </div>
-                                        <div class="inline">
-                                            <a href="/#/users/8/profile">
-                                                <img alt="image" class="img-circle" title="Full name" src="img/profile4.png">
-                                                <p align="center" tooltip-placement="bottom" uib-tooltip="Bonnie Fu"> B.F.</p>
-                                            </a>
-                                        </div>
-                                        <div class="inline">
-                                            <a href="/#/users/8/profile">
-                                                <img alt="image" class="img-circle" title="Full name" src="img/profile21.png">
-                                                <p align="center" tooltip-placement="bottom" uib-tooltip="Ma Der"> M.D.</p>
                                             </a>
                                         </div>
                                     </dd>
@@ -210,9 +193,10 @@
             <div class="col-lg-2">
                 <h3>Similar Users</h3>
                 <p class="small">
-                    Here are the users share common interests, please do check them out!
+                    <!-- Here are the users share common interests, please do check them out! -->
+                    N/A
                 </p>
-                <div class="user-friends">
+                <div class="user-friends" ng-show="false">
                     <a href="">
                         <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Apple Dip" src="img/profile.png">
                     </a>
@@ -249,7 +233,7 @@
         </div>
     </div>
     <div class="row wrapper wrapper-content animated fadeInRight">
-        <div class="row col-lg-12" ng-hide="user.role=='!Student'">
+        <div class="row col-lg-12" ng-show="user.projects.length != 0">
 
             <div class="col-lg-10">
                 <div class="ibox float-e-margins">
@@ -269,7 +253,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="project in user.projects" foo-table-done>
-                                    <td>{{project._id}}</small>
+                                    <td>{{project.name}}</small>
                                     </td>
                                     <td>
                                         <div ng-switch="project.status">
@@ -286,7 +270,7 @@
 
                                         </div>
                                     </td>
-                                    <td>{{project._id}}</td>
+                                    <td ng-bind-html="project.bio | THTML"></td>
                                 </tr>
                             </tbody>
                             <tfoot>

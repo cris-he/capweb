@@ -5,7 +5,7 @@ var router = express.Router();
 
 
 
-var routes = function (Team) {
+var routes = function (User, Team, Project) {
 
     // All Teams
     router.route('/')
@@ -17,8 +17,15 @@ var routes = function (Team) {
         })
         .post(function (req, res) {
             var __team = new Team(req.body);
+            __team.owner = req.user;
+            __team.mates.push(req.user);
+            __team.status = 25;
             __team.save();
-            res.status(201).send(__team);
+            User.findById({_id:req.user._id}, function(err, __user){
+                __user.team = __team;
+                __user.save();
+                res.status(201).send(__team);
+            });
         });
 
     // All Teams
@@ -57,11 +64,45 @@ var routes = function (Team) {
 
     router.route('/:id/comments')
         .post(function(req, res){
-            req.body.date = new Date();
-            console.log(req.body);
-            Team.update({_id  : req.team._id}, {$set: req.body}, function(__err,__data){
-                res.status(201).send(__data);
-            });
+            req.body.owner = {
+                _id:req.user._id,
+                first:req.user.first,
+                last:req.user.last,
+                avatar:req.user.avatar
+            };
+            req.body.time = new Date();
+            req.team.comments.push(req.body);
+            req.team.save();
+            res.status(201).send(req.team.comments);
+        })
+
+
+    router.route('/:id/join')
+        .post(function(req, res){
+            if(req.user.team) {
+                res.status(400).send('You are already in a team.');
+            } else if(req.team.mates.length >= req.team.size) {
+                res.status(400).send('This team is full.');
+            } else {
+                if(req.team.password != req.body.password) {
+                    res.status(403).send('Wrong password.');
+                } else {
+
+                    req.team.mates.push(req.user);
+                    req.team.save().then(function(){
+                        User.findById(req.user._id, function(err, __user){
+                            console.log(typeof __user);
+                            __user.team = req.team;
+                            __user.save();
+                            // req.team.mates.push(__user);
+                            // req.team.save();
+                            res.status(201).send('You joined this team.');
+                        });
+                    });
+
+                }
+            }
+
         })
 
 

@@ -61,7 +61,7 @@ const endpoint = "http://localhost:8000";
 
 const httpOptions = { withCredentials: true };
 
-var auth_user;
+var $auth;
 
 var onError = function(err) {
     console.log('Error', err);
@@ -4516,6 +4516,7 @@ function passwordMeterCtrl($scope) {
 function authCtrl($scope, $state, $http, SweetAlert) {
     $http.defaults.withCredentials = true;    
     $http.get(endpoint + '/api/auth/profile').then(function(res){
+        $auth = res.data;
         $state.go('dashboard');        
     });
     $scope.isProf = false;
@@ -4539,7 +4540,8 @@ function authCtrl($scope, $state, $http, SweetAlert) {
 
     $scope.register = function () {
         $scope.isProf? $scope.new.role = 'Professor':$scope.new.role = 'Student';
-        $scope.new.avatar = 'img/avatar/profile1.png';
+        var random = Math.floor(Math.random() * 22) + 1;
+        $scope.new.avatar = 'img/avatar/profile'+ random + '.png';
         $http.post(endpoint + "/api/auth/register", $scope.new).then(function(res){
             $state.go('dashboard');
         }, function(err){
@@ -4561,7 +4563,7 @@ function authCtrl($scope, $state, $http, SweetAlert) {
 function sideBarCtrl($scope, $http, $state, SweetAlert) {
     $http.defaults.withCredentials = true;
     $http.get(endpoint + '/api/auth/profile').then(function(res){
-        $scope.user = res.data;
+        $auth = $scope.user = res.data;
     }, function(err){
         console.log(err);
         SweetAlert.swal({
@@ -4620,7 +4622,7 @@ function user_profileCtrl($scope, $stateParams, $http) {
     }, onError);
 
     $scope.endorse = function () {
-        $http.get(endpoint + "/api/users/" + $stateParams._id + "/likes").then(function(res){
+        $http.post(endpoint + "/api/users/" + $stateParams._id + "/likes").then(function(res){
             $scope.user.likes = res.data;
         }, onError);
     }
@@ -4666,33 +4668,157 @@ function user_editCtrl($scope, $state, $stateParams, $http) {
 
 }
 
-function team_profileCtrl($scope, $stateParams, $http, SweetAlert) {
+function team_profileCtrl($scope, $stateParams, $http, SweetAlert, $uibModal) {
+    $http.defaults.withCredentials = true;
+    $http.get(endpoint + '/api/auth/profile').then(function(res){
+        $scope.authed = res.data;
+    });
+    $scope.comment = {
+        content:''
+    };
 
     $http.get(endpoint+'/api/teams/'+$stateParams._id).then(function(res){
         $scope.team = res.data;
         console.log("teams", res.data);
     }, onError);
 
-
-    $scope.comment = {
-        _id:'5b0c5ef1794a01719c51994d',
-        content:''
-    };
-
     $scope.new_comment = function() {
-        $http.post(endpoint+'/api/teams/'+ $stateParams._id +'/comments', $scope.new_comment).then(function(res){
+        $http.post(endpoint+'/api/teams/'+ $stateParams._id +'/comments', $scope.comment).then(function(res){
             SweetAlert.swal({
                 title: "Good job!",
                 text: "You created a post!",
                 type: "success"
             });
+            $scope.comment.content = "";            
             $scope.team.comments = res.data;
         });
     };
 
+    $scope.remove_teammate_modal = function() {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'views/teams/modals/remove_teammate.html',
+            controller: 'team_remove_teammateCtrl'
+        });
+    };
+
+    $scope.join_modal = function() {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'views/teams/modals/join.html',
+            controller: 'team_joinCtrl'
+        });
+    };
 
 
+    $scope.leave_modal = function() {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'views/teams/modals/leave.html',
+            controller: 'team_leaveCtrl'
+        });
+    };
 
+    $scope.delete_modal = function() {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'views/teams/modals/delete.html',
+            controller: 'team_deleteCtrl'
+        });
+    };
+}
+
+function team_joinCtrl($scope, $stateParams, $http, SweetAlert, $uibModalInstance) {
+    $http.defaults.withCredentials = true;
+    $scope.payload = {
+        password:''
+    };
+    $scope.team_join_submit = function() {
+        console.log('team_joinCtrl', $scope.password);
+            // $uibModalInstance.close();
+        $http.post(endpoint+'/api/teams/'+ $stateParams._id +'/join', $scope.payload).then(function(res){
+            SweetAlert.swal({
+                title: "Good job!",
+                text: "You joined this team!",
+                type: "success"
+            });
+        });
+    };
+
+    $scope.team_join_cancel = function() {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+function team_leaveCtrl($scope, $stateParams, $http, SweetAlert, $uibModalInstance) {
+    $http.defaults.withCredentials = true;
+    $scope.password = '';
+    $scope.team_leave_submit = function() {
+        console.log('team_leaveCtrl', $scope.password);
+            SweetAlert.swal({
+                title: "Good job!",
+                text: "You left this team!",
+                type: "success"
+            });
+            $uibModalInstance.close();
+        // $http.post(endpoint+'/api/teams/'+ $stateParams._id +'/remove_teammate', _id).then(function(res){
+        //     SweetAlert.swal({
+        //         title: "Good job!",
+        //         text: "You removed a teammate!",
+        //         type: "success"
+        //     });
+        // });
+    };
+
+    $scope.team_leave_cancel = function() {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+function team_deleteCtrl($scope, $stateParams, $http, SweetAlert, $uibModalInstance) {
+    $http.defaults.withCredentials = true;
+    $scope.password = '';
+    $scope.team_delete_submit = function() {
+        console.log('team_deleteCtrl', $scope.password);
+            SweetAlert.swal({
+                title: "Good job!",
+                text: "You deleted this team!",
+                type: "success"
+            });
+            $uibModalInstance.close();
+        // $http.post(endpoint+'/api/teams/'+ $stateParams._id +'/remove_teammate', _id).then(function(res){
+        //     SweetAlert.swal({
+        //         title: "Good job!",
+        //         text: "You removed a teammate!",
+        //         type: "success"
+        //     });
+        // });
+    };
+
+    $scope.team_delete_cancel = function() {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+function team_remove_teammateCtrl($scope, $stateParams, $http, SweetAlert, $uibModalInstance) {
+    $http.defaults.withCredentials = true;
+    $scope.remove_teammate_id = '';
+    $scope.remove_teammate_submit = function() {
+        console.log('remove_teammate', $scope.remove_teammate_id);
+            SweetAlert.swal({
+                title: "Good job!",
+                text: "You removed a teammate!",
+                type: "success"
+            });
+            $uibModalInstance.close();
+        // $http.post(endpoint+'/api/teams/'+ $stateParams._id +'/remove_teammate', _id).then(function(res){
+        //     SweetAlert.swal({
+        //         title: "Good job!",
+        //         text: "You removed a teammate!",
+        //         type: "success"
+        //     });
+        // });
+    };
+
+    $scope.remove_teammate_cancel = function() {
+        $uibModalInstance.dismiss('cancel');
+    };
 }
 
 function team_editCtrl($scope, $state, $stateParams, $http) {
@@ -4753,14 +4879,41 @@ function user_listCtrl($scope, $stateParams, $http) {
 
 }
 
-function project_profileCtrl($scope, $stateParams, $http) {
+function project_profileCtrl($scope, $stateParams, $http, SweetAlert) {
+    $http.defaults.withCredentials = true;
+    $scope.authed = $auth;
+    $scope.comment = {
+        content:''
+    }
     $http.get(endpoint+'/api/projects/'+ $stateParams._id).then(function(res){
         $scope.project = res.data;
         console.log("projects", res.data);
     }, onError);
+    $scope.new_comment = function() {
+        $http.post(endpoint+'/api/projects/'+ $stateParams._id +'/comments', $scope.comment).then(function(res){
+            SweetAlert.swal({
+                title: "Good job!",
+                text: "You created a post!",
+                type: "success"
+            });
+            $scope.comment.content = "";
+            $scope.project.comments = res.data;
+        });
+    };
+}
+
+function project_ownerlistCtrl($scope, $state, $http, SweetAlert) {
+    $http.defaults.withCredentials = true;
+    $http.get(endpoint+"/api/auth/profile").then(function(res){
+        $scope.authed = res.data;
+    });
 }
 
 function project_createCtrl($scope, $state, $http, SweetAlert) {
+    $http.defaults.withCredentials = true;
+    $http.get(endpoint+"/api/auth/profile").then(function(res){
+        $scope.authed = res.data;
+    });
     $scope.project;
     $scope.project_create_submit = function () {
         $http.post(endpoint+'/api/projects/', $scope.project).then(function(res){
@@ -4805,11 +4958,17 @@ function searchCtrl($scope){
 
 }
 
-function team_createCtrl($scope, $http){
+function team_createCtrl($scope, $http, $state){
+    $http.defaults.withCredentials = true;
+    $http.get(endpoint+"/api/auth/profile").then(function(res){
+        if(res.data.team != "") {
+            $state.go('team_profile', {_id:res.data.team._id})
+        }
+    });
     $scope.team;
     $scope.team_new_submit = function () {
-        $http.post(endpoint+"/teams",$scope.team).then(function(res){
-            console.log(res.data);
+        $http.post(endpoint+"/api/teams/",$scope.team).then(function(res){
+            $state.go('team_profile', {_id:res.data._id})
         },onError);
     }
 }
@@ -4874,6 +5033,10 @@ angular
     .controller('team_profileCtrl', team_profileCtrl)
     .controller('team_createCtrl', team_createCtrl)    
     .controller('team_listCtrl', team_listCtrl)
+    .controller('team_remove_teammateCtrl', team_remove_teammateCtrl)
+    .controller('team_joinCtrl', team_joinCtrl)
+    .controller('team_leaveCtrl', team_leaveCtrl)
+    .controller('team_deleteCtrl', team_deleteCtrl)
 
     .controller('user_profileCtrl', user_profileCtrl)
     .controller('user_editCtrl', user_editCtrl)
@@ -4882,6 +5045,7 @@ angular
     .controller('project_editCtrl', project_editCtrl)
     .controller('project_profileCtrl', project_profileCtrl)
     .controller('project_createCtrl', project_createCtrl)
+    .controller('project_ownerlistCtrl', project_ownerlistCtrl)
     .controller('project_listCtrl', project_listCtrl)
 
     .controller('searchCtrl', searchCtrl)

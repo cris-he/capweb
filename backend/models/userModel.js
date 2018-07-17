@@ -11,6 +11,7 @@ var userModel = mongoose.Schema({
     team: { type: Object },
     involve: { type: Object },
     interests : {type: Array},
+    tags : {type: Array},
     size: { type: Number },
     status: { type: Number },
     exp : {type: Array},   

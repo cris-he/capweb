@@ -1,0 +1,59 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>My Projects</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+            <li class="active">
+                <strong>My Projects</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="row wrapper wrapper-content animated fadeInRight" ng-controller="project_ownerlistCtrl">
+
+
+    <div class="col-lg-12">
+        <div class="jumbotron">
+            <h1>Create A New Project</h1>
+            <p>Good Luck!</p>
+            <p>
+                <a ui-sref="project_create" role="button" class="btn btn-primary btn-lg">Create</a>
+            </p>
+        </div>
+    </div>
+
+
+    <div class="col-lg-12" ng-repeat="project in authed.projects">
+        <div class="ibox float-e-margins" >
+            <div class="ibox-content">
+                <h2>
+                    <a ui-sref="project_profile({_id:project._id})">{{project.name}}</a>
+                    <br/>
+                </h2>
+                <span ng-bind-html="project.bio | THTML"></span>
+            </div>
+            <div class="ibox-footer">
+                        <div ng-switch="project.status">
+                                <div ng-switch-when="100">
+                                    <dd>
+                                        <span class="label label-success">Full</span>
+                                    </dd>
+                                </div>
+                                <div ng-switch-default>
+                                    <dd>
+                                        <span class="label label-primary">Open</span>
+                                    </dd>
+                                </div>
+                            </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
