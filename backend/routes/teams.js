@@ -106,6 +106,34 @@ var routes = function (User, Team, Project) {
         })
 
 
+    router.route('/:id/leave')
+        .post(function(req, res){
+            if(!req.user.team) {
+                console.log('leave1');
+                res.status(400).send('You are alone.');
+            } else {
+                if(req.user.password != req.body.password) {
+                    console.log('leave2');
+                    res.status(403).send('Wrong password.');
+                } else {
+                    console.log('leave3');
+                    req.team.mates = req.team.mates.filter(function(m){
+                        return m._id !== req.user._id;
+                    });
+                    req.team.save().then(function(){
+                        User.findById(req.user._id, function(err, __user){
+                            __user.team = "";
+                            __user.save();
+                            // req.team.mates.push(__user);
+                            // req.team.save();
+                            res.status(201).send('You left this team.');
+                        });
+                    });
+                }
+            }
+
+        })
+
     return router;
 }
 

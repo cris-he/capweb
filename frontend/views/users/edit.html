@@ -56,14 +56,14 @@
                         <td>
                             <strong>{{user.projects.length}}</strong> Projects
                         </td>
-                        <td>
+                        <td ng-show="false">
                             <strong>{{user.exps.length}}</strong> Work Experience
                         </td>
 
                     </tr>
                     <tr>
                         <td>
-                            <strong>{{user.likes}}</strong> Endorsement
+                            <strong>{{user.likes.length}}</strong> Endorsement
                         </td>
                     </tr>
                 </tbody>
@@ -71,8 +71,9 @@
         </div>
         <div class="col-md-3" ng-controller="user_profileCtrl as chart">
             <small>Views in past 7 days</small>
-            <h2 class="no-margins">13</h2>
-            <div sparkline spark-data="chart.sparkline1" spark-options="chart.sparkline1Options"></div>
+            <h2 class="no-margins">N/A</h2>
+            <!-- <h2 class="no-margins">13</h2> -->
+            <!-- <div sparkline spark-data="chart.sparkline1" spark-options="chart.sparkline1Options"></div> -->
         </div>
     </div>
     <div class="row wrapper wrapper-content animated fadeInRight">

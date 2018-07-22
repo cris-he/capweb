@@ -5,12 +5,12 @@
     </div>
     <div class="modal-body">
         <div class="form-group">
-            <label style="text-align: center">Enter the password of this team</label>
-            <input ng-model="password" type="text" placeholder="Enter the password of this team" class="form-control">
+            <label style="text-align: center">Enter your password</label>
+            <input ng-model="payload.password" type="text" placeholder="Enter your password" class="form-control">
         </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-white" ng-click="team_leave_cancel()">Cancel</button>
-        <button ng-disabled="!password" type="button" class="btn btn-primary" ng-click="team_leave_submit()">Leave</button>
+        <button ng-disabled="!payload.password" type="button" class="btn btn-primary" ng-click="team_leave_submit()">Leave</button>
     </div>
 </div>

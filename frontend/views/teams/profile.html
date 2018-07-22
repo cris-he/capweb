@@ -34,7 +34,8 @@
                                 <div class="m-b-md">
                                     <a ng-click="delete_modal()" ng-show="authed._id == team.owner._id" class="btn btn-white btn-xs pull-right">Delete this team</a>
                                     <a ng-click="remove_teammate_modal()" ng-show="authed._id == team.owner._id" class="btn btn-white btn-xs pull-right">Remove a teammate</a>
-                                    <a ng-click="join_modal()" ng-show="authed._id != team.owner._id" class="btn btn-white btn-xs pull-right">Join this team</a>
+                                    <a ng-click="join_modal()" ng-show="authed._id != team.owner._id && authed.team == ''" class="btn btn-white btn-xs pull-right">Join this team</a>
+                                    <a ng-click="leave_modal()" ng-show="authed.team._id == team._id" class="btn btn-white btn-xs pull-right">Leave this team</a>
                                     <a ng-show="authed._id == team.owner._id" ui-sref="team_edit({_id:team._id})" class="btn btn-white btn-xs pull-right">
                                         Edit team profile
                                     </a>
@@ -181,7 +182,7 @@
                     <h4>
                         <i>Not currently registered to any projects.</i>
                         <br>
-                        <i ng-show="team.owner._id == authed._id">
+                        <i ng-show="false && team.owner._id == authed._id">
                             <a ng-disabled="true">
                                 <u>Register Now!</u>
                             </a>

@@ -36,7 +36,7 @@
                         <h2 class="no-margins">
                             {{user.first}} {{user.last}}
                             <button ng-click="endorse()" class="btn btn-white btn-xs">
-                                <i class="fa fa-thumbs-up"></i> Endorse!</button>
+                                <i class="fa fa-thumbs-up"></i> Like!</button>
                         </h2>
                         <h4>{{user.role}}</h4>
                         <small>
@@ -60,7 +60,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <strong>{{user.likes.length}}</strong> Endorsement
+                            <strong>{{user.likes.length}}</strong> Likes
                         </td>
                     </tr>
                 </tbody>
@@ -156,7 +156,7 @@
                                     <dt>Last login:</dt>
                                     <dd><span ng-hide="user.login">N/A</span><span>{{user.login | date : "medium"}}</span></dd>
                                     <br>
-                                    <dt>Recent Visitors:</dt>
+                                    <dt>Likes:</dt>
                                     <dd>
                                         N/A
                                         <div class="inline" ng-show='false'>

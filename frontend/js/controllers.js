@@ -4730,7 +4730,6 @@ function team_joinCtrl($scope, $stateParams, $http, SweetAlert, $uibModalInstanc
         password:''
     };
     $scope.team_join_submit = function() {
-        console.log('team_joinCtrl', $scope.password);
             // $uibModalInstance.close();
         $http.post(endpoint+'/api/teams/'+ $stateParams._id +'/join', $scope.payload).then(function(res){
             SweetAlert.swal({
@@ -4748,22 +4747,24 @@ function team_joinCtrl($scope, $stateParams, $http, SweetAlert, $uibModalInstanc
 
 function team_leaveCtrl($scope, $stateParams, $http, SweetAlert, $uibModalInstance) {
     $http.defaults.withCredentials = true;
-    $scope.password = '';
+    $scope.payload = {
+        password:''
+    };
     $scope.team_leave_submit = function() {
-        console.log('team_leaveCtrl', $scope.password);
-            SweetAlert.swal({
-                title: "Good job!",
-                text: "You left this team!",
-                type: "success"
-            });
-            $uibModalInstance.close();
-        // $http.post(endpoint+'/api/teams/'+ $stateParams._id +'/remove_teammate', _id).then(function(res){
+        // console.log('team_leaveCtrl', $scope.password);
         //     SweetAlert.swal({
         //         title: "Good job!",
-        //         text: "You removed a teammate!",
+        //         text: "You left this team!",
         //         type: "success"
         //     });
-        // });
+        //     $uibModalInstance.close();
+        $http.post(endpoint+'/api/teams/'+ $stateParams._id +'/leave', $scope.payload).then(function(res){
+            SweetAlert.swal({
+                title: "Good job!",
+                text: res.data,
+                type: "success"
+            });
+        });
     };
 
     $scope.team_leave_cancel = function() {
