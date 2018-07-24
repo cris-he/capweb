@@ -29,10 +29,16 @@
             <div class="wrapper wrapper-content animated fadeInRight">
                 <div class="ibox">
                     <div class="ibox-content">
-                        <div class="row" ng-show="project.owenr._id == authed._id">
+                        <div class="row" >
                             <div class="col-lg-12">
                                 <div class="m-b-md">
-                                    <span class="btn-group pull-right">
+                                    <span ng-show="project.owenr._id != authed._id" class="btn-group pull-right">
+                                        <a ng-click="endorse()" class="btn btn-white">
+                                            <i class="fa fa-heart"></i>
+                                            I am interested
+                                        </a>
+                                    </span>
+                                    <span ng-show="project.owenr._id == authed._id" class="btn-group pull-right">
                                         <a ui-sref="project_edit({_id:project._id})" class="btn btn-white">Edit</a>
                                     </span>
                                     <h2>Details</h2>
@@ -72,11 +78,15 @@
                                     <br>
                                     <dt>Supervisor:</dt>
                                     <dd ng-show="project.supervisors.length == 0">N/A</dd>
-                                    <dd ng-repeat="sup in project.supervisors"><a ui-sref="user_profile({_id:sup._id})">{{sup.first}} {{sup.last}}</a></dd>
+                                    <dd ng-repeat="sup in project.supervisors">
+                                        <a ui-sref="user_profile({_id:sup._id})">{{sup.first}} {{sup.last}}</a>
+                                    </dd>
                                     <br>
                                     <dt>Administrator: </dt>
                                     <dd ng-hide="project.admin">N/A</dd>
-                                    <dd><a href="/#/users/321/profile">{{project.admin._id}}</a></dd>
+                                    <dd>
+                                        <a href="/#/users/321/profile">{{project.admin._id}}</a>
+                                    </dd>
                                 </dl>
                             </div>
                             <div class="col-lg-7">
@@ -121,7 +131,7 @@
                                                 </div>
                                                 <div class="feed-element" ng-repeat="comment in project.comments | orderBy : '-time'">
                                                     <a ui-sref="user_profile({_id:comment.owner._id})" class="pull-left">
-                                                        <img alt="image" class="img-circle" src="{{comment.owner.avatar}}">
+                                                        <img alt="image" class="img-circle" ng-src="{{comment.owner.avatar}}">
                                                     </a>
 
                                                     <div class="media-body ">
@@ -148,39 +158,54 @@
         </div>
         <div class="col-lg-3">
             <div class="wrapper wrapper-content project-manager">
-                    <h3>Project Creator</h3>
+                <h3>Project Creator</h3>
+                <div class="user-friends">
+                    <a ui-sref="user_profile({_id:project.owner._id})">
+                        <p class="small">
+                            {{project.owner.first}} {{project.owner.last}}
+                        </p>
+                        <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="{{project.owner.first}} {{project.owner.last}}"
+                            ng-src="{{project.owner.avatar}}">
+                    </a>
+                </div>
+                <br>
+                <br>
+                <h3>Team Joined</h3>
+                <div ng-show="project.teams.length == 0">N/A</div>
+                <div ng-repeat="team in project.teams">
+                    <p class="small">
+                        <a ui-sref="team_profile({_id:team._id})">{{team._id}}</a>
+                    </p>
                     <div class="user-friends">
-                        <a ui-sref="user_profile({_id:project.owner._id})">
-                            <p class="small">
-                                {{project.owner.first}} {{project.owner.last}}
-                            </p>
-                            <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="{{project.owner.first}} {{project.owner.last}}" src="{{project.owner.avatar}}">
+                        <a href="">
+                            <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Apple Dip" src="img/profile.png">
+                        </a>
+                        <a href="">
+                            <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Apple Dip" src="img/profile.png">
+                        </a>
+                        <a href="">
+                            <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Apple Dip" src="img/profile.png">
+                        </a>
+                        <a href="">
+                            <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Apple Dip" src="img/profile.png">
                         </a>
                     </div>
-                    <br>
-                    <br>
-                    <h3>Team Joined</h3>
-                    <div ng-show="project.teams.length == 0">N/A</div>
-                    <div ng-repeat="team in project.teams">
-                        <p class="small">
-                                <a ui-sref="team_profile({_id:team._id})">{{team._id}}</a>
-                            </p>
-                        <div class="user-friends">
-                            <a href="">
-                                <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Apple Dip" src="img/profile.png">
-                            </a>
-                            <a href="">
-                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Apple Dip" src="img/profile.png">
-                                </a>
-                                <a href="">
-                                        <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Apple Dip" src="img/profile.png">
-                                    </a>
-                                    <a href="">
-                                            <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="Apple Dip" src="img/profile.png">
-                                        </a>
-                        </div>
-                        <span ng-if="project.teams.indexOf(team)!=(project.teams.length-1)"><br></span>
-                    </div>
+                    <span ng-if="project.teams.indexOf(team)!=(project.teams.length-1)">
+                        <br>
+                    </span>
+                </div>
+                <br>
+                <br>
+                <h3>Who are interested</h3>
+                <div ng-show="project.likes.length == 0">N/A</div>
+                <div class="inline" ng-repeat='like in project.likes'>
+                    <a ui-sref="user_profile({_id: like._id})">
+                        <img alt="image" class="img-circle" title="{{like.first}} {{like.last}}" ng-src="{{like.avatar}}">
+                        <p align="center" tooltip-placement="bottom" uib-tooltip="{{like.first}} {{like.last}}">
+                            {{like.first.charAt(0).toUpperCase()}}. {{like.last.charAt(0).toUpperCase()}}.
+                        </p>
+                    </a>
+                </div>
 
 
             </div>

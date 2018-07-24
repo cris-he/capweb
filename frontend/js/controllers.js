@@ -4623,6 +4623,7 @@ function user_profileCtrl($scope, $stateParams, $http) {
 
     $scope.endorse = function () {
         $http.post(endpoint + "/api/users/" + $stateParams._id + "/likes").then(function(res){
+            console.log('likes', res.data);
             $scope.user.likes = res.data;
         }, onError);
     }
@@ -4882,7 +4883,9 @@ function user_listCtrl($scope, $stateParams, $http) {
 
 function project_profileCtrl($scope, $stateParams, $http, SweetAlert) {
     $http.defaults.withCredentials = true;
-    $scope.authed = $auth;
+    $http.get(endpoint + '/api/auth/profile').then(function(res){
+        $scope.authed = res.data;
+    });
     $scope.comment = {
         content:''
     }
@@ -4890,6 +4893,14 @@ function project_profileCtrl($scope, $stateParams, $http, SweetAlert) {
         $scope.project = res.data;
         console.log("projects", res.data);
     }, onError);
+
+    $scope.endorse = function () {
+        $http.post(endpoint + "/api/projects/" + $stateParams._id + "/likes").then(function(res){
+            console.log('likes', res.data);
+            $scope.project.likes = res.data;
+        }, onError);
+    }
+
     $scope.new_comment = function() {
         $http.post(endpoint+'/api/projects/'+ $stateParams._id +'/comments', $scope.comment).then(function(res){
             SweetAlert.swal({

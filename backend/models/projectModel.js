@@ -6,7 +6,7 @@ var projectModel = mongoose.Schema({
     password: { type: String },
     bio: { type: String },
     teams: { type: Array },
-    likedby : {type: Array},
+    likes : {type: Array},
     size: { type: Number },
     tags: { type: Array },
     comments: { type: Array },

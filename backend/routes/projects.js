@@ -22,9 +22,9 @@ var routes = function (User, Team, Project) {
                 __project.superviosrs.push(req.user);
             }
             __project.save();
-            User.findById({_id:req.user._id}, function(err,__user){
-                __user.projects.push(__project);
-                __user.save();
+            User.findById({_id:req.user._id}, function(err,__project){
+                __project.projects.push(__project);
+                __project.save();
                 res.status(201).send(__project);
             })
         });
@@ -80,6 +80,29 @@ var routes = function (User, Team, Project) {
                 function(__err,__data){
                     // __data.comments.sort('-time');
                     res.status(201).send(__data.comments);
+            });
+        })
+
+
+
+    router.route('/:id/likes')
+        .get(function(req, res) {
+            res.json(req.project.likes);
+        })
+        .post(function(req, res){
+            Project.findById(req.params.id, function(err, __project){
+                __target = __project.likes.filter(function(i){
+                    return i._id == req.user._id;
+                });
+                if(__target.length == 0) {
+                    __project.likes.push(req.user);
+                } else {
+                    __project.likes = __project.likes.filter(function(i){
+                        return i._id != req.user._id;
+                    });
+                }
+                __project.save();
+                res.status(201).send(__project.likes);
             });
         })
 

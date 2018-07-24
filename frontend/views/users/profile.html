@@ -154,15 +154,26 @@
                                     <dd>{{user.username}}</dd>
                                     <br>
                                     <dt>Last login:</dt>
-                                    <dd><span ng-hide="user.login">N/A</span><span>{{user.login | date : "medium"}}</span></dd>
-                                    <br>
+                                    <dd>
+                                        <span ng-hide="user.login">N/A</span>
+                                        <span>{{user.login | date : "medium"}}</span>
+                                    </dd>
+
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-11">
+                                <dl class="dl-horizontal">
                                     <dt>Likes:</dt>
                                     <dd>
-                                        N/A
-                                        <div class="inline" ng-show='false'>
-                                            <a href="/#/users/8/profile">
-                                                <img alt="image" class="img-circle" title="Full name" src="img/profile14.png">
-                                                <p align="center" tooltip-placement="bottom" uib-tooltip="Muhamud Dip">M.D.</p>
+                                        <span ng-if="user.likes.length == 0">N/A</span>
+                                        <div class="inline" ng-repeat='like in user.likes'>
+                                            <a ui-sref="user_profile({_id: like._id})">
+                                                <img alt="image" class="img-circle" title="{{like.first}} {{like.last}}" src="{{like.avatar}}">
+                                                <p align="center" tooltip-placement="bottom" uib-tooltip="{{like.first}} {{like.last}}">
+                                                    {{like.first.charAt(0).toUpperCase()}}. {{like.last.charAt(0).toUpperCase()}}.
+                                                </p>
                                             </a>
                                         </div>
                                     </dd>

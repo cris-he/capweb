@@ -82,13 +82,22 @@ var routes = function(User, Team, Project) {
 
     router.route('/:id/likes')
         .get(function(req, res) {
-            res.json(req.user);
+            res.json(req.user.likes);
         })
         .post(function(req, res){
-            console.log(req.params.id);
-            User.findOneAndUpdate({_id  : req.params.id}, {$push: {'likes':req.user._id}},
-            {new: true}, function(__err,__data){
-                res.status(201).send(__data.likes);
+            User.findById(req.params.id, function(err, __user){
+                __target = __user.likes.filter(function(i){
+                    return i._id == req.user._id;
+                });
+                if(__target.length == 0) {
+                    __user.likes.push(req.user);
+                } else {
+                    __user.likes = __user.likes.filter(function(i){
+                        return i._id != req.user._id;
+                    });
+                }
+                __user.save();
+                res.status(201).send(__user.likes);
             });
         })
 
