@@ -82,37 +82,39 @@
                             <div class="col-lg-12">
                                 <div class="m-b-md">
                                     <span class="btn-group pull-right">
-                                        <a ui-sref="user_edit({_id: user._id})" class="btn btn-white">Edit</a>
+                                        <a ng-show="authed._id == user._id" ui-sref="user_edit({_id: user._id})" class="btn btn-white btn-xs">Edit</a>
                                     </span>
 
                                     <h2>{{'DETAILS' | translate }}</h2>
                                 </div>
                                 <dl class="dl-horizontal">
                                     <dt>{{"STATUS" | translate}}:</dt>
-                                    <div ng-controller="dashboardCtrl" ng-switch="user.status">
+                                    <div ng-switch="user.status">
                                         <div ng-switch-when="25">
                                             <dd>
-                                                <span class="label label-primary">Open</span>
+                                                <span class="label label-primary">Free</span>
                                             </dd>
                                         </div>
                                         <div ng-switch-when="50">
                                             <dd>
-                                                <span class="label label-info">In a team</span>
+                                                <span ng-if="user.role == 'Student'" class="label label-info">In a team</span>
+                                                <span ng-if="user.role == 'Professor'" class="label label-info">Look for projects</span>
                                             </dd>
                                         </div>
                                         <div ng-switch-when="75">
                                             <dd>
-                                                <span class="label label-warning">In a full team</span>
+                                                <span ng-if="user.role == 'Student'"  class="label label-warning">Involved a project</span>
+                                                <span ng-if="user.role == 'Professor'" class="label label-info">Look for teams</span>
                                             </dd>
                                         </div>
                                         <div ng-switch-when="100">
                                             <dd>
-                                                <span class="label label-success">In a full team with a project</span>
+                                                <span class="label label-success">Completed</span>
                                             </dd>
                                         </div>
                                         <div ng-switch-default>
                                             <dd>
-                                                <span class="label label-default">Free</span>
+                                                <span class="label label-primary">Free</span>
                                             </dd>
                                         </div>
                                     </div>
@@ -122,12 +124,13 @@
                         <div class="row">
                             <div class="col-lg-5">
                                 <dl class="dl-horizontal">
-                                    <dt>Tags:</dt>
+                                    <dt>Email:</dt>
+                                    <dd>{{user.username}}</dd>
+                                    <br>
+                                    <dt>Last login:</dt>
                                     <dd>
-                                        <p ng-if="!user.tags.length">N/A</p>
-                                        <div ng-repeat="tag in user.tags">
-                                            <i class="fa fa-tag"></i> {{tag.text}}
-                                        </div>
+                                        <span ng-hide="user.login">N/A</span>
+                                        <span>{{user.login | date : "medium"}}</span>
                                     </dd>
                                     <dt ng-show="false">Interests:</dt>
                                     <dd ng-show="false" ng-if="user.interests.length==0">N/A</dd>
@@ -150,15 +153,14 @@
                             </div>
                             <div class="col-lg-7" id="cluster_info">
                                 <dl class="dl-horizontal">
-                                    <dt>Email:</dt>
-                                    <dd>{{user.username}}</dd>
-                                    <br>
-                                    <dt>Last login:</dt>
-                                    <dd>
-                                        <span ng-hide="user.login">N/A</span>
-                                        <span>{{user.login | date : "medium"}}</span>
-                                    </dd>
 
+                                    <dt>Tags:</dt>
+                                    <dd>
+                                        <p ng-if="!user.tags.length">N/A</p>
+                                        <span ng-repeat="tag in user.tags">
+                                            <i class="fa fa-tag"></i> {{tag.text}}
+                                        </span>
+                                    </dd>
                                 </dl>
                             </div>
                         </div>
@@ -170,7 +172,7 @@
                                         <span ng-if="user.likes.length == 0">N/A</span>
                                         <div class="inline" ng-repeat='like in user.likes'>
                                             <a ui-sref="user_profile({_id: like._id})">
-                                                <img alt="image" class="img-circle" title="{{like.first}} {{like.last}}" src="{{like.avatar}}">
+                                                <img alt="image" class="img-circle" title="{{like.first}} {{like.last}}" ng-src="{{like.avatar}}">
                                                 <p align="center" tooltip-placement="bottom" uib-tooltip="{{like.first}} {{like.last}}">
                                                     {{like.first.charAt(0).toUpperCase()}}. {{like.last.charAt(0).toUpperCase()}}.
                                                 </p>

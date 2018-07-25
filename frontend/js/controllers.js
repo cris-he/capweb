@@ -58,6 +58,7 @@
  */
 
 const endpoint = "http://localhost:8000";
+//const endpoint = "http://142.150.239.189:8000";
 
 const httpOptions = { withCredentials: true };
 
@@ -4527,7 +4528,6 @@ function authCtrl($scope, $state, $http, SweetAlert) {
     $scope.login = function () {
         $http.post(endpoint + "/api/auth/login", $scope.auth).then(function(res){
             $scope.user = res.data;
-            console.log(res.data);
             $state.go('dashboard');
         }, function(err){
             SweetAlert.swal({
@@ -4617,13 +4617,15 @@ function dashboardCtrl($scope, $state, $http) {
 
 function user_profileCtrl($scope, $stateParams, $http) {
     $http.defaults.withCredentials = true;
+    $http.get(endpoint + '/api/auth/profile').then(function(res){
+        $scope.authed = res.data;
+    });
     $http.get(endpoint + "/api/users/" + $stateParams._id).then(function(res){
         $scope.user = res.data;
     }, onError);
 
     $scope.endorse = function () {
         $http.post(endpoint + "/api/users/" + $stateParams._id + "/likes").then(function(res){
-            console.log('likes', res.data);
             $scope.user.likes = res.data;
         }, onError);
     }
@@ -4642,7 +4644,6 @@ function user_profileCtrl($scope, $stateParams, $http) {
 }
 
 function user_editCtrl($scope, $state, $stateParams, $http) {
-    console.log('user edit', $stateParams._id);
     //Use $stateParams._id to fetch user data from backend
     $http.get(endpoint + "/api/users/" + $stateParams._id).then(function(res){
         $scope.user = res.data;
@@ -4650,7 +4651,6 @@ function user_editCtrl($scope, $state, $stateParams, $http) {
 
     $scope.user_edit_submit = function() {
         $http.post(endpoint + "/api/users/" + $stateParams._id, $scope.user).then(function(res){
-           console.log('post, res', res.data);
            $state.go('user_profile', {_id: $stateParams._id});
         }, onError);
     }
@@ -4680,7 +4680,6 @@ function team_profileCtrl($scope, $stateParams, $http, SweetAlert, $uibModal) {
 
     $http.get(endpoint+'/api/teams/'+$stateParams._id).then(function(res){
         $scope.team = res.data;
-        console.log("teams", res.data);
     }, onError);
 
     $scope.new_comment = function() {
@@ -4731,13 +4730,13 @@ function team_joinCtrl($scope, $stateParams, $http, SweetAlert, $uibModalInstanc
         password:''
     };
     $scope.team_join_submit = function() {
-            // $uibModalInstance.close();
         $http.post(endpoint+'/api/teams/'+ $stateParams._id +'/join', $scope.payload).then(function(res){
             SweetAlert.swal({
                 title: "Good job!",
                 text: "You joined this team!",
                 type: "success"
             });
+            $uibModalInstance.close();
         });
     };
 
@@ -4765,6 +4764,7 @@ function team_leaveCtrl($scope, $stateParams, $http, SweetAlert, $uibModalInstan
                 text: res.data,
                 type: "success"
             });
+            $uibModalInstance.close();
         });
     };
 
@@ -4777,7 +4777,6 @@ function team_deleteCtrl($scope, $stateParams, $http, SweetAlert, $uibModalInsta
     $http.defaults.withCredentials = true;
     $scope.password = '';
     $scope.team_delete_submit = function() {
-        console.log('team_deleteCtrl', $scope.password);
             SweetAlert.swal({
                 title: "Good job!",
                 text: "You deleted this team!",
@@ -4802,7 +4801,6 @@ function team_remove_teammateCtrl($scope, $stateParams, $http, SweetAlert, $uibM
     $http.defaults.withCredentials = true;
     $scope.remove_teammate_id = '';
     $scope.remove_teammate_submit = function() {
-        console.log('remove_teammate', $scope.remove_teammate_id);
             SweetAlert.swal({
                 title: "Good job!",
                 text: "You removed a teammate!",
@@ -4824,7 +4822,6 @@ function team_remove_teammateCtrl($scope, $stateParams, $http, SweetAlert, $uibM
 }
 
 function team_editCtrl($scope, $state, $stateParams, $http) {
-    console.log('team edit', $stateParams._id);
     //Use $stateParams._id to fetch user data from backend
     $http.get(endpoint + "/api/teams/" + $stateParams._id).then(function(res){
         $scope.team = res.data;
@@ -4832,7 +4829,6 @@ function team_editCtrl($scope, $state, $stateParams, $http) {
 
     $scope.team_edit_submit = function() {
         $http.post(endpoint + "/api/teams/" + $stateParams._id, $scope.team).then(function(res){
-           console.log('post, res', res.data);
            $state.go('team_profile', {_id: $stateParams._id});
         }, onError);
     }
@@ -4840,20 +4836,31 @@ function team_editCtrl($scope, $state, $stateParams, $http) {
 }
 
 function team_listCtrl($scope, $http) {
-
+    $scope.search_str == "";
     $http.get(endpoint+'/api/teams/').then(function(res){
-        $scope.teams = res.data;
-        console.log("teams", res.data);
+        $scope.teams = $scope.all_teams = res.data;
     }, onError);
+
+    $scope.search = function () {
+        var __str = $scope.search_str.toUpperCase();
+        if(__str == "") {
+            $scope.teams = $scope.all_teams;
+        } else {
+            $scope.teams = $scope.teams.filter(function(team){
+                return team.name.toUpperCase().indexOf(__str) >= 0;
+            });
+        }
+
+    }
 
 }
 
 function user_listCtrl($scope, $stateParams, $http) {
+    $scope.search_str = "";
     $scope.client;
     $scope.tab = 1;
     $scope.change_client = function(__id) {
         $scope.client = __id;
-        // console.log('switch client', $scope.client);
     }
 
     $scope.change_tab = function(__num) {
@@ -4864,20 +4871,38 @@ function user_listCtrl($scope, $stateParams, $http) {
         } else if (__num == 2) {
            $scope.client = $scope.professors[0]._id;
         }
-        // console.log('switch client', $scope.client);
     }
-    // $http.get(endpoint+'/api/users').then(function(res){
-    //     $scope.users = res.data;
-    //     $scope.client = $scope.users[0]._id;
-    //     console.log("users", res.data);
-    // }, onError);
+
+
+    
     $http.get(endpoint+'/api/users/students').then(function(res){
-        $scope.students = res.data;
-        $scope.client = $scope.students[0]._id;
+        $scope.students = $scope.all_students = res.data;
+        $scope.client  =  $scope.students[0]._id;
     }, onError);
     $http.get(endpoint+'/api/users/professors').then(function(res){
-        $scope.professors = res.data;
+        $scope.professors = $scope.all_professors = res.data;
     }, onError);
+
+    $scope.search = function () {
+        var __str = $scope.search_str.toUpperCase();
+        if(__str == "") {
+            $scope.students = $scope.all_students;
+            $scope.professors = $scope.all_professors;
+        } else {
+            $scope.students = $scope.students.filter(function(student){
+                return student.first.toUpperCase().indexOf(__str) >= 0
+                    || student.last.toUpperCase().indexOf(__str) >= 0
+                    || student.username.toUpperCase().indexOf(__str) >= 0;
+            });
+
+            $scope.professors = $scope.professors.filter(function(professor){
+                return professor.first.toUpperCase().indexOf(__str) >= 0
+                    || professor.last.toUpperCase().indexOf(__str) >= 0
+                    || professor.username.toUpperCase().indexOf(__str) >= 0;
+            });
+        }
+
+    }
 
 }
 
@@ -4891,12 +4916,10 @@ function project_profileCtrl($scope, $stateParams, $http, SweetAlert) {
     }
     $http.get(endpoint+'/api/projects/'+ $stateParams._id).then(function(res){
         $scope.project = res.data;
-        console.log("projects", res.data);
     }, onError);
 
     $scope.endorse = function () {
         $http.post(endpoint + "/api/projects/" + $stateParams._id + "/likes").then(function(res){
-            console.log('likes', res.data);
             $scope.project.likes = res.data;
         }, onError);
     }
@@ -4929,7 +4952,6 @@ function project_createCtrl($scope, $state, $http, SweetAlert) {
     $scope.project;
     $scope.project_create_submit = function () {
         $http.post(endpoint+'/api/projects/', $scope.project).then(function(res){
-            console.log("projects Create", res.data);
             SweetAlert.swal({
                 title: "Good job!",
                 text: "You created a team!",
@@ -4945,24 +4967,33 @@ function project_editCtrl($scope, $state, $stateParams, $http) {
     $http.get(endpoint+'/api/projects/'+ $stateParams._id).then(function(res){
         res.data.rep
         $scope.project = res.data;
-        console.log("projects", res.data);
     }, onError);
 
 
     $scope.project_edit_submit = function() {
-        console.log('project, post', $scope.project)
         $http.post(endpoint + "/api/projects/" + $stateParams._id, $scope.project).then(function(res){
-           console.log('post, res', res.data);
            $state.go('project_profile', {_id: $stateParams._id});
         }, onError);
     }
 }
 
 function project_listCtrl($scope, $http) {
+    $scope.search_str == "";
     $http.get(endpoint+'/api/projects/').then(function(res){
-        $scope.projects = res.data;
-        console.log("projects", res.data);
+        $scope.projects = $scope.all_projects = res.data;
     }, onError);
+
+    $scope.search = function () {
+        var __str = $scope.search_str.toUpperCase();
+        if(__str == "") {
+            $scope.projects = $scope.all_projects;
+        } else {
+            $scope.projects = $scope.projects.filter(function(project){
+                return project.name.toUpperCase().indexOf(__str) >= 0;
+            });
+        }
+
+    }
 }
 
 function searchCtrl($scope){

@@ -28,16 +28,16 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row col-lg-12">
             <div class="row m-b-sm m-t-sm">
-                <div class="col-md-1">
+                <div class="col-md-1" ng-show="false">
                     <button type="button" id="loading-example-btn" class="btn btn-white btn-sm">
-                                            <i class="fa fa-refresh"></i> Refresh</button>
+                        <i class="fa fa-refresh"></i> Refresh</button>
                 </div>
-                <div class="col-md-11">
+                <div class="col-md-12">
                     <div class="input-group">
-                        <input type="text" placeholder="Search" class="input-sm form-control">
+                        <input ng-change="search()" ng-model="search_str" type="text" placeholder="Search" class="input-sm form-control">
                         <span class="input-group-btn">
-                                                <button type="button" class="btn btn-sm btn-primary"> Go!</button>
-                                            </span>
+                            <button ng-click="search()" type="button" class="btn btn-sm btn-primary"> Go!</button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                         <div class="team-members">
                             <div class="inline" ng-repeat="mate in team.mates">
                                 <a ui-sref="user_profile({_id:mate._id})">
-                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="{{mate._id}}" src="{{mate.avatar}}">
+                                    <img alt="image" class="img-circle" tooltip-placement="bottom" uib-tooltip="{{mate._id}}" ng-src="{{mate.avatar}}">
                                     <p align="center" tooltip-placement="bottom" uib-tooltip="{{mate.first}} {{mate.last}}">{{mate.first.charAt(0).toUpperCase()}}. {{mate.last.charAt(0).toUpperCase()}}.</p>
                                 </a>
                             </div>
