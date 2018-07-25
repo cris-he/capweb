@@ -46,15 +46,14 @@
                                 <thead>
                                     <tr>
                                         <th>Status</th>
-                                        <th data-toggle="true">Name</th>
+                                        <th>Name</th>
                                         <th>Creator</th>
                                         <th>Supervisor</th>
                                         <th>Administrator</th>
-                                        <th data-hide="all">Description</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="project in projects" foo-repeat-done>
+                                    <tr ng-repeat="project in projects">
                                         <td>
                                             <div ng-switch="project.status">
                                                 <div ng-switch-when="100">
@@ -93,9 +92,6 @@
                                             <a ui-sref="user_profile({ _id: project.admin._id })">
                                                 {{project.admin.first}} {{project.admin.last}}
                                             </a>
-                                        </td>
-                                        <td>
-                                            <p ng-bind-html="project.bio | THTML"></p>
                                         </td>
                                     </tr>
                                 </tbody>
