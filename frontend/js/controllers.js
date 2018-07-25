@@ -57,8 +57,8 @@
  *
  */
 
-const endpoint = "http://localhost:8000";
-//const endpoint = "http://142.150.239.189:8000";
+//const endpoint = "http://localhost:8000";
+const endpoint = "http://142.150.239.189:8000";
 
 const httpOptions = { withCredentials: true };
 
@@ -4846,7 +4846,7 @@ function team_listCtrl($scope, $http) {
         if(__str == "") {
             $scope.teams = $scope.all_teams;
         } else {
-            $scope.teams = $scope.teams.filter(function(team){
+            $scope.teams = $scope.all_teams.filter(function(team){
                 return team.name.toUpperCase().indexOf(__str) >= 0;
             });
         }
@@ -4889,13 +4889,13 @@ function user_listCtrl($scope, $stateParams, $http) {
             $scope.students = $scope.all_students;
             $scope.professors = $scope.all_professors;
         } else {
-            $scope.students = $scope.students.filter(function(student){
+            $scope.students = $scope.all_students.filter(function(student){
                 return student.first.toUpperCase().indexOf(__str) >= 0
                     || student.last.toUpperCase().indexOf(__str) >= 0
                     || student.username.toUpperCase().indexOf(__str) >= 0;
             });
 
-            $scope.professors = $scope.professors.filter(function(professor){
+            $scope.professors = $scope.all_professors.filter(function(professor){
                 return professor.first.toUpperCase().indexOf(__str) >= 0
                     || professor.last.toUpperCase().indexOf(__str) >= 0
                     || professor.username.toUpperCase().indexOf(__str) >= 0;
@@ -4988,7 +4988,7 @@ function project_listCtrl($scope, $http) {
         if(__str == "") {
             $scope.projects = $scope.all_projects;
         } else {
-            $scope.projects = $scope.projects.filter(function(project){
+            $scope.projects = $scope.all_projects.filter(function(project){
                 return project.name.toUpperCase().indexOf(__str) >= 0;
             });
         }
